@@ -1,3 +1,5 @@
+"""tokenization module for atom modeling."""
+
 import collections
 import json
 import os
@@ -18,6 +20,21 @@ VOCAB_FILES_NAMES = {"vocab_file": "tokenizer.json"}
 
 
 class AtomTokenizer(PreTrainedTokenizer):
+    """
+    Tokenizer for atomistic data.
+
+    Args:
+        vocab_file (str): Path to the vocabulary file.
+        pad_token (str, optional): The token used for padding. Defaults to "<pad>".
+        mask_token (str, optional): The token used for masking. Defaults to "<mask>".
+        bos_token (str, optional): The token used for beginning of sequence.
+                                   Defaults to "<bos>".
+        eos_token (str, optional): The token used for end of sequence.
+                                   Defaults to "<eos>".
+        cls_token (str, optional): The token used for graph. Defaults to "<graph>".
+
+    """
+
     def __init__(
         self,
         vocab_file,
@@ -44,26 +61,31 @@ class AtomTokenizer(PreTrainedTokenizer):
 
     @staticmethod
     def load_vocab(vocab_file):
+        """Load the vocabulary from a json file."""
         with open(vocab_file, "r") as f:
-            vocab = json.load(f)
-        return vocab
+            return json.load(f)
 
     def _tokenize(self, text):
+        """Split the text into chemical symbols."""
         return re.findall("[A-Z][a-z]*", text)
 
     def _convert_token_to_id(self, token):
+        """Convert the chemical symbols to atomic numbers."""
         return self.vocab[token]
 
     def _convert_id_to_token(self, index):
         return self.ids_to_tokens[index]
 
     def get_vocab(self):
+        """Get the vocabulary."""
         return self.vocab
 
     def get_vocab_size(self):
+        """Get the size of the vocabulary."""
         return len(self.vocab)
 
     def convert_tokens_to_string(self, tokens):
+        """Convert the list of chemical symbol tokens to a concatenated string."""
         return "".join(tokens)
 
     def pad(
@@ -82,11 +104,12 @@ class AtomTokenizer(PreTrainedTokenizer):
         return_tensors: Optional[Union[str, TensorType]] = None,
         verbose: bool = True,
     ) -> BatchEncoding:
+        """Pad the input data."""
         if isinstance(encoded_inputs, list):
             if isinstance(encoded_inputs[0], Mapping):
                 if any(
                     key.startswith("coords") or key.endswith("coords")
-                    for key in encoded_inputs[0].keys()
+                    for key in encoded_inputs[0]
                 ):
                     encoded_inputs = self.pad_coords(
                         encoded_inputs,
@@ -95,7 +118,7 @@ class AtomTokenizer(PreTrainedTokenizer):
                     )
                 if any(
                     key.startswith("forces") or key.endswith("forces")
-                    for key in encoded_inputs[0].keys()
+                    for key in encoded_inputs[0]
                 ):
                     encoded_inputs = self.pad_forces(
                         encoded_inputs,
@@ -104,7 +127,7 @@ class AtomTokenizer(PreTrainedTokenizer):
                     )
                 if any(
                     key.startswith("fixed") or key.endswith("fixed")
-                    for key in encoded_inputs[0].keys()
+                    for key in encoded_inputs[0]
                 ):
                     encoded_inputs = self.pad_fixed(
                         encoded_inputs,
@@ -112,20 +135,20 @@ class AtomTokenizer(PreTrainedTokenizer):
                         pad_to_multiple_of=pad_to_multiple_of,
                     )
         elif isinstance(encoded_inputs, Mapping):
-            if any("coords" in key for key in encoded_inputs.keys()):
+            if any("coords" in key for key in encoded_inputs):
                 encoded_inputs = self.pad_coords(
                     encoded_inputs,
                     max_length=max_length,
                     pad_to_multiple_of=pad_to_multiple_of,
                 )
-            if any("fixed" in key for key in encoded_inputs.keys()):
+            if any("fixed" in key for key in encoded_inputs):
                 encoded_inputs = self.pad_fixed(
                     encoded_inputs,
                     max_length=max_length,
                     pad_to_multiple_of=pad_to_multiple_of,
                 )
 
-        batch_output = super().pad(
+        return super().pad(
             encoded_inputs=encoded_inputs,
             padding=padding,
             max_length=max_length,
@@ -134,19 +157,19 @@ class AtomTokenizer(PreTrainedTokenizer):
             return_tensors=return_tensors,
             verbose=verbose,
         )
-        return batch_output
 
     def pad_coords(self, batch, max_length=None, pad_to_multiple_of=None):
+        """Pad the coordinates to the same length."""
         if isinstance(batch, Mapping):
             coord_keys = [
                 key
-                for key in batch.keys()
+                for key in batch
                 if key.startswith("coords") or key.endswith("coords")
             ]
         elif isinstance(batch, list):
             coord_keys = [
                 key
-                for key in batch[0].keys()
+                for key in batch[0]
                 if key.startswith("coords") or key.endswith("coords")
             ]
         for key in coord_keys:
@@ -169,16 +192,17 @@ class AtomTokenizer(PreTrainedTokenizer):
         return batch
 
     def pad_forces(self, batch, max_length=None, pad_to_multiple_of=None):
+        """Pad the forces to the same length."""
         if isinstance(batch, Mapping):
             force_keys = [
                 key
-                for key in batch.keys()
+                for key in batch
                 if key.startswith("forces") or key.endswith("forces")
             ]
         elif isinstance(batch, list):
             force_keys = [
                 key
-                for key in batch[0].keys()
+                for key in batch[0]
                 if key.startswith("forces") or key.endswith("forces")
             ]
         for key in force_keys:
@@ -201,16 +225,15 @@ class AtomTokenizer(PreTrainedTokenizer):
         return batch
 
     def pad_fixed(self, batch, max_length=None, pad_to_multiple_of=None):
+        """Pad the fixed mask to the same length."""
         if isinstance(batch, Mapping):
             fixed_keys = [
-                key
-                for key in batch.keys()
-                if key.startswith("fixed") or key.endswith("fixed")
+                key for key in batch if key.startswith("fixed") or key.endswith("fixed")
             ]
         elif isinstance(batch, list):
             fixed_keys = [
                 key
-                for key in batch[0].keys()
+                for key in batch[0]
                 if key.startswith("fixed") or key.endswith("fixed")
             ]
         for key in fixed_keys:
@@ -235,7 +258,7 @@ class AtomTokenizer(PreTrainedTokenizer):
     def save_vocabulary(
         self, save_directory: str, filename_prefix: Optional[str] = None
     ) -> Tuple[str]:
-        # save as json file
+        """Save the vocabulary to a json file."""
         vocab_file = os.path.join(
             save_directory,
             (filename_prefix + "-" if filename_prefix else "")
@@ -247,12 +270,14 @@ class AtomTokenizer(PreTrainedTokenizer):
 
     @classmethod
     def from_pretrained(cls, *inputs, **kwargs):
+        """Load the tokenizer from a pretrained model."""
         return super().from_pretrained(*inputs, **kwargs)
 
     # add special tokens <bos> and <eos>
     def build_inputs_with_special_tokens(
         self, token_ids_0: List[int], token_ids_1: Optional[List[int]] = None
     ) -> List[int]:
+        """Build the input with special tokens."""
         bos = [self.bos_token_id]
         eos = [self.eos_token_id]
 

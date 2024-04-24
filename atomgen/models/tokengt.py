@@ -1,7 +1,9 @@
+"""Implementation of the TokenGT model."""
+
 from typing import Optional
 
 import torch
-import torch.nn.functional as F
+import torch.nn.functional as f
 from torch import nn
 from torch.utils.checkpoint import checkpoint
 from transformers.configuration_utils import PretrainedConfig
@@ -2255,7 +2257,8 @@ ATOM_METADATA = [
 
 
 class ParallelBlock(nn.Module):
-    """Parallel transformer block (MLP & Attention in parallel)
+    """Parallel transformer block (MLP & Attention in parallel).
+
     Based on:
       'Scaling Vision Transformers to 22 Billion Parameters` - https://arxiv.org/abs/2302.05442
 
@@ -2299,7 +2302,8 @@ class ParallelBlock(nn.Module):
         )
 
     def forward(self, x, attention_mask=None):
-        B, N, C = x.shape
+        """Forward function call for the parallel block."""
+        b, n, c = x.shape
         res = x
         x = self.in_norm(x)
 
@@ -2310,28 +2314,67 @@ class ParallelBlock(nn.Module):
         x = self.proj_drop(x)
 
         # # Dot product attention
-        q = self.q_norm(q.view(B, N, self.num_heads, self.head_dim).transpose(1, 2))
-        k = self.k_norm(k.view(B, N, self.num_heads, self.head_dim).transpose(1, 2))
-        v = v.view(B, N, self.num_heads, self.head_dim).transpose(1, 2)
+        q = self.q_norm(q.view(b, n, self.num_heads, self.head_dim).transpose(1, 2))
+        k = self.k_norm(k.view(b, n, self.num_heads, self.head_dim).transpose(1, 2))
+        v = v.view(b, n, self.num_heads, self.head_dim).transpose(1, 2)
 
         x_attn = (
-            F.scaled_dot_product_attention(
+            f.scaled_dot_product_attention(
                 q, k, v, attn_mask=attention_mask, dropout_p=self.dropout
             )
             .transpose(1, 2)
-            .reshape(B, N, C)
+            .reshape(b, n, c)
         )
 
         # Combined MLP fc2 & attn_output projection
         x_mlp, x_attn = self.out_proj(torch.cat([x, x_attn], dim=-1)).split(
             self.out_split, dim=-1
         )
-        # Residual connections
-        x = x_mlp + x_attn + res
-        return x
+
+        return x_mlp + x_attn + res
 
 
 class TransformerConfig(PretrainedConfig):
+    r"""
+    Class to store the configuration of a :class:`~transformers.TransformerEncoder`.
+
+    It is used to instantiate a Transformer model according to the
+    specified arguments, defining the model architecture.
+
+    Args:
+        vocab_size (:obj:`int`, `optional`, defaults to 123):
+            Vocabulary size of the model. Defines the number of different tokens
+            that can be represented by the :obj:`input_ids` passed when calling
+            :class:`~transformers.TransformerEncoder.forward`.
+        dim (:obj:`int`, `optional`, defaults to 768):
+            Dimension of the model.
+        num_heads (:obj:`int`, `optional`, defaults to 12):
+            Number of attention heads.
+            depth (:obj:`int`):
+            Depth of the model.
+        mlp_ratio (:obj:`int`):
+            Ratio of the hidden dimension size of the feed-forward layer
+            to the input dimension size.
+        k (:obj:`int`):
+            Size of the atom embedding.
+        sigma (:obj:`float`):
+            Standard deviation for the atom embedding initialization.
+        type_id_dim (:obj:`int`):
+            Dimension of the type ID embedding.
+        dropout (:obj:`float`):
+            Dropout probability.
+        mask_token_id (:obj:`int`):
+            Token ID for the mask token.
+        pad_token_id (:obj:`int`):
+            Token ID for the padding token.
+        bos_token_id (:obj:`int`):
+            Token ID for the beginning-of-sentence token.
+        eos_token_id (:obj:`int`):
+            Token ID for the end-of-sentence token.
+        gradient_checkpointing (:obj:`bool`):
+            Whether to use gradient checkpointing during training.
+    """
+
     model_type = "transformer"
 
     def __init__(
@@ -2370,6 +2413,8 @@ class TransformerConfig(PretrainedConfig):
 
 
 class TransformerEncoder(nn.Module):
+    """Transformer encoder for atom modeling."""
+
     def __init__(self, config: TransformerConfig):
         super().__init__()
         self.vocab_size = config.vocab_size
@@ -2383,7 +2428,6 @@ class TransformerEncoder(nn.Module):
         self.gradient_checkpointing = config.gradient_checkpointing
         self.dropout = config.dropout
         self.metadata_vocab = nn.Embedding(122, 17)
-        # self.atom_embedding = nn.Embedding(122, 64)
         vocab_weight = torch.empty(122, 17).fill_(-1.0)
         vocab_weight[2:-2] = torch.tensor(ATOM_METADATA, dtype=torch.float32)
         self.metadata_vocab.weight = nn.Parameter(vocab_weight, requires_grad=False)
@@ -2408,7 +2452,10 @@ class TransformerEncoder(nn.Module):
         tgt_len: Optional[int] = None,
     ):
         """
-        Expands attention_mask from `[bsz, seq_len]` to `[bsz, 1, tgt_seq_len, src_seq_len]`.
+        Expand attention mask for parallel block.
+
+        Expands attention_mask from `[bsz, seq_len]` to
+        `[bsz, 1, tgt_seq_len, src_seq_len]`.
         """
         bsz, src_len = mask.size()
         tgt_len = tgt_len if tgt_len is not None else src_len
@@ -2426,6 +2473,7 @@ class TransformerEncoder(nn.Module):
     def forward(
         self, input_ids, coords, attention_mask=None, node_pe=None, edge_pe=None
     ):
+        """Forward function call for the transformer encoder."""
         atom_metadata = self.metadata_vocab(input_ids)  # (B, N, 17)
 
         node_ids = self.node_id(
@@ -2504,6 +2552,8 @@ class TransformerEncoder(nn.Module):
 
 
 class TransformerPreTrainedModel(PreTrainedModel):
+    """Base class for all transformer models."""
+
     config_class = TransformerConfig
     base_model_prefix = "model"
     supports_gradient_checkpointing = True
@@ -2515,17 +2565,20 @@ class TransformerPreTrainedModel(PreTrainedModel):
 
 
 class TransformerModel(TransformerPreTrainedModel):
+    """Transformer model for atom modeling."""
+
     def __init__(self, config):
         super().__init__(config)
         self.config = config
         self.encoder = TransformerEncoder(config)
 
     def forward(self, input_ids, coords, attention_mask=None):
+        """Forward function call for the transformer model."""
         return self.encoder(input_ids, coords, attention_mask)
 
 
 class TransformerForMaskedAM(TransformerPreTrainedModel):
-    """Transformer with an atom modeling head on top for masked atom modeling"""
+    """Transformer with an atom modeling head on top for masked atom modeling."""
 
     def __init__(self, config):
         super().__init__(config)
@@ -2534,6 +2587,7 @@ class TransformerForMaskedAM(TransformerPreTrainedModel):
         self.am_head = nn.Linear(config.dim, config.vocab_size, bias=False)
 
     def forward(self, input_ids, coords, labels=None, fixed=None, attention_mask=None):
+        """Forward function call for the masked atom modeling model."""
         hidden_states = self.encoder(input_ids, coords, attention_mask)
         logits = self.am_head(hidden_states[:, 1 : input_ids.size(1)])
 
@@ -2547,7 +2601,7 @@ class TransformerForMaskedAM(TransformerPreTrainedModel):
 
 
 class TransformerForCoordinateAM(TransformerPreTrainedModel):
-    """Transformer with an atom coordinate head on top for coordinate denoising"""
+    """Transformer with an atom coordinate head on top for coordinate denoising."""
 
     def __init__(self, config):
         super().__init__(config)
@@ -2558,6 +2612,7 @@ class TransformerForCoordinateAM(TransformerPreTrainedModel):
     def forward(
         self, input_ids, coords, labels_coords=None, fixed=None, attention_mask=None
     ):
+        """Forward function call for the coordinate atom modeling model."""
         hidden_states = self.encoder(input_ids, coords, attention_mask)
         coords_pred = self.coords_head(hidden_states[:, 1 : input_ids.size(1)])
 
@@ -2571,7 +2626,7 @@ class TransformerForCoordinateAM(TransformerPreTrainedModel):
 
 
 class InitialStructure2RelaxedStructure(TransformerPreTrainedModel):
-    """Transformer with an atom modeling head on top for masked atom modeling"""
+    """Transformer with an coordinate head on top for relaxed structure prediction."""
 
     def __init__(self, config):
         super().__init__(config)
@@ -2582,6 +2637,10 @@ class InitialStructure2RelaxedStructure(TransformerPreTrainedModel):
     def forward(
         self, input_ids, coords, labels_coords=None, fixed=None, attention_mask=None
     ):
+        """Forward function call.
+
+        Initial structure to relaxed structure model.
+        """
         hidden_states = self.encoder(input_ids, coords, attention_mask)
         coords_pred = self.coords_head(hidden_states[:, 1 : input_ids.size(1)])
 
@@ -2595,7 +2654,7 @@ class InitialStructure2RelaxedStructure(TransformerPreTrainedModel):
 
 
 class InitialStructure2RelaxedEnergy(TransformerPreTrainedModel):
-    """Transformer with an atom modeling head on top for masked atom modeling"""
+    """Transformer with an energy head on top for relaxed energy prediction."""
 
     def __init__(self, config):
         super().__init__(config)
@@ -2607,6 +2666,7 @@ class InitialStructure2RelaxedEnergy(TransformerPreTrainedModel):
     def forward(
         self, input_ids, coords, labels_energy=None, fixed=None, attention_mask=None
     ):
+        """Forward function call for the initial structure to relaxed energy model."""
         hidden_states = self.encoder(input_ids, coords, attention_mask)
         energy = self.energy_head(self.energy_norm(hidden_states[:, 0])).squeeze(-1)
 
@@ -2619,7 +2679,11 @@ class InitialStructure2RelaxedEnergy(TransformerPreTrainedModel):
 
 
 class InitialStructure2RelaxedStructureAndEnergy(TransformerPreTrainedModel):
-    """Transformer with an atom modeling head on top for masked atom modeling"""
+    """Initial structure to relaxed structure and energy prediction model.
+
+    Transformer with an coordinate and energy head on top for
+    relaxed structure and energy prediction.
+    """
 
     def __init__(self, config):
         super().__init__(config)
@@ -2638,6 +2702,10 @@ class InitialStructure2RelaxedStructureAndEnergy(TransformerPreTrainedModel):
         fixed=None,
         attention_mask=None,
     ):
+        """Forward function call.
+
+        Initial structure to relaxed structure and energy model.
+        """
         hidden_states = self.encoder(input_ids, coords, attention_mask)
         coords_pred = self.coords_head(hidden_states[:, 1 : input_ids.size(1)])
         energy = self.energy_head(self.energy_norm(hidden_states[:, 0])).squeeze(-1)
@@ -2661,7 +2729,10 @@ class InitialStructure2RelaxedStructureAndEnergy(TransformerPreTrainedModel):
 
 
 class Structure2EnergyAndForces(TransformerPreTrainedModel):
-    """Transformer with an atom modeling head on top for masked atom modeling"""
+    """Structure to energy and forces prediction model.
+
+    Transformer with an energy and forces head on top for energy and forces prediction.
+    """
 
     def __init__(self, config):
         super().__init__(config)
@@ -2684,6 +2755,7 @@ class Structure2EnergyAndForces(TransformerPreTrainedModel):
         node_pe=None,
         edge_pe=None,
     ):
+        """Forward function call for the structure to energy and forces model."""
         hidden_states = self.encoder(
             input_ids, coords, attention_mask, node_pe, edge_pe
         )

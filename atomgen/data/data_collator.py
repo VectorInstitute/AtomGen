@@ -1,9 +1,11 @@
+"""Data collator for atom modeling."""
+
 import math
 from dataclasses import dataclass
 from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
 
 import torch
-import torch.nn.functional as F
+import torch.nn.functional as f
 from einops import rearrange
 from torch.nn.utils.rnn import pad_sequence
 from transformers import PreTrainedTokenizer
@@ -12,7 +14,28 @@ from transformers.data.data_collator import DataCollatorMixin, _torch_collate_ba
 
 @dataclass
 class DataCollatorForAtomModeling(DataCollatorMixin):
-    """Data collator used for atom modeling (MaskGIT objective)."""
+    """Data collator used for atom modeling.
+
+    Args:
+        tokenizer: The tokenizer used for encoding the data.
+        mam: Whether to use masked atom modeling.
+        causal: Whether to use causal modeling.
+        coords_perturb: Whether to perturb the coordinates.
+        return_lap_pe: Whether to return Laplacian positional encoding.
+        return_edge_indices: Whether to return edge indices.
+        k: Number of eigenvectors to use for Laplacian positional encoding.
+        max_radius: Maximum distance for edge cutoff.
+        max_neighbors: Maximum number of neighbors.
+        pad: Whether to pad the input data, if False, flatten all samples and
+             concatenates with batch indicator.
+        pad_to_multiple_of: Pad to multiple of this value.
+        return_tensors: Return tensors as "pt" or "tf".
+
+    Returns
+    -------
+        Dict[str, Any]: Dictionary of batched data.
+
+    """
 
     tokenizer: PreTrainedTokenizer
     mam: bool = True
@@ -30,6 +53,16 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
     def torch_call(
         self, examples: List[Union[List[int], Any, Dict[str, Any]]]
     ) -> Dict[str, Any]:
+        """Collate a batch of samples.
+
+        Args:
+            examples: List of samples to collate.
+
+        Returns
+        -------
+            Dict[str, Any]: Dictionary of batched data.
+
+        """
         # Handle dict or lists with proper padding and conversion to tensor.
         if self.pad:
             if isinstance(examples[0], Mapping):
@@ -63,34 +96,7 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
                 ) = self.torch_compute_edges(batch["coords"], batch["attention_mask"])
         else:
             # flatten all lists in examples and concatenate
-            batch = {}
-            for key in examples[0].keys():
-                if key == "input_ids":
-                    lengths = []
-                    for sample in examples:
-                        lengths.append(len(sample[key]))
-                    batch["batch"] = torch.arange(len(examples)).repeat_interleave(
-                        torch.tensor(lengths)
-                    )
-                    batch[key] = torch.cat(
-                        [torch.tensor(sample[key]) for sample in examples], dim=0
-                    )
-                elif (
-                    key.startswith("coords")
-                    or key.endswith("coords")
-                    or (key.startswith("fixed") or key.endswith("fixed"))
-                ):
-                    batch[key] = torch.cat(
-                        [torch.tensor(sample[key]) for sample in examples], dim=0
-                    )
-                elif key.startswith("energy") or key.endswith("energy"):
-                    batch[key] = torch.tensor([sample[key] for sample in examples])
-                elif key.startswith("forces") or key.endswith("forces"):
-                    batch[key] = torch.cat(
-                        [torch.tensor(sample[key]) for sample in examples], dim=0
-                    )
-        # if "fixed" not in batch:
-        #     batch["fixed"] = torch.zeros_like(batch["input_ids"], dtype=torch.float32)
+            batch = self.flatten_batch(examples)
 
         t = torch.zeros(batch["input_ids"].shape[0]).float().uniform_(0, 1)
         t = torch.cos(t * math.pi * 0.5)
@@ -142,9 +148,7 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
     def torch_mask_tokens(
         self, inputs: Any, t: Any, special_tokens_mask: Optional[Any] = None
     ) -> Tuple[Any, Any, Any]:
-        """
-        Prepare masked tokens inputs/labels for masked atom modeling.
-        """
+        """Prepare masked tokens inputs/labels for masked atom modeling."""
         labels = inputs.clone()
 
         batch, seq_len = inputs.shape
@@ -162,9 +166,7 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
         return inputs, labels
 
     def torch_perturb_coords(self, inputs: Any, fixed: Any, t: Any) -> Tuple[Any, Any]:
-        """
-        Prepare perturbed coords inputs/labels for masked atom modeling.
-        """
+        """Prepare perturbed coords inputs/labels for masked atom modeling."""
         batch, seq_len, _ = inputs.shape
         num_token_perturbed = (seq_len * t).round().clamp(min=1)
         batch_randperm = torch.rand((batch, seq_len)).argsort(dim=-1)
@@ -179,9 +181,40 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
         )
         return inputs, labels
 
+    def flatten_batch(self, examples):
+        """Flatten all lists in examples and concatenate with batch indicator."""
+        batch = {}
+        for key in examples[0]:
+            if key == "input_ids":
+                lengths = []
+                for sample in examples:
+                    lengths.append(len(sample[key]))
+                batch["batch"] = torch.arange(len(examples)).repeat_interleave(
+                    torch.tensor(lengths)
+                )
+                batch[key] = torch.cat(
+                    [torch.tensor(sample[key]) for sample in examples], dim=0
+                )
+            elif (
+                key.startswith("coords")
+                or key.endswith("coords")
+                or (key.startswith("fixed") or key.endswith("fixed"))
+            ):
+                batch[key] = torch.cat(
+                    [torch.tensor(sample[key]) for sample in examples], dim=0
+                )
+            elif key.startswith("energy") or key.endswith("energy"):
+                batch[key] = torch.tensor([sample[key] for sample in examples])
+            elif key.startswith("forces") or key.endswith("forces"):
+                batch[key] = torch.cat(
+                    [torch.tensor(sample[key]) for sample in examples], dim=0
+                )
+        return batch
+
     def torch_compute_edges(self, coords: Any, attention_mask: Any) -> Any:
+        """Compute edge indices and distances for each batch."""
         dist_matrix = torch.cdist(coords, coords, p=2)
-        B, N, _ = dist_matrix.shape
+        b, n, _ = dist_matrix.shape
 
         # ignore distance in padded coords by setting to large number
         attention_mask_mult = (1.0 - attention_mask) * 1e6
@@ -189,7 +222,7 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
         dist_matrix = dist_matrix + attention_mask_mult.unsqueeze(2)
 
         # to avoid self-loop, set diagonal to a large number
-        dist_matrix = dist_matrix + torch.eye(N) * 1e6
+        dist_matrix = dist_matrix + torch.eye(n) * 1e6
 
         # get adjacency matrix using cutoff
         adjacency_matrix = torch.where(dist_matrix <= self.max_radius, 1, 0).float()
@@ -207,15 +240,15 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
 
         # get distances for each batch in for loop
         distance_list = []
-        for b in range(B):
-            distance = dist_matrix[b][adjacency_matrix[b] != 0]
+        for bi in range(b):
+            distance = dist_matrix[bi][adjacency_matrix[bi] != 0]
             distance_list.append(distance)
 
         # get edge_indices for each batch in for loop
         edge_indices_list = []
         lengths = []
-        for b in range(B):
-            edge_indices = torch.column_stack(torch.where(adjacency_matrix[b] != 0))
+        for bi in range(b):
+            edge_indices = torch.column_stack(torch.where(adjacency_matrix[bi] != 0))
             lengths.append(edge_indices.size(0))
             edge_indices_list.append(edge_indices)
 
@@ -226,9 +259,13 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
         edge_attention_mask = torch.cat(
             [
                 torch.cat(
-                    [torch.ones(1, l), torch.zeros(1, edge_indices.size(1) - l)], dim=1
+                    [
+                        torch.ones(1, length),
+                        torch.zeros(1, edge_indices.size(1) - length),
+                    ],
+                    dim=1,
                 )
-                for l in lengths
+                for length in lengths
             ],
             dim=0,
         )
@@ -237,8 +274,9 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
         return edge_indices, edge_distances, attention_mask
 
     def torch_compute_lap_pe(self, coords: Any, attention_mask: Any) -> Any:
+        """Compute Laplacian positional encoding for each batch."""
         dist_matrix = torch.cdist(coords, coords, p=2)
-        B, N, _ = dist_matrix.shape
+        b, n, _ = dist_matrix.shape
 
         # ignore distance in padded coords by setting to large number
         attention_mask_mult = (1.0 - attention_mask) * 1e6
@@ -246,7 +284,7 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
         dist_matrix = dist_matrix + attention_mask_mult.unsqueeze(2)
 
         # to avoid self-loop, set diagonal to a large number
-        dist_matrix = dist_matrix + torch.eye(N) * 1e6
+        dist_matrix = dist_matrix + torch.eye(n) * 1e6
 
         # get adjacency matrix using cutoff
         adjacency_matrix = torch.where(dist_matrix <= self.max_radius, 1, 0).float()
@@ -264,31 +302,30 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
 
         # get distances for each batch in for loop
         distance_list = []
-        for b in range(B):
-            distance = dist_matrix[b][adjacency_matrix[b] != 0]
+        for bi in range(b):
+            distance = dist_matrix[bi][adjacency_matrix[bi] != 0]
             distance_list.append(distance)
 
         # get edge_indices for each batch in for loop
         edge_indices_list = []
-        for b in range(B):
-            edge_indices = torch.column_stack(torch.where(adjacency_matrix[b] != 0))
+        for bi in range(b):
+            edge_indices = torch.column_stack(torch.where(adjacency_matrix[bi] != 0))
             edge_indices_list.append(edge_indices)
 
         # Construct graph Laplacian for each batch
         degree_matrix = torch.diag_embed(adjacency_matrix.sum(dim=2).clip(1) ** -0.5)
         laplacian_matrix = (
-            torch.eye(N) - degree_matrix @ adjacency_matrix @ degree_matrix
+            torch.eye(n) - degree_matrix @ adjacency_matrix @ degree_matrix
         )
 
         # Eigenvalue decomposition for each batch
         eigval, eigvec = torch.linalg.eigh(laplacian_matrix)
 
-        # eigenvectors, eigenvalues = eigenvectors.real, eigenvalues.real
         eigvec = eigvec.float()  # [N, N (channels)]
         eigval = torch.sort(torch.abs(torch.real(eigval)))[0].float()  # [N (channels),]
 
         if eigvec.size(1) < self.k:
-            node_pe = F.pad(eigvec, (0, self.k - eigvec.size(2), 0, 0))
+            node_pe = f.pad(eigvec, (0, self.k - eigvec.size(2), 0, 0))
         else:
             # use smallest eigenvalues
             node_pe = eigvec[:, :, : self.k]
@@ -296,9 +333,9 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
         all_edges_pe_list = []
         lengths = []
         for i, edge_indices in enumerate(edge_indices_list):
-            E = edge_indices.shape[0]
-            lengths.append(E)
-            all_edges_pe = torch.zeros([E, 2 * self.k])
+            e = edge_indices.shape[0]
+            lengths.append(e)
+            all_edges_pe = torch.zeros([e, 2 * self.k])
             all_edges_pe[:, : self.k] = torch.index_select(
                 node_pe[i], 0, edge_indices[:, 0]
             )
@@ -313,9 +350,10 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
         edge_attention_mask = torch.cat(
             [
                 torch.cat(
-                    [torch.ones(1, l), torch.zeros(1, edge_pe.size(1) - l)], dim=1
+                    [torch.ones(1, length), torch.zeros(1, edge_pe.size(1) - length)],
+                    dim=1,
                 )
-                for l in lengths
+                for length in lengths
             ],
             dim=0,
         )
