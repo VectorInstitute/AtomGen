@@ -2,7 +2,7 @@
 hide-toc: true
 ---
 
-# Vector AI Engineering template repository
+# AtomGen
 
 ```{toctree}
 :hidden:
