@@ -1,18 +1,24 @@
 [tool.poetry]
-name = "aieng-template"
-version = "1.0.0"
-description = "A template for AI Engineering projects at the Vector Institute"
+name = "atomgen"
+version = "0.0.1"
+description = "A framework for modeling atomistic data with transformers"
 authors = ["Vector AI Engineering <ai_engineering@vectorinstitute.ai>"]
 license = "Apache-2.0"
-repository = "https://github.com/VectorInstitute/aieng-template"
-documentation = "https://vectorinstitute.github.io/aieng-template/"
+repository = "https://github.com/VectorInstitute/atomgen"
+documentation = "https://vectorinstitute.github.io/atomgen/"
 packages = [
-    { include = "aieng_template" },
+    { include = "atomgen" },
 ]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.9, <3.13"
+torch = "^2.2.2"
+transformers = "^4.40.0"
+datasets = "^2.19.0"
+einops = "^0.7.0"
+wandb = "^0.16.6"
+accelerate = "^0.29.3"
 
 [tool.poetry.group.test]
 optional = true

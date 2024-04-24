@@ -1,5 +1,4 @@
-# AI Engineering template
-
+![atomgen Logo](https://github.com/VectorInstitute/atomgen/blob/main/docs/source/_static/atomgen_logo_text.png?raw=true)
 ----------------------------------------------------------------------------------------
 
 [![code checks](https://github.com/VectorInstitute/aieng-template/actions/workflows/code_checks.yml/badge.svg)](https://github.com/VectorInstitute/aieng-template/actions/workflows/code_checks.yml)
@@ -8,7 +7,7 @@
 [![codecov](https://codecov.io/gh/VectorInstitute/aieng-template/branch/main/graph/badge.svg)](https://codecov.io/gh/VectorInstitute/aieng-template)
 [![license](https://img.shields.io/github/license/VectorInstitute/aieng-template.svg)](https://github.com/VectorInstitute/aieng-template/blob/main/LICENSE)
 
-A template repo for AI Engineering projects (using ``python``)
+
 
 ## 🧑🏿‍💻 Developing
 
