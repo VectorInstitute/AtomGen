@@ -1,13 +1,12 @@
 """Implementation of the TokenGT model."""
 
-from typing import Optional
+from typing import Any, Callable, Optional, Tuple
 
 import torch
 import torch.nn.functional as f
 from torch import nn
 from torch.utils.checkpoint import checkpoint
-from transformers.configuration_utils import PretrainedConfig
-from transformers.modeling_utils import PreTrainedModel
+from transformers import PretrainedConfig, PreTrainedModel
 
 
 ATOM_METADATA = [
@@ -2257,20 +2256,14 @@ ATOM_METADATA = [
 
 
 class ParallelBlock(nn.Module):
-    """Parallel transformer block (MLP & Attention in parallel).
-
-    Based on:
-      'Scaling Vision Transformers to 22 Billion Parameters` - https://arxiv.org/abs/2302.05442
-
-    Adapted from TIMM implementation.
-    """
+    """Parallel transformer block."""
 
     def __init__(
         self,
-        dim,
-        num_heads,
-        mlp_ratio=4,
-        dropout=0.0,
+        dim: int,
+        num_heads: int,
+        mlp_ratio: int = 4,
+        dropout: float = 0.0,
     ):
         super().__init__()
         assert (
@@ -2301,19 +2294,20 @@ class ParallelBlock(nn.Module):
             self.out_proj_in_dim, self.out_proj_out_dim, bias=False
         )
 
-    def forward(self, x, attention_mask=None):
-        """Forward function call for the parallel block."""
+    def forward(
+        self, x: torch.Tensor, attention_mask: Optional[torch.Tensor] = None
+    ) -> torch.Tensor:
+        """Forward function call for the parallel transformer block."""
         b, n, c = x.shape
         res = x
         x = self.in_norm(x)
 
-        # Combined MLP fc1 & qkv projections
         x = self.in_proj(self.in_norm(x))
-        x, q, k, v = x.split(self.in_split, dim=-1)
+
+        x, q, k, v = torch.split(x, self.in_split, dim=-1)
         x = self.act_fn(x)
         x = self.proj_drop(x)
 
-        # # Dot product attention
         q = self.q_norm(q.view(b, n, self.num_heads, self.head_dim).transpose(1, 2))
         k = self.k_norm(k.view(b, n, self.num_heads, self.head_dim).transpose(1, 2))
         v = v.view(b, n, self.num_heads, self.head_dim).transpose(1, 2)
@@ -2326,74 +2320,35 @@ class ParallelBlock(nn.Module):
             .reshape(b, n, c)
         )
 
-        # Combined MLP fc2 & attn_output projection
         x_mlp, x_attn = self.out_proj(torch.cat([x, x_attn], dim=-1)).split(
             self.out_split, dim=-1
         )
+        out: torch.Tensor = x_mlp + x_attn + res
 
-        return x_mlp + x_attn + res
+        return out
 
 
-class TransformerConfig(PretrainedConfig):
-    r"""
-    Class to store the configuration of a :class:`~transformers.TransformerEncoder`.
-
-    It is used to instantiate a Transformer model according to the
-    specified arguments, defining the model architecture.
-
-    Args:
-        vocab_size (:obj:`int`, `optional`, defaults to 123):
-            Vocabulary size of the model. Defines the number of different tokens
-            that can be represented by the :obj:`input_ids` passed when calling
-            :class:`~transformers.TransformerEncoder.forward`.
-        dim (:obj:`int`, `optional`, defaults to 768):
-            Dimension of the model.
-        num_heads (:obj:`int`, `optional`, defaults to 12):
-            Number of attention heads.
-            depth (:obj:`int`):
-            Depth of the model.
-        mlp_ratio (:obj:`int`):
-            Ratio of the hidden dimension size of the feed-forward layer
-            to the input dimension size.
-        k (:obj:`int`):
-            Size of the atom embedding.
-        sigma (:obj:`float`):
-            Standard deviation for the atom embedding initialization.
-        type_id_dim (:obj:`int`):
-            Dimension of the type ID embedding.
-        dropout (:obj:`float`):
-            Dropout probability.
-        mask_token_id (:obj:`int`):
-            Token ID for the mask token.
-        pad_token_id (:obj:`int`):
-            Token ID for the padding token.
-        bos_token_id (:obj:`int`):
-            Token ID for the beginning-of-sentence token.
-        eos_token_id (:obj:`int`):
-            Token ID for the end-of-sentence token.
-        gradient_checkpointing (:obj:`bool`):
-            Whether to use gradient checkpointing during training.
-    """
-
-    model_type = "transformer"
+class TransformerConfig(PretrainedConfig):  # type: ignore
+    """Configuration class to store the configuration of a TokenGT model."""
 
     def __init__(
         self,
-        vocab_size=123,
-        dim=768,
-        num_heads=12,
-        depth=12,
-        mlp_ratio=4,
-        k=16,
-        sigma=0.03,
-        type_id_dim=64,
-        dropout=0.0,
-        mask_token_id=119,
-        pad_token_id=120,
-        bos_token_id=121,
-        eos_token_id=122,
-        gradient_checkpointing=False,
-        **kwargs,
+        vocab_size: int = 123,
+        dim: int = 768,
+        num_heads: int = 12,
+        depth: int = 12,
+        mlp_ratio: int = 4,
+        k: int = 16,
+        sigma: float = 0.03,
+        type_id_dim: int = 64,
+        dropout: float = 0.0,
+        mask_token_id: int = 0,
+        pad_token_id: int = 119,
+        bos_token_id: int = 120,
+        eos_token_id: int = 121,
+        cls_token_id: int = 122,
+        gradient_checkpointing: bool = False,
+        **kwargs: Any,
     ):
         super().__init__(**kwargs)
         self.vocab_size = vocab_size
@@ -2409,6 +2364,7 @@ class TransformerConfig(PretrainedConfig):
         self.pad_token_id = pad_token_id
         self.bos_token_id = bos_token_id
         self.eos_token_id = eos_token_id
+        self.cls_token_id = cls_token_id
         self.gradient_checkpointing = gradient_checkpointing
 
 
@@ -2450,13 +2406,7 @@ class TransformerEncoder(nn.Module):
         dtype: torch.dtype,
         device: torch.device,
         tgt_len: Optional[int] = None,
-    ):
-        """
-        Expand attention mask for parallel block.
-
-        Expands attention_mask from `[bsz, seq_len]` to
-        `[bsz, 1, tgt_seq_len, src_seq_len]`.
-        """
+    ) -> torch.Tensor:
         bsz, src_len = mask.size()
         tgt_len = tgt_len if tgt_len is not None else src_len
 
@@ -2464,15 +2414,20 @@ class TransformerEncoder(nn.Module):
             mask[:, None, None, :].expand(bsz, 1, tgt_len, src_len).to(dtype)
         )
 
-        inverted_mask = 1.0 - expanded_mask
+        inverted_mask: torch.Tensor = 1.0 - expanded_mask
 
         return inverted_mask.masked_fill(
             inverted_mask.to(torch.bool), torch.finfo(dtype).min
         ).to(device)
 
     def forward(
-        self, input_ids, coords, attention_mask=None, node_pe=None, edge_pe=None
-    ):
+        self,
+        input_ids: torch.Tensor,
+        coords: torch.Tensor,
+        node_pe: torch.Tensor,
+        edge_pe: torch.Tensor,
+        attention_mask: Optional[torch.Tensor] = None,
+    ) -> torch.Tensor:
         """Forward function call for the transformer encoder."""
         atom_metadata = self.metadata_vocab(input_ids)  # (B, N, 17)
 
@@ -2511,7 +2466,7 @@ class TransformerEncoder(nn.Module):
         )
         edges = torch.cat([distance_embed, edge_pe[:, :, :-1], edge_ids], dim=-1)
 
-        input_embeds = self.embed_proj(torch.cat([nodes, edges], dim=1))
+        input_embeds: torch.Tensor = self.embed_proj(torch.cat([nodes, edges], dim=1))
         input_embeds = torch.cat([graph_tokens, input_embeds], dim=1)
 
         # convert attention mask from long into Boolean and add ones for graph token
@@ -2535,8 +2490,8 @@ class TransformerEncoder(nn.Module):
         for blk in self.blocks:
             if self.gradient_checkpointing and self.training:
 
-                def create_custom_forward(module):
-                    def custom_forward(*inputs):
+                def create_custom_forward(module: Any) -> Callable[..., Any]:
+                    def custom_forward(*inputs: Any) -> Any:
                         return module(*inputs)
 
                     return custom_forward
@@ -2551,7 +2506,7 @@ class TransformerEncoder(nn.Module):
         return input_embeds
 
 
-class TransformerPreTrainedModel(PreTrainedModel):
+class TransformerPreTrainedModel(PreTrainedModel):  # type: ignore
     """Base class for all transformer models."""
 
     config_class = TransformerConfig
@@ -2559,7 +2514,9 @@ class TransformerPreTrainedModel(PreTrainedModel):
     supports_gradient_checkpointing = True
     _no_split_modules = ["ParallelBlock"]
 
-    def _set_gradient_checkpointing(self, module, value=False):
+    def _set_gradient_checkpointing(
+        self, module: nn.Module, value: bool = False
+    ) -> None:
         if isinstance(module, (TransformerEncoder)):
             module.gradient_checkpointing = value
 
@@ -2567,26 +2524,39 @@ class TransformerPreTrainedModel(PreTrainedModel):
 class TransformerModel(TransformerPreTrainedModel):
     """Transformer model for atom modeling."""
 
-    def __init__(self, config):
+    def __init__(self, config: TransformerConfig):
         super().__init__(config)
         self.config = config
         self.encoder = TransformerEncoder(config)
 
-    def forward(self, input_ids, coords, attention_mask=None):
+    def forward(
+        self,
+        input_ids: torch.Tensor,
+        coords: torch.Tensor,
+        attention_mask: Optional[torch.Tensor] = None,
+    ) -> torch.Tensor:
         """Forward function call for the transformer model."""
-        return self.encoder(input_ids, coords, attention_mask)
+        out: torch.Tensor = self.encoder(input_ids, coords, attention_mask)
+        return out
 
 
 class TransformerForMaskedAM(TransformerPreTrainedModel):
     """Transformer with an atom modeling head on top for masked atom modeling."""
 
-    def __init__(self, config):
+    def __init__(self, config: TransformerConfig):
         super().__init__(config)
         self.config = config
         self.encoder = TransformerEncoder(config)
         self.am_head = nn.Linear(config.dim, config.vocab_size, bias=False)
 
-    def forward(self, input_ids, coords, labels=None, fixed=None, attention_mask=None):
+    def forward(
+        self,
+        input_ids: torch.Tensor,
+        coords: torch.Tensor,
+        labels: Optional[torch.Tensor] = None,
+        fixed: Optional[torch.Tensor] = None,
+        attention_mask: Optional[torch.Tensor] = None,
+    ) -> Tuple[Optional[torch.Tensor], torch.Tensor]:
         """Forward function call for the masked atom modeling model."""
         hidden_states = self.encoder(input_ids, coords, attention_mask)
         logits = self.am_head(hidden_states[:, 1 : input_ids.size(1)])
@@ -2603,15 +2573,20 @@ class TransformerForMaskedAM(TransformerPreTrainedModel):
 class TransformerForCoordinateAM(TransformerPreTrainedModel):
     """Transformer with an atom coordinate head on top for coordinate denoising."""
 
-    def __init__(self, config):
+    def __init__(self, config: TransformerConfig):
         super().__init__(config)
         self.config = config
         self.encoder = TransformerEncoder(config)
         self.coords_head = nn.Linear(config.dim, 3)
 
     def forward(
-        self, input_ids, coords, labels_coords=None, fixed=None, attention_mask=None
-    ):
+        self,
+        input_ids: torch.Tensor,
+        coords: torch.Tensor,
+        labels_coords: Optional[torch.Tensor] = None,
+        fixed: Optional[torch.Tensor] = None,
+        attention_mask: Optional[torch.Tensor] = None,
+    ) -> Tuple[Optional[torch.Tensor], torch.Tensor]:
         """Forward function call for the coordinate atom modeling model."""
         hidden_states = self.encoder(input_ids, coords, attention_mask)
         coords_pred = self.coords_head(hidden_states[:, 1 : input_ids.size(1)])
@@ -2628,15 +2603,20 @@ class TransformerForCoordinateAM(TransformerPreTrainedModel):
 class InitialStructure2RelaxedStructure(TransformerPreTrainedModel):
     """Transformer with an coordinate head on top for relaxed structure prediction."""
 
-    def __init__(self, config):
+    def __init__(self, config: TransformerConfig):
         super().__init__(config)
         self.config = config
         self.encoder = TransformerEncoder(config)
         self.coords_head = nn.Linear(config.dim, 3)
 
     def forward(
-        self, input_ids, coords, labels_coords=None, fixed=None, attention_mask=None
-    ):
+        self,
+        input_ids: torch.Tensor,
+        coords: torch.Tensor,
+        labels_coords: Optional[torch.Tensor] = None,
+        fixed: Optional[torch.Tensor] = None,
+        attention_mask: Optional[torch.Tensor] = None,
+    ) -> Tuple[Optional[torch.Tensor], torch.Tensor]:
         """Forward function call.
 
         Initial structure to relaxed structure model.
@@ -2656,7 +2636,7 @@ class InitialStructure2RelaxedStructure(TransformerPreTrainedModel):
 class InitialStructure2RelaxedEnergy(TransformerPreTrainedModel):
     """Transformer with an energy head on top for relaxed energy prediction."""
 
-    def __init__(self, config):
+    def __init__(self, config: TransformerConfig):
         super().__init__(config)
         self.config = config
         self.encoder = TransformerEncoder(config)
@@ -2664,8 +2644,13 @@ class InitialStructure2RelaxedEnergy(TransformerPreTrainedModel):
         self.energy_head = nn.Linear(config.dim, 1, bias=False)
 
     def forward(
-        self, input_ids, coords, labels_energy=None, fixed=None, attention_mask=None
-    ):
+        self,
+        input_ids: torch.Tensor,
+        coords: torch.Tensor,
+        labels_energy: Optional[torch.Tensor] = None,
+        fixed: Optional[torch.Tensor] = None,
+        attention_mask: Optional[torch.Tensor] = None,
+    ) -> Tuple[Optional[torch.Tensor], torch.Tensor]:
         """Forward function call for the initial structure to relaxed energy model."""
         hidden_states = self.encoder(input_ids, coords, attention_mask)
         energy = self.energy_head(self.energy_norm(hidden_states[:, 0])).squeeze(-1)
@@ -2685,7 +2670,7 @@ class InitialStructure2RelaxedStructureAndEnergy(TransformerPreTrainedModel):
     relaxed structure and energy prediction.
     """
 
-    def __init__(self, config):
+    def __init__(self, config: TransformerConfig):
         super().__init__(config)
         self.config = config
         self.encoder = TransformerEncoder(config)
@@ -2695,37 +2680,39 @@ class InitialStructure2RelaxedStructureAndEnergy(TransformerPreTrainedModel):
 
     def forward(
         self,
-        input_ids,
-        coords,
-        labels_coords=None,
-        labels_energy=None,
-        fixed=None,
-        attention_mask=None,
-    ):
+        input_ids: torch.Tensor,
+        coords: torch.Tensor,
+        labels_coords: Optional[torch.Tensor] = None,
+        labels_energy: Optional[torch.Tensor] = None,
+        fixed: Optional[torch.Tensor] = None,
+        attention_mask: Optional[torch.Tensor] = None,
+    ) -> Tuple[torch.Tensor, Tuple[torch.Tensor, torch.Tensor]]:
         """Forward function call.
 
         Initial structure to relaxed structure and energy model.
         """
         hidden_states = self.encoder(input_ids, coords, attention_mask)
-        coords_pred = self.coords_head(hidden_states[:, 1 : input_ids.size(1)])
-        energy = self.energy_head(self.energy_norm(hidden_states[:, 0])).squeeze(-1)
+        coords_pred: torch.Tensor = self.coords_head(
+            hidden_states[:, 1 : input_ids.size(1)]
+        )
+        energy: torch.Tensor = self.energy_head(
+            self.energy_norm(hidden_states[:, 0])
+        ).squeeze(-1)
 
-        loss_coords = None
+        loss_coords = torch.tensor(0.0, device=input_ids.device)
         if labels_coords is not None:
             labels_coords = labels_coords.to(coords_pred.device)
             loss_fct = nn.L1Loss()
             loss_coords = loss_fct(coords_pred, labels_coords)
 
-        loss_energy = None
+        loss_energy = torch.tensor(0.0, device=input_ids.device)
         if labels_energy is not None:
             loss_fct = nn.L1Loss()
             loss_energy = loss_fct(energy, labels_energy)
 
-        loss_coords = loss_coords if loss_coords is not None else 0
-        loss_energy = loss_energy if loss_energy is not None else 0
         loss = loss_coords + loss_energy
 
-        return loss, (coords_pred, energy), (loss_coords, loss_energy)
+        return loss, (coords_pred, energy)
 
 
 class Structure2EnergyAndForces(TransformerPreTrainedModel):
@@ -2734,7 +2721,7 @@ class Structure2EnergyAndForces(TransformerPreTrainedModel):
     Transformer with an energy and forces head on top for energy and forces prediction.
     """
 
-    def __init__(self, config):
+    def __init__(self, config: TransformerConfig):
         super().__init__(config)
         self.config = config
         self.encoder = TransformerEncoder(config)
@@ -2745,25 +2732,26 @@ class Structure2EnergyAndForces(TransformerPreTrainedModel):
 
     def forward(
         self,
-        input_ids,
-        coords,
-        forces=None,
-        total_energy=None,
-        formation_energy=None,
-        has_formation_energy=None,
-        attention_mask=None,
-        node_pe=None,
-        edge_pe=None,
-    ):
+        input_ids: torch.Tensor,
+        coords: torch.Tensor,
+        forces: Optional[torch.Tensor] = None,
+        total_energy: Optional[torch.Tensor] = None,
+        formation_energy: Optional[torch.Tensor] = None,
+        has_formation_energy: Optional[torch.Tensor] = None,
+        attention_mask: Optional[torch.Tensor] = None,
+        node_pe: Optional[torch.Tensor] = None,
+        edge_pe: Optional[torch.Tensor] = None,
+    ) -> Tuple[torch.Tensor, Tuple[torch.Tensor, torch.Tensor, Optional[torch.Tensor]]]:
         """Forward function call for the structure to energy and forces model."""
         hidden_states = self.encoder(
             input_ids, coords, attention_mask, node_pe, edge_pe
         )
 
-        formation_energy_pred = self.formation_energy_head(
+        formation_energy_pred: torch.Tensor = self.formation_energy_head(
             self.energy_norm(hidden_states[:, 0])
         ).squeeze(-1)
-        loss_formation_energy = None
+
+        loss_formation_energy = torch.Tensor(0.0, device=input_ids.device)
         if formation_energy is not None:
             loss_fct = nn.L1Loss()
             loss_formation_energy = loss_fct(
@@ -2771,19 +2759,21 @@ class Structure2EnergyAndForces(TransformerPreTrainedModel):
                 formation_energy[has_formation_energy],
             )
 
-        forces_pred = self.force_head(
+        forces_pred: torch.Tensor = self.force_head(
             self.force_norm(hidden_states[:, 1 : input_ids.size(1)])
         )
-        loss_forces = None
-        if forces is not None:
+        loss_forces = torch.Tensor(0.0, device=input_ids.device)
+        if forces is not None and attention_mask is not None:
             loss_fct = nn.L1Loss()
             loss_forces = loss_fct(
                 forces_pred[attention_mask[:, 1 : input_ids.size(1)].bool()],
                 forces[attention_mask[:, 1 : input_ids.size(1)].bool()],
             )
 
-        loss = None if loss_formation_energy is None and loss_forces is None else 0
-        loss += loss_formation_energy if loss_formation_energy is not None else None
-        loss += loss_forces if loss_forces is not None else None
+        loss = loss_formation_energy + loss_forces
 
-        return loss, (formation_energy_pred, forces_pred, attention_mask.bool())
+        return loss, (
+            formation_energy_pred,
+            forces_pred,
+            attention_mask.bool() if attention_mask is not None else attention_mask,
+        )

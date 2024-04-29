@@ -13,7 +13,7 @@ from transformers.data.data_collator import DataCollatorMixin, _torch_collate_ba
 
 
 @dataclass
-class DataCollatorForAtomModeling(DataCollatorMixin):
+class DataCollatorForAtomModeling(DataCollatorMixin):  # type: ignore
     """Data collator used for atom modeling.
 
     Args:
@@ -47,7 +47,7 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
     max_radius: float = 12.0
     max_neighbors: int = 20
     pad: bool = True
-    pad_to_multiple_of: int = None
+    pad_to_multiple_of: Optional[int] = None
     return_tensors: str = "pt"
 
     def torch_call(
@@ -66,7 +66,7 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
         # Handle dict or lists with proper padding and conversion to tensor.
         if self.pad:
             if isinstance(examples[0], Mapping):
-                batch = self.tokenizer.pad(
+                batch: Dict[str, Any] = self.tokenizer.pad(
                     examples,
                     return_tensors="pt",
                     pad_to_multiple_of=self.pad_to_multiple_of,
@@ -147,7 +147,7 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
 
     def torch_mask_tokens(
         self, inputs: Any, t: Any, special_tokens_mask: Optional[Any] = None
-    ) -> Tuple[Any, Any, Any]:
+    ) -> Tuple[Any, Any]:
         """Prepare masked tokens inputs/labels for masked atom modeling."""
         labels = inputs.clone()
 
@@ -161,12 +161,13 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
             self.tokenizer.convert_tokens_to_ids(self.tokenizer.mask_token),
         )
         labels = torch.where(~mask, labels, -100)
-        labels = torch.where(~special_tokens_mask, labels, -100)
+        if special_tokens_mask is not None:
+            labels = torch.where(~special_tokens_mask, labels, -100)
 
         return inputs, labels
 
     def torch_perturb_coords(self, inputs: Any, fixed: Any, t: Any) -> Tuple[Any, Any]:
-        """Prepare perturbed coords inputs/labels for masked atom modeling."""
+        """Prepare perturbed coords inputs/labels for coordinate denoising."""
         batch, seq_len, _ = inputs.shape
         num_token_perturbed = (seq_len * t).round().clamp(min=1)
         batch_randperm = torch.rand((batch, seq_len)).argsort(dim=-1)
@@ -181,7 +182,7 @@ class DataCollatorForAtomModeling(DataCollatorMixin):
         )
         return inputs, labels
 
-    def flatten_batch(self, examples):
+    def flatten_batch(self, examples: Any) -> Dict[str, Any]:
         """Flatten all lists in examples and concatenate with batch indicator."""
         batch = {}
         for key in examples[0]:

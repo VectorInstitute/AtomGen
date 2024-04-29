@@ -4,7 +4,7 @@ import collections
 import json
 import os
 import re
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from transformers.tokenization_utils import PreTrainedTokenizer
 from transformers.tokenization_utils_base import (
@@ -16,10 +16,10 @@ from transformers.tokenization_utils_base import (
 )
 
 
-VOCAB_FILES_NAMES = {"vocab_file": "tokenizer.json"}
+VOCAB_FILES_NAMES: Dict[str, str] = {"vocab_file": "tokenizer.json"}
 
 
-class AtomTokenizer(PreTrainedTokenizer):
+class AtomTokenizer(PreTrainedTokenizer):  # type: ignore[misc]
     """
     Tokenizer for atomistic data.
 
@@ -37,16 +37,16 @@ class AtomTokenizer(PreTrainedTokenizer):
 
     def __init__(
         self,
-        vocab_file,
-        pad_token="<pad>",
-        mask_token="<mask>",
-        bos_token="<bos>",
-        eos_token="<eos>",
-        cls_token="<graph>",
-        **kwargs,
-    ):
-        self.vocab = self.load_vocab(vocab_file)
-        self.ids_to_tokens = collections.OrderedDict(
+        vocab_file: str,
+        pad_token: str = "<pad>",
+        mask_token: str = "<mask>",
+        bos_token: str = "<bos>",
+        eos_token: str = "<eos>",
+        cls_token: str = "<graph>",
+        **kwargs: Dict[str, Union[bool, str, PaddingStrategy]],
+    ) -> None:
+        self.vocab: Dict[str, int] = self.load_vocab(vocab_file)
+        self.ids_to_tokens: Dict[int, str] = collections.OrderedDict(
             [(ids, tok) for tok, ids in self.vocab.items()]
         )
 
@@ -60,31 +60,36 @@ class AtomTokenizer(PreTrainedTokenizer):
         )
 
     @staticmethod
-    def load_vocab(vocab_file):
+    def load_vocab(vocab_file: str) -> Dict[str, int]:
         """Load the vocabulary from a json file."""
         with open(vocab_file, "r") as f:
-            return json.load(f)
+            vocab = json.load(f)
+            if not isinstance(vocab, dict):
+                raise ValueError(
+                    "The vocabulary file is not a json file or is not formatted correctly."
+                )
+        return vocab
 
-    def _tokenize(self, text):
+    def _tokenize(self, text: str) -> List[str]:
         """Split the text into chemical symbols."""
         return re.findall("[A-Z][a-z]*", text)
 
-    def _convert_token_to_id(self, token):
+    def _convert_token_to_id(self, token: str) -> int:
         """Convert the chemical symbols to atomic numbers."""
         return self.vocab[token]
 
-    def _convert_id_to_token(self, index):
+    def _convert_id_to_token(self, index: int) -> str:
         return self.ids_to_tokens[index]
 
-    def get_vocab(self):
+    def get_vocab(self) -> Dict[str, int]:
         """Get the vocabulary."""
         return self.vocab
 
-    def get_vocab_size(self):
+    def get_vocab_size(self) -> int:
         """Get the size of the vocabulary."""
         return len(self.vocab)
 
-    def convert_tokens_to_string(self, tokens):
+    def convert_tokens_to_string(self, tokens: List[str]) -> str:
         """Convert the list of chemical symbol tokens to a concatenated string."""
         return "".join(tokens)
 
@@ -158,7 +163,12 @@ class AtomTokenizer(PreTrainedTokenizer):
             verbose=verbose,
         )
 
-    def pad_coords(self, batch, max_length=None, pad_to_multiple_of=None):
+    def pad_coords(
+        self,
+        batch: Union[Mapping, List[Mapping]],
+        max_length: Optional[int] = None,
+        pad_to_multiple_of: Optional[int] = None,
+    ) -> Union[Mapping, List[Mapping]]:
         """Pad the coordinates to the same length."""
         if isinstance(batch, Mapping):
             coord_keys = [
@@ -191,7 +201,12 @@ class AtomTokenizer(PreTrainedTokenizer):
                     sample[key] = coords[i]
         return batch
 
-    def pad_forces(self, batch, max_length=None, pad_to_multiple_of=None):
+    def pad_forces(
+        self,
+        batch: Union[Mapping, List[Mapping]],
+        max_length: Optional[int] = None,
+        pad_to_multiple_of: Optional[int] = None,
+    ) -> Union[Mapping, List[Mapping]]:
         """Pad the forces to the same length."""
         if isinstance(batch, Mapping):
             force_keys = [
@@ -224,7 +239,12 @@ class AtomTokenizer(PreTrainedTokenizer):
                     sample[key] = forces[i]
         return batch
 
-    def pad_fixed(self, batch, max_length=None, pad_to_multiple_of=None):
+    def pad_fixed(
+        self,
+        batch: Union[Mapping, List[Mapping]],
+        max_length: Optional[int] = None,
+        pad_to_multiple_of: Optional[int] = None,
+    ) -> Union[Mapping, List[Mapping]]:
         """Pad the fixed mask to the same length."""
         if isinstance(batch, Mapping):
             fixed_keys = [
@@ -269,7 +289,7 @@ class AtomTokenizer(PreTrainedTokenizer):
         return (vocab_file,)
 
     @classmethod
-    def from_pretrained(cls, *inputs, **kwargs):
+    def from_pretrained(cls, *inputs: Any, **kwargs: Any) -> Any:
         """Load the tokenizer from a pretrained model."""
         return super().from_pretrained(*inputs, **kwargs)
 

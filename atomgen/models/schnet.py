@@ -1,12 +1,16 @@
 """SchNet model for energy prediction."""
 
+from typing import Any, Callable, Optional, Tuple
+
+import torch
 from torch import nn
 from torch_geometric.nn import SchNet
+from torch_geometric.typing import OptTensor
 from transformers.configuration_utils import PretrainedConfig
 from transformers.modeling_utils import PreTrainedModel
 
 
-class SchNetConfig(PretrainedConfig):
+class SchNetConfig(PretrainedConfig):  # type: ignore
     r"""
     Stores the configuration of a :class:`~transformers.SchNetModel`.
 
@@ -81,24 +85,25 @@ class SchNetConfig(PretrainedConfig):
 
     def __init__(
         self,
-        vocab_size=122,
-        hidden_channels=128,
-        num_filters=128,
-        num_interactions=6,
-        num_gaussians=50,
-        cutoff=10.0,
-        interaction_graph=None,
-        max_num_neighbors=32,
-        readout="add",
-        dipole=False,
-        mean=None,
-        std=None,
-        atomref=None,
-        mask_token_id=119,
-        pad_token_id=120,
-        bos_token_id=121,
-        eos_token_id=122,
-        **kwargs,
+        vocab_size: int = 123,
+        hidden_channels: int = 128,
+        num_filters: int = 128,
+        num_interactions: int = 6,
+        num_gaussians: int = 50,
+        cutoff: float = 10.0,
+        interaction_graph: Optional[Callable[..., Any]] = None,
+        max_num_neighbors: int = 32,
+        readout: str = "add",
+        dipole: bool = False,
+        mean: Optional[float] = None,
+        std: Optional[float] = None,
+        atomref: Optional[OptTensor] = None,
+        mask_token_id: int = 0,
+        pad_token_id: int = 119,
+        bos_token_id: int = 120,
+        eos_token_id: int = 121,
+        cls_token_id: int = 122,
+        **kwargs: Any,
     ):
         super().__init__(**kwargs)
         self.vocab_size = vocab_size
@@ -118,9 +123,10 @@ class SchNetConfig(PretrainedConfig):
         self.pad_token_id = pad_token_id
         self.bos_token_id = bos_token_id
         self.eos_token_id = eos_token_id
+        self.cls_token_id = cls_token_id
 
 
-class SchNetPreTrainedModel(PreTrainedModel):
+class SchNetPreTrainedModel(PreTrainedModel):  # type: ignore
     """
     A base class for all SchNet models.
 
@@ -142,7 +148,7 @@ class SchNetModel(SchNetPreTrainedModel):
             Configuration class to store the configuration of a model.
     """
 
-    def __init__(self, config):
+    def __init__(self, config: SchNetConfig):
         super().__init__(config)
         self.config = config
         self.model = SchNet(
@@ -162,13 +168,13 @@ class SchNetModel(SchNetPreTrainedModel):
 
     def forward(
         self,
-        input_ids,
-        coords,
-        batch,
-        labels_energy=None,
-        fixed=None,
-        attention_mask=None,
-    ):
+        input_ids: torch.Tensor,
+        coords: torch.Tensor,
+        batch: torch.Tensor,
+        labels_energy: Optional[torch.Tensor] = None,
+        fixed: Optional[torch.Tensor] = None,
+        attention_mask: Optional[torch.Tensor] = None,
+    ) -> Tuple[Optional[torch.Tensor], torch.Tensor]:
         """
         Forward pass of the SchNet model.
 
@@ -196,7 +202,7 @@ class SchNetModel(SchNetPreTrainedModel):
             :obj:`tuple`:
                 A tuple of the loss and the energy prediction.
         """
-        energy_pred = self.model(z=input_ids, pos=coords, batch=batch)
+        energy_pred: torch.Tensor = self.model(z=input_ids, pos=coords, batch=batch)
 
         loss = None
         if labels_energy is not None:
