@@ -5,4 +5,4 @@ API Reference
    :maxdepth: 1
    :glob:
 
-   reference/api/aieng_template.rst
+   reference/api/atomgen.rst

@@ -56,7 +56,7 @@ autosectionlabel_prefix_document = True
 copybutton_prompt_text = r">>> |\.\.\. "
 copybutton_prompt_is_regexp = True
 
-apidoc_module_dir = "../../aieng_template"
+apidoc_module_dir = "../../atomgen"
 apidoc_excluded_paths = ["tests"]
 apidoc_output_dir = "reference/api"
 apidoc_separate_modules = True
