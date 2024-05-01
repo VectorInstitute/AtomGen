@@ -7,6 +7,29 @@
 [![codecov](https://codecov.io/gh/VectorInstitute/aieng-template/branch/main/graph/badge.svg)](https://codecov.io/gh/VectorInstitute/aieng-template)
 [![license](https://img.shields.io/github/license/VectorInstitute/aieng-template.svg)](https://github.com/VectorInstitute/aieng-template/blob/main/LICENSE)
 
+## Introduction
+
+AtomGen is a Python package that generates atomistic structures for molecular simulations. The package is designed to be used with the [ASE](https://wiki.fysik.dtu.dk/ase/) package and provides a simple interface to generate structures of various materials.
+
+## Installation
+
+The package can be installed using poetry:
+
+```bash
+python3 -m poetry install
+source $(poetry env info --path)/bin/activate
+```
+
+## Usage
+
+The package can be used to generate structures of various materials. For example, to generate a diamond structure:
+
+```python
+from atomgen import Diamond
+
+diamond = Diamond()
+diamond.generate()
+```
 
 
 ## 🧑🏿‍💻 Developing

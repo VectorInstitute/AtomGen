@@ -24,14 +24,13 @@ class AtomTokenizer(PreTrainedTokenizer):  # type: ignore[misc]
     Tokenizer for atomistic data.
 
     Args:
-        vocab_file (str): Path to the vocabulary file.
-        pad_token (str, optional): The token used for padding. Defaults to "<pad>".
-        mask_token (str, optional): The token used for masking. Defaults to "<mask>".
-        bos_token (str, optional): The token used for beginning of sequence.
-                                   Defaults to "<bos>".
-        eos_token (str, optional): The token used for end of sequence.
-                                   Defaults to "<eos>".
-        cls_token (str, optional): The token used for graph. Defaults to "<graph>".
+        vocab_file: The path to the vocabulary file.
+        pad_token: The padding token.
+        mask_token: The mask token.
+        bos_token: The beginning of system token.
+        eos_token: The end of system token.
+        cls_token: The classification token.
+        kwargs: Additional keyword arguments.
 
     """
 
