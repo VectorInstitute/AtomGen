@@ -15,7 +15,7 @@ import sys
 from typing import List
 
 
-sys.path.insert(0, os.path.abspath("../../aieng_template"))
+sys.path.insert(0, os.path.abspath("../../atomgen"))
 
 
 # -- Project information -----------------------------------------------------
