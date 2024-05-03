@@ -1,14 +1,28 @@
+"""Tests for DataCollator."""
+import torch
+
 from atomgen.data.data_collator import DataCollatorForAtomModeling
+from atomgen.data.tokenizer import AtomTokenizer
+
 
 def test_data_collator():
-    data_collator = DataCollatorForAtomModeling()
-    input_ids = [1,2,10]
-    coords = [[0.5, 0.2, 0.1], [0.3, 0.4, 0.5], [0.1, 0.2, 0.3]]
-    labels = [[1, 2, 3], [4, 5, 6]]
-    batch = data_collator(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
-    assert batch["input_ids"].tolist() == input_ids
-    assert batch["attention_mask"].tolist() == attention_mask
-    assert batch["labels"].tolist() == labels
-    assert batch["decoder_input_ids"].tolist() == [[1, 2, 3], [4, 5, 6]]
-    assert batch["decoder_attention_mask"].tolist() == [[1, 1, 1], [1, 1, 1]]
-    assert batch["decoder_labels"].tolist() == [[1, 2, 3], [4, 5, 6]]
+    """Test DataCollatorForAtomModeling."""
+    tokenizer = AtomTokenizer(vocab_file="atomgen/data/tokenizer.json")
+    data_collator = DataCollatorForAtomModeling(
+        tokenizer=tokenizer,
+        mam=False,
+        coords_perturb=False,
+        causal=False,
+        return_edge_indices=False,
+        pad=True,
+    )
+    size = torch.randint(4, 16, (10,)).tolist()
+    dataset = [
+        {
+            "input_ids": torch.randint(0, 123, (size[i],)).tolist(),
+            "coords": torch.randint(0, 123, (size[i], 3)).tolist(),
+        }
+        for i in range(10)
+    ]
+    batch = data_collator(dataset)
+    assert len(batch["input_ids"]) == 10

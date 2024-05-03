@@ -7,9 +7,50 @@
 [![codecov](https://codecov.io/gh/VectorInstitute/aieng-template/branch/main/graph/badge.svg)](https://codecov.io/gh/VectorInstitute/aieng-template)
 [![license](https://img.shields.io/github/license/VectorInstitute/aieng-template.svg)](https://github.com/VectorInstitute/aieng-template/blob/main/LICENSE)
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Datasets](#datasets)
+- [Models](#models)
+- [Tasks](#tasks)
+- [Installation](#installation)
+- [Developing](#developing)
+
 ## Introduction
 
-AtomGen is a Python package that generates atomistic structures for molecular simulations. The package is designed to be used with the [ASE](https://wiki.fysik.dtu.dk/ase/) package and provides a simple interface to generate structures of various materials.
+AtomGen provides a robust framework for handling atomistic graph datasets focusing on transformer-based implementations. We provide utilities for training various models, experimenting with different pre-training tasks, and pre-trained models.
+
+It streamlines the process of aggregation, standardization, and utilization of datasets from diverse sources, enabling large-scale pre-training and generative modeling on atomistic graphs.
+
+## Datasets
+
+AtomGen facilitates the aggregation and standardization of datasets, including but not limited to:
+
+  - **S2EF Datasets**: Aggregated from multiple sources such as OC20, OC22, ODAC23, MPtrj, and SPICE with structures and energies/forces for pre-training.
+
+  - **Misc. Atomistic Graph Datasets**: Including Molecule3D, Protein Data Bank (PDB), and the Open Quantum Materials Database (OQMD).
+
+Currently, AtomGen has pre-processed datasets for the S2EF pre-training task for OC20 and a mixed dataset of OC20, OC22, ODAC23, MPtrj, and SPICE. They have been uploaded to huggingface hub and can be accessed using the datasets API.
+
+## Models
+
+AtomGen supports a variety of models for training on atomistic graph datasets, including:
+
+  - SchNet
+  - TokenGT
+  - Uni-Mol+ (Modified)
+
+## Tasks
+
+Experimentation with pre-training tasks is facilitated through AtomGen, including:
+
+  - **Structure to Energy & Forces**: Predicting energies and forces for atomistic graphs.
+
+  - **Masked Atom Modeling**: Masking atoms and predicting their properties.
+
+  - **Coordinate Denoising**: Denoising atom coordinates.
+
+These tasks are all facilitated through the DataCollatorForAtomModeling class and can be used simultaneously or individually.
 
 ## Installation
 
@@ -18,17 +59,6 @@ The package can be installed using poetry:
 ```bash
 python3 -m poetry install
 source $(poetry env info --path)/bin/activate
-```
-
-## Usage
-
-The package can be used to generate structures of various materials. For example, to generate a diamond structure:
-
-```python
-from atomgen import Diamond
-
-diamond = Diamond()
-diamond.generate()
 ```
 
 

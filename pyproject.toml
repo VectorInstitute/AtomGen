@@ -136,7 +136,7 @@ markers = [
 
 [tool.coverage]
     [tool.coverage.run]
-    source=["aieng_template"]
+    source=["atomgen"]
     omit=["tests/*", "*__init__.py"]
 
 [build-system]

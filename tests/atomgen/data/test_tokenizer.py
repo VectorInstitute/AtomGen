@@ -1,7 +1,10 @@
+"""Test AtomTokenizer."""
 from atomgen.data.tokenizer import AtomTokenizer
 
+
 def test_tokenizer():
+    """Test AtomTokenizer."""
     tokenizer = AtomTokenizer(vocab_file="atomgen/data/tokenizer.json")
-    text = "BaCCHeNNN"
+    text = "MgCCHeNNN"
     tokens = tokenizer.tokenize(text)
-    assert tokens == ["Ba", "C", "C", "He", "N", "N", "N"]
+    assert tokens == ["Mg", "C", "C", "He", "N", "N", "N"]
