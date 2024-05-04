@@ -9,12 +9,12 @@
 
 ## Table of Contents
 
-- [Overview](#overview)
+- [Introduction](#introduction)
 - [Datasets](#datasets)
 - [Models](#models)
 - [Tasks](#tasks)
 - [Installation](#installation)
-- [Developing](#developing)
+- [Developing](#🧑🏿‍💻-developing)
 
 ## Introduction
 
