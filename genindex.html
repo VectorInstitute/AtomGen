@@ -1,0 +1,764 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark">
+    <meta name="google-site-verification" content="i0qQRaR9OA3tSz_9tDocdcXGY27Ox_cy4FrvTHD2C_0" />
+    
+      <meta name="description" content="CyclOps Python API documentation">
+    <link rel="index" title="Index" href="#" /><link rel="search" title="Search" href="search.html" />
+
+    <meta name="generator" content="sphinx-7.2.6, furo 2024.01.29"/>
+
+    
+    <meta name="msvalidate.01" content="8D2A5032F006424CAF54C0DDCD16F666" /><title>Index - atomgen documentation</title>
+<link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #faad1a;
+  --color-brand-content: #eb088a;
+  --color-foreground-secondary: #52c7de;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #faad1a;
+  --color-brand-content: #eb088a;
+  --color-foreground-secondary: #52c7de;
+  
+      }
+    }
+  }
+</style><script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=ccdb6887"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script src="_static/require.min.js?v=53367eec"></script>
+    <script src="_static/custom.js?v=275847af"></script>
+    
+    <script src="https://kit.fontawesome.com/2c1f516901.js" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">atomgen  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="_static/atomgen_text.png" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">User Guide (WIP)</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="reference/api/atomgen.data.html">atomgen.data package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of atomgen.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.data.data_collator.html">atomgen.data.data_collator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.data.tokenizer.html">atomgen.data.tokenizer module</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="reference/api/atomgen.models.html">atomgen.models package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of atomgen.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.schnet.html">atomgen.models.schnet module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.tokengt.html">atomgen.models.tokengt module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.unimolplus.html">atomgen.models.unimolplus module</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          
+<section class="genindex-section">
+  <h1 id="index">Index</h1>
+  <div class="genindex-jumpbox"><a href="#A"><strong>A</strong></a> | <a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#H"><strong>H</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#K"><strong>K</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#V"><strong>V</strong></a></div>
+</section>
+<section id="A" class="genindex-section">
+  <h2>A</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    atomgen
+
+        <ul>
+          <li><a href="reference/api/atomgen.html#module-atomgen">module</a>
+</li>
+        </ul></li>
+        <li>
+    atomgen.data
+
+        <ul>
+          <li><a href="reference/api/atomgen.data.html#module-atomgen.data">module</a>
+</li>
+        </ul></li>
+        <li>
+    atomgen.data.data_collator
+
+        <ul>
+          <li><a href="reference/api/atomgen.data.data_collator.html#module-atomgen.data.data_collator">module</a>
+</li>
+        </ul></li>
+        <li>
+    atomgen.data.tokenizer
+
+        <ul>
+          <li><a href="reference/api/atomgen.data.tokenizer.html#module-atomgen.data.tokenizer">module</a>
+</li>
+        </ul></li>
+        <li>
+    atomgen.models
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.html#module-atomgen.models">module</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    atomgen.models.schnet
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.schnet.html#module-atomgen.models.schnet">module</a>
+</li>
+        </ul></li>
+        <li>
+    atomgen.models.tokengt
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.tokengt.html#module-atomgen.models.tokengt">module</a>
+</li>
+        </ul></li>
+        <li>
+    atomgen.models.unimolplus
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#module-atomgen.models.unimolplus">module</a>
+</li>
+        </ul></li>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.atomref">atomref (SchNetConfig attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer">AtomTokenizer (class in atomgen.data.tokenizer)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="B" class="genindex-section">
+  <h2>B</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetPreTrainedModel.base_model_prefix">base_model_prefix (SchNetPreTrainedModel attribute)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerPreTrainedModel.base_model_prefix">(TransformerPreTrainedModel attribute)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerPreTrainedModel.base_model_prefix">[1]</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.bos_token_id">bos_token_id (SchNetConfig attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer.build_inputs_with_special_tokens">build_inputs_with_special_tokens() (AtomTokenizer method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="C" class="genindex-section">
+  <h2>C</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.causal">causal (DataCollatorForAtomModeling attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetPreTrainedModel.config_class">config_class (SchNetPreTrainedModel attribute)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerPreTrainedModel.config_class">(TransformerPreTrainedModel attribute)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerPreTrainedModel.config_class">[1]</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer.convert_tokens_to_string">convert_tokens_to_string() (AtomTokenizer method)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.coords_perturb">coords_perturb (DataCollatorForAtomModeling attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.cutoff">cutoff (SchNetConfig attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="D" class="genindex-section">
+  <h2>D</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling">DataCollatorForAtomModeling (class in atomgen.data.data_collator)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.dipole">dipole (SchNetConfig attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="E" class="genindex-section">
+  <h2>E</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.eos_token_id">eos_token_id (SchNetConfig attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="F" class="genindex-section">
+  <h2>F</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.flatten_batch">flatten_batch() (DataCollatorForAtomModeling method)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.GaussianLayer.forward">forward() (GaussianLayer method)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedEnergy.forward">(InitialStructure2RelaxedEnergy method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedEnergy.forward">[1]</a>
+</li>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedStructure.forward">(InitialStructure2RelaxedStructure method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructure.forward">[1]</a>
+</li>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedStructureAndEnergy.forward">(InitialStructure2RelaxedStructureAndEnergy method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructureAndEnergy.forward">[1]</a>
+</li>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.ParallelBlock.forward">(ParallelBlock method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.ParallelBlock.forward">[1]</a>
+</li>
+          <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetModel.forward">(SchNetModel method)</a>
+</li>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Energy.forward">(Structure2Energy method)</a>
+</li>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.Structure2EnergyAndForces.forward">(Structure2EnergyAndForces method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2EnergyAndForces.forward">[1]</a>
+</li>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Forces.forward">(Structure2Forces method)</a>
+</li>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerEncoder.forward">(TransformerEncoder method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerEncoder.forward">[1]</a>
+</li>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerForCoordinateAM.forward">(TransformerForCoordinateAM method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForCoordinateAM.forward">[1]</a>
+</li>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerForMaskedAM.forward">(TransformerForMaskedAM method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForMaskedAM.forward">[1]</a>
+</li>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerModel.forward">(TransformerModel method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerModel.forward">[1]</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer.from_pretrained">from_pretrained() (AtomTokenizer class method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="G" class="genindex-section">
+  <h2>G</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.GaussianLayer">GaussianLayer (class in atomgen.models.unimolplus)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer.get_vocab">get_vocab() (AtomTokenizer method)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer.get_vocab_size">get_vocab_size() (AtomTokenizer method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="H" class="genindex-section">
+  <h2>H</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.hidden_channels">hidden_channels (SchNetConfig attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="I" class="genindex-section">
+  <h2>I</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedEnergy">InitialStructure2RelaxedEnergy (class in atomgen.models.tokengt)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedEnergy">(class in atomgen.models.unimolplus)</a>
+</li>
+        </ul></li>
+        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedStructure">InitialStructure2RelaxedStructure (class in atomgen.models.tokengt)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructure">(class in atomgen.models.unimolplus)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedStructureAndEnergy">InitialStructure2RelaxedStructureAndEnergy (class in atomgen.models.tokengt)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructureAndEnergy">(class in atomgen.models.unimolplus)</a>
+</li>
+        </ul></li>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.interaction_graph">interaction_graph (SchNetConfig attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="K" class="genindex-section">
+  <h2>K</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.k">k (DataCollatorForAtomModeling attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="L" class="genindex-section">
+  <h2>L</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer.load_vocab">load_vocab() (AtomTokenizer static method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="M" class="genindex-section">
+  <h2>M</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.mam">mam (DataCollatorForAtomModeling attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.mask_token_id">mask_token_id (SchNetConfig attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.max_neighbors">max_neighbors (DataCollatorForAtomModeling attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.max_num_neighbors">max_num_neighbors (SchNetConfig attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.max_radius">max_radius (DataCollatorForAtomModeling attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.mean">mean (SchNetConfig attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerConfig.model_type">model_type (TransformerConfig attribute)</a>
+</li>
+        <li>
+    module
+
+        <ul>
+          <li><a href="reference/api/atomgen.html#module-atomgen">atomgen</a>
+</li>
+          <li><a href="reference/api/atomgen.data.html#module-atomgen.data">atomgen.data</a>
+</li>
+          <li><a href="reference/api/atomgen.data.data_collator.html#module-atomgen.data.data_collator">atomgen.data.data_collator</a>
+</li>
+          <li><a href="reference/api/atomgen.data.tokenizer.html#module-atomgen.data.tokenizer">atomgen.data.tokenizer</a>
+</li>
+          <li><a href="reference/api/atomgen.models.html#module-atomgen.models">atomgen.models</a>
+</li>
+          <li><a href="reference/api/atomgen.models.schnet.html#module-atomgen.models.schnet">atomgen.models.schnet</a>
+</li>
+          <li><a href="reference/api/atomgen.models.tokengt.html#module-atomgen.models.tokengt">atomgen.models.tokengt</a>
+</li>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#module-atomgen.models.unimolplus">atomgen.models.unimolplus</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="N" class="genindex-section">
+  <h2>N</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.num_filters">num_filters (SchNetConfig attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.num_gaussians">num_gaussians (SchNetConfig attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.num_interactions">num_interactions (SchNetConfig attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="P" class="genindex-section">
+  <h2>P</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.pad">pad (DataCollatorForAtomModeling attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer.pad">pad() (AtomTokenizer method)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer.pad_coords">pad_coords() (AtomTokenizer method)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer.pad_fixed">pad_fixed() (AtomTokenizer method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer.pad_forces">pad_forces() (AtomTokenizer method)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.pad_to_multiple_of">pad_to_multiple_of (DataCollatorForAtomModeling attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.pad_token_id">pad_token_id (SchNetConfig attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.ParallelBlock">ParallelBlock (class in atomgen.models.tokengt)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.ParallelBlock">(class in atomgen.models.unimolplus)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="R" class="genindex-section">
+  <h2>R</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.readout">readout (SchNetConfig attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.return_edge_indices">return_edge_indices (DataCollatorForAtomModeling attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.return_lap_pe">return_lap_pe (DataCollatorForAtomModeling attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.return_tensors">return_tensors (DataCollatorForAtomModeling attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="S" class="genindex-section">
+  <h2>S</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer.save_vocabulary">save_vocabulary() (AtomTokenizer method)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig">SchNetConfig (class in atomgen.models.schnet)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetModel">SchNetModel (class in atomgen.models.schnet)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetPreTrainedModel">SchNetPreTrainedModel (class in atomgen.models.schnet)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.std">std (SchNetConfig attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Energy">Structure2Energy (class in atomgen.models.unimolplus)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.Structure2EnergyAndForces">Structure2EnergyAndForces (class in atomgen.models.tokengt)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2EnergyAndForces">(class in atomgen.models.unimolplus)</a>
+</li>
+        </ul></li>
+        <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Forces">Structure2Forces (class in atomgen.models.unimolplus)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetPreTrainedModel.supports_gradient_checkpointing">supports_gradient_checkpointing (SchNetPreTrainedModel attribute)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerPreTrainedModel.supports_gradient_checkpointing">(TransformerPreTrainedModel attribute)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerPreTrainedModel.supports_gradient_checkpointing">[1]</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="T" class="genindex-section">
+  <h2>T</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.tokenizer">tokenizer (DataCollatorForAtomModeling attribute)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_call">torch_call() (DataCollatorForAtomModeling method)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_compute_edges">torch_compute_edges() (DataCollatorForAtomModeling method)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_compute_lap_pe">torch_compute_lap_pe() (DataCollatorForAtomModeling method)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_mask_tokens">torch_mask_tokens() (DataCollatorForAtomModeling method)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_perturb_coords">torch_perturb_coords() (DataCollatorForAtomModeling method)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerConfig">TransformerConfig (class in atomgen.models.tokengt)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerConfig">(class in atomgen.models.unimolplus)</a>
+</li>
+        </ul></li>
+        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerEncoder">TransformerEncoder (class in atomgen.models.tokengt)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerEncoder">(class in atomgen.models.unimolplus)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerForCoordinateAM">TransformerForCoordinateAM (class in atomgen.models.tokengt)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForCoordinateAM">(class in atomgen.models.unimolplus)</a>
+</li>
+        </ul></li>
+        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerForMaskedAM">TransformerForMaskedAM (class in atomgen.models.tokengt)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForMaskedAM">(class in atomgen.models.unimolplus)</a>
+</li>
+        </ul></li>
+        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerModel">TransformerModel (class in atomgen.models.tokengt)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerModel">(class in atomgen.models.unimolplus)</a>
+</li>
+        </ul></li>
+        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerPreTrainedModel">TransformerPreTrainedModel (class in atomgen.models.tokengt)</a>
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerPreTrainedModel">(class in atomgen.models.unimolplus)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="V" class="genindex-section">
+  <h2>V</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.vocab_size">vocab_size (SchNetConfig attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, Vector AI Engineering
+            </div>
+            <!--
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+            -->
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/VectorInstitute/atomgen" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        <div class="footer-container" style="text-align: center;">
+          <div class="footer-small-text">
+              <br> All <a href="https://github.com/VectorInstitute/cyclops">source code for cyclops</a> is freely available under the terms of an <a href="https://opensource.org/licenses/Apache-2.0">Apache-2.0</a> license.
+          </div>
+
+          <div class="footer-small-text">
+            This work is made possible due to the data obtained from the <a href="https://www.geminimedicine.ca/">GEMINI study</a>.
+          </div>
+
+          <div class="logo">
+            <a class="logo" href="https://vectorinstitute.ai/">
+              <span class="logo"></span>
+              <img alt="Logo of the Vector Institute" style="width:90px; max-width:90px;" src="_static/logos/vector_logo.png" />
+            </a>
+            <a class="logo" href="https://www.geminimedicine.ca/">
+              <span class="logo"></span>
+              <img alt="Logo of GEMINI" style="width:90px; max-width:90px;" src="_static/logos/gemini_logo.png" />
+            </a>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div></body>
+</html>
