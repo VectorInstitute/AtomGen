@@ -6,7 +6,6 @@ from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
 
 import torch
 import torch.nn.functional as f
-from einops import rearrange
 from torch.nn.utils.rnn import pad_sequence
 from transformers import PreTrainedTokenizer
 from transformers.data.data_collator import DataCollatorMixin, _torch_collate_batch
@@ -154,7 +153,7 @@ class DataCollatorForAtomModeling(DataCollatorMixin):  # type: ignore
         batch, seq_len = inputs.shape
         num_token_masked = (seq_len * t).round().clamp(min=1)
         batch_randperm = torch.rand((batch, seq_len)).argsort(dim=-1)
-        mask = batch_randperm < rearrange(num_token_masked, "b -> b 1")
+        mask = batch_randperm < num_token_masked.unsqueeze(1)
         inputs = torch.where(
             mask,
             inputs,
@@ -171,7 +170,7 @@ class DataCollatorForAtomModeling(DataCollatorMixin):  # type: ignore
         batch, seq_len, _ = inputs.shape
         num_token_perturbed = (seq_len * t).round().clamp(min=1)
         batch_randperm = torch.rand((batch, seq_len)).argsort(dim=-1)
-        mask = batch_randperm < rearrange(num_token_perturbed, "b -> b 1")
+        mask = batch_randperm < num_token_perturbed.unsqueeze(1)
         labels = inputs.clone()
         noise = torch.empty_like(inputs).normal_(0, 0.1)
         t = t.unsqueeze(-1).unsqueeze(-1)
