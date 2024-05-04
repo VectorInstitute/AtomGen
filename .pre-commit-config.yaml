@@ -37,7 +37,7 @@ repos:
     rev: v1.19.0
     hooks:
       - id: typos
-        args: []
+        args: [--force-exclude]
 
   - repo: https://github.com/nbQA-dev/nbQA
     rev: 1.7.1
@@ -50,7 +50,7 @@ repos:
     - id: doctest
       name: doctest
       entry: python3 -m doctest -o NORMALIZE_WHITESPACE
-      files: "^aieng_template/"
+      files: "^atomgen/"
       language: system
 
   - repo: local

@@ -1,0 +1,19 @@
+{
+    "vocab_size": 122,
+    "hidden_channels": 128,
+    "num_filters": 128,
+    "num_interactions": 6,
+    "num_gaussians": 50,
+    "cutoff": 10.0,
+    "interaction_graph": null,
+    "max_num_neighbors": 32,
+    "readout": "add",
+    "dipole": false,
+    "mean": null,
+    "std": null,
+    "atomref": null,
+    "mask_token_id": 119,
+    "pad_token_id": 120,
+    "bos_token_id": 121,
+    "eos_token_id": 122
+}

@@ -2,65 +2,51 @@
 hide-toc: true
 ---
 
-# Vector AI Engineering template repository
-
 ```{toctree}
 :hidden:
 
 user_guide
-api
+reference/api/atomgen.data
+reference/api/atomgen.models
 
 ```
 
-This template repository can be used to bootstrap AI Engineering project repositories
-on Github! The template is meant for python codebases since Python is the most commonly
-used language by our team.
+# AtomGen Documentation
 
-The template includes:
+Welcome to the documentation for AtomGen, a toolkit for atomistic graph pre-training and generative modeling. AtomGen empowers researchers and developers with tools to explore, experiment, and innovate in the realm of atomistic graph analysis.
 
-- [pyproject.toml](https://pip.pypa.io/en/stable/reference/build-system/pyproject-toml/)
-file to specify repository information and manage dependencies using
-[Poetry](https://python-poetry.org/).
+## Overview
 
-- [README.md](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes) which should have basic information on why the project is
-useful, installation instructions and other information on how users can get started.
-
-- [.pre-commit-config.yaml](https://pre-commit.com/) for running pre-commit hooks that
-check for code-style, apply formatting, check for type hints and run tests.
-
-- [.github/pull_request_template.md](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository) for PRs.
-
-- [.github/ISSUE_TEMPLATE](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository) for bug reports and issues that can be raised on the repository.
-
-- [.github/workflows](https://docs.github.com/en/actions/using-workflows) for running CI
-workflows using Github actions. The template includes CI workflows for code checks,
-documentation building and releasing python packages to PyPI.
-
-- [LICENSE.md](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository) for adding a license to the project repository.
-By default, this is the [Apache-2.0 license](http://www.apache.org/licenses/). Please
-change according to your project!
-
-- [docs](https://pradyunsg.me/furo/) for adding project documentation. Typically
-projects should have API reference documentation, user guides and tutorials.
-
-- [CONTRIBUTING.md](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors) with basic guidelines on how others can
-contribute to the repository.
-
-- [CODE_OF_CONDUCT.md](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-code-of-conduct-to-your-project) with standards on how the community engages in
-a healthy and constructive manner.
-
-- [.gitignore](https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files)
-with some standard file extensions to be ignored by git. Please add/modify as necessary.
-
-- [codecov.yml](https://docs.codecov.com/docs/codecov-yaml) for using codecov.io to
-generate code coverage information for your repository. You would need to add codecov.io
-app as an [integration to your repository](https://docs.codecov.com/docs/how-to-create-a-github-app-for-codecov-enterprise).
+AtomGen provides a robust framework for handling atomistic graph datasets, training various models, and experimenting with different pre-training tasks. It streamlines the process of aggregation, standardization, and utilization of datasets from diverse sources, enabling large-scale pre-training and generative modeling on atomistic graphs.
 
 
-If you are starting a new project, you can navigate to the [Use this template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) button
-on the top right corner of the [template repository home page](https://github.com/VectorInstitute/aieng-template)
-which will allow you to bootstrap your project repo using this template.
+### Datasets
 
-Please check out the user guide page for more detailed information on using the
-template features. For existing projects, the [user guide](user_guide.md)
-can be followed to migrate to following the template more closely.
+AtomGen facilitates the aggregation and standardization of datasets, including but not limited to:
+
+- **S2EF Datasets**: Aggregated from multiple sources such as OC20, OC22, ODAC23, MPtrj, and SPICE with structures and energies for pre-training.
+
+- **Misc. Atomistic Graph Datasets**: Including Molecule3D, Protein Data Bank (PDB), and the Open Quantum Materials Database (OQMD).
+
+Currently, AtomGen has pre-processed datasets for the S2EF pre-training task for OC20 and a mixed dataset of OC20, OC22, ODAC23, MPtrj, and SPICE.  They have been uploaded to huggingface hub and can be accessed using the datasets API.
+
+### Models
+
+AtomGen supports a variety of models for training on atomistic graph datasets, including:
+
+
+- SchNet
+- TokenGT
+- Uni-Mol+ (Modified)
+
+### Tasks
+
+Experimentation with pre-training tasks is facilitated through AtomGen, including:
+
+- **Structure to Energy & Forces**: Predicting energies and forces for atomistic graphs.
+
+- **Masked Atom Modeling**: Masking atoms and predicting their properties.
+
+- **Coordinate Denoising**: Denoising atom coordinates.
+
+These tasks are all facilitated through the ```DataCollatorForAtomModeling``` class and can be used simultaneously or individually.
