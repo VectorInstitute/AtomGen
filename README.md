@@ -4,8 +4,8 @@
 [![code checks](https://github.com/VectorInstitute/atomgen/actions/workflows/code_checks.yml/badge.svg)](https://github.com/VectorInstitute/atomgen/actions/workflows/code_checks.yml)
 [![integration tests](https://github.com/VectorInstitute/atomgen/actions/workflows/integration_tests.yml/badge.svg)](https://github.com/VectorInstitute/atomgen/actions/workflows/integration_tests.yml)
 [![docs](https://github.com/VectorInstitute/atomgen/actions/workflows/docs_deploy.yml/badge.svg)](https://github.com/VectorInstitute/atomgen/actions/workflows/docs_deploy.yml)
-[![codecov](https://codecov.io/gh/VectorInstitute/atomgen/branch/main/graph/badge.svg)](https://codecov.io/gh/VectorInstitute/atomgen)
-[![license](https://img.shields.io/github/license/VectorInstitute/atomgen.svg)](https://github.com/VectorInstitute/atomgen/blob/main/LICENSE)
+<!-- [![codecov](https://codecov.io/gh/VectorInstitute/atomgen/branch/main/graph/badge.svg)](https://codecov.io/gh/VectorInstitute/atomgen) -->
+[![license](https://img.shields.io/github/license/VectorInstitute/cyclops.svg)](https://github.com/VectorInstitute/atomgen/blob/main/LICENSE)
 
 ## Table of Contents
 
