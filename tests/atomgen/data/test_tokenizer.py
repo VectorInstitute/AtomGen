@@ -1,4 +1,5 @@
 """Test AtomTokenizer."""
+
 from atomgen.data.tokenizer import AtomTokenizer
 
 

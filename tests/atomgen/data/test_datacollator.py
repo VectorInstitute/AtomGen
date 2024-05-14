@@ -1,4 +1,5 @@
 """Tests for DataCollator."""
+
 import torch
 
 from atomgen.data.data_collator import DataCollatorForAtomModeling
