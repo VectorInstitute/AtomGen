@@ -34,10 +34,9 @@ Currently, AtomGen has pre-processed datasets for the S2EF pre-training task for
 
 AtomGen supports a variety of models for training on atomistic graph datasets, including:
 
-
+- AtomFormer
 - SchNet
 - TokenGT
-- Uni-Mol+ (Modified)
 
 ### Tasks
 
