@@ -1,12 +1,12 @@
-"""Implementation of the Uni-mol+ model with alterations to the original model."""
+"""Implementation of the Atomformer model."""
 
 from typing import Any, Optional, Tuple
 
 import torch
 import torch.nn.functional as f
 from torch import nn
-from transformers.configuration_utils import PretrainedConfig
 from transformers.modeling_utils import PreTrainedModel
+from .configuration_atomformer import AtomformerConfig
 
 
 ATOM_METADATA = [
@@ -2295,7 +2295,7 @@ class ParallelBlock(nn.Module):
     """Parallel transformer block (MLP & Attention in parallel).
 
     Based on:
-      'Scaling Vision Transformers to 22 Billion Parameters` - https://arxiv.org/abs/2302.05442
+      'Scaling Vision Atomformers to 22 Billion Parameters` - https://arxiv.org/abs/2302.05442
 
     Adapted from TIMM implementation.
     """
@@ -2307,8 +2307,6 @@ class ParallelBlock(nn.Module):
         mlp_ratio: int = 4,
         dropout: float = 0.0,
         k: int = 128,
-        op_hidden_dim: int = 16,
-        tr_hidden_dim: int = 16,
         gradient_checkpointing: bool = False,
     ):
         super().__init__()
@@ -2389,59 +2387,14 @@ class ParallelBlock(nn.Module):
         return x, pos_embed
 
 
-class TransformerConfig(PretrainedConfig):  # type: ignore
-    r"""
-    Configuration of a :class:`~transform:class:`~transformers.UniMolPlusModel`.
-
-    It is used to instantiate an UniMolPlus model according to the specified arguments.
-    """
-
-    model_type = "transformer"
-
-    def __init__(
-        self,
-        vocab_size: int = 123,
-        dim: int = 768,
-        num_heads: int = 32,
-        depth: int = 12,
-        mlp_ratio: int = 1,
-        k: int = 128,
-        op_hidden_dim: int = 16,
-        tr_hidden_dim: int = 16,
-        dropout: float = 0.0,
-        mask_token_id: int = 0,
-        pad_token_id: int = 119,
-        bos_token_id: int = 120,
-        eos_token_id: int = 121,
-        cls_token_id: int = 122,
-        **kwargs: Any,
-    ) -> None:
-        super().__init__(**kwargs)
-        self.vocab_size = vocab_size
-        self.dim = dim
-        self.num_heads = num_heads
-        self.depth = depth
-        self.mlp_ratio = mlp_ratio
-        self.k = k
-        self.op_hidden_dim = op_hidden_dim
-        self.tr_hidden_dim = tr_hidden_dim
-
-        self.dropout = dropout
-        self.mask_token_id = mask_token_id
-        self.pad_token_id = pad_token_id
-        self.bos_token_id = bos_token_id
-        self.eos_token_id = eos_token_id
-        self.cls_token_id = cls_token_id
-
-
-class TransformerEncoder(nn.Module):
-    """UniMolPlus Transformer encoder.
+class AtomformerEncoder(nn.Module):
+    """Atomformer encoder.
 
     The transformer encoder consists of a series of parallel blocks,
     each containing a multi-head self-attention mechanism and a feed-forward network.
     """
 
-    def __init__(self, config: TransformerConfig):
+    def __init__(self, config: AtomformerConfig):
         super().__init__()
         self.vocab_size = config.vocab_size
         self.dim = config.dim
@@ -2450,8 +2403,6 @@ class TransformerEncoder(nn.Module):
         self.mlp_ratio = config.mlp_ratio
         self.dropout = config.dropout
         self.k = config.k
-        self.op_hidden_dim = config.op_hidden_dim
-        self.tr_hidden_dim = config.tr_hidden_dim
         self.gradient_checkpointing = config.gradient_checkpointing
 
         self.metadata_vocab = nn.Embedding(self.vocab_size, 17)
@@ -2478,8 +2429,6 @@ class TransformerEncoder(nn.Module):
                     self.mlp_ratio,
                     self.dropout,
                     self.k,
-                    self.op_hidden_dim,
-                    self.tr_hidden_dim,
                     self.gradient_checkpointing,
                 )
             )
@@ -2570,10 +2519,10 @@ class TransformerEncoder(nn.Module):
         return input_embeds, pos_embeds
 
 
-class TransformerPreTrainedModel(PreTrainedModel):  # type: ignore
+class AtomformerPreTrainedModel(PreTrainedModel):  # type: ignore
     """Base class for all transformer models."""
 
-    config_class = TransformerConfig
+    config_class = AtomformerConfig
     base_model_prefix = "model"
     supports_gradient_checkpointing = True
     _no_split_modules = ["ParallelBlock"]
@@ -2581,17 +2530,17 @@ class TransformerPreTrainedModel(PreTrainedModel):  # type: ignore
     def _set_gradient_checkpointing(
         self, module: nn.Module, value: bool = False
     ) -> None:
-        if isinstance(module, (TransformerEncoder)):
+        if isinstance(module, (AtomformerEncoder)):
             module.gradient_checkpointing = value
 
 
-class TransformerModel(TransformerPreTrainedModel):
-    """Transformer model for atom modeling."""
+class AtomformerModel(AtomformerPreTrainedModel):
+    """Atomformer model for atom modeling."""
 
-    def __init__(self, config: TransformerConfig):
+    def __init__(self, config: AtomformerConfig):
         super().__init__(config)
         self.config = config
-        self.encoder = TransformerEncoder(config)
+        self.encoder = AtomformerEncoder(config)
 
     def forward(
         self,
@@ -2604,13 +2553,13 @@ class TransformerModel(TransformerPreTrainedModel):
         return output
 
 
-class TransformerForMaskedAM(TransformerPreTrainedModel):
-    """Transformer with an atom modeling head on top for masked atom modeling."""
+class AtomformerForMaskedAM(AtomformerPreTrainedModel):
+    """Atomformer with an atom modeling head on top for masked atom modeling."""
 
-    def __init__(self, config: TransformerConfig):
+    def __init__(self, config: AtomformerConfig):
         super().__init__(config)
         self.config = config
-        self.encoder = TransformerEncoder(config)
+        self.encoder = AtomformerEncoder(config)
         self.am_head = nn.Linear(config.dim, config.vocab_size, bias=False)
 
     def forward(
@@ -2634,13 +2583,13 @@ class TransformerForMaskedAM(TransformerPreTrainedModel):
         return loss, logits
 
 
-class TransformerForCoordinateAM(TransformerPreTrainedModel):
-    """Transformer with an atom coordinate head on top for coordinate denoising."""
+class AtomformerForCoordinateAM(AtomformerPreTrainedModel):
+    """Atomformer with an atom coordinate head on top for coordinate denoising."""
 
-    def __init__(self, config: TransformerConfig):
+    def __init__(self, config: AtomformerConfig):
         super().__init__(config)
         self.config = config
-        self.encoder = TransformerEncoder(config)
+        self.encoder = AtomformerEncoder(config)
         self.coords_head = nn.Linear(config.dim, 3)
 
     def forward(
@@ -2664,13 +2613,13 @@ class TransformerForCoordinateAM(TransformerPreTrainedModel):
         return loss, coords_pred
 
 
-class InitialStructure2RelaxedStructure(TransformerPreTrainedModel):
-    """Transformer with an coordinate head on top for relaxed structure prediction."""
+class InitialStructure2RelaxedStructure(AtomformerPreTrainedModel):
+    """Atomformer with an coordinate head on top for relaxed structure prediction."""
 
-    def __init__(self, config: TransformerConfig):
+    def __init__(self, config: AtomformerConfig):
         super().__init__(config)
         self.config = config
-        self.encoder = TransformerEncoder(config)
+        self.encoder = AtomformerEncoder(config)
         self.coords_head = nn.Linear(config.dim, 3)
 
     def forward(
@@ -2697,13 +2646,13 @@ class InitialStructure2RelaxedStructure(TransformerPreTrainedModel):
         return loss, coords_pred
 
 
-class InitialStructure2RelaxedEnergy(TransformerPreTrainedModel):
-    """Transformer with an energy head on top for relaxed energy prediction."""
+class InitialStructure2RelaxedEnergy(AtomformerPreTrainedModel):
+    """Atomformer with an energy head on top for relaxed energy prediction."""
 
-    def __init__(self, config: TransformerConfig):
+    def __init__(self, config: AtomformerConfig):
         super().__init__(config)
         self.config = config
-        self.encoder = TransformerEncoder(config)
+        self.encoder = AtomformerEncoder(config)
         self.energy_norm = nn.LayerNorm(config.dim)
         self.energy_head = nn.Linear(config.dim, 1, bias=False)
 
@@ -2727,13 +2676,13 @@ class InitialStructure2RelaxedEnergy(TransformerPreTrainedModel):
         return loss, energy
 
 
-class InitialStructure2RelaxedStructureAndEnergy(TransformerPreTrainedModel):
-    """Transformer with an coordinate and energy head."""
+class InitialStructure2RelaxedStructureAndEnergy(AtomformerPreTrainedModel):
+    """Atomformer with an coordinate and energy head."""
 
-    def __init__(self, config: TransformerConfig):
+    def __init__(self, config: AtomformerConfig):
         super().__init__(config)
         self.config = config
-        self.encoder = TransformerEncoder(config)
+        self.encoder = AtomformerEncoder(config)
         self.energy_norm = nn.LayerNorm(config.dim)
         self.energy_head = nn.Linear(config.dim, 1, bias=False)
         self.coords_head = nn.Linear(config.dim, 3)
@@ -2779,13 +2728,13 @@ class InitialStructure2RelaxedStructureAndEnergy(TransformerPreTrainedModel):
         return loss, (formation_energy_pred, coords_pred)
 
 
-class Structure2Energy(TransformerPreTrainedModel):
-    """Transformer with an atom modeling head on top for masked atom modeling."""
+class Structure2Energy(AtomformerPreTrainedModel):
+    """Atomformer with an atom modeling head on top for masked atom modeling."""
 
-    def __init__(self, config: TransformerConfig):
+    def __init__(self, config: AtomformerConfig):
         super().__init__(config)
         self.config = config
-        self.encoder = TransformerEncoder(config)
+        self.encoder = AtomformerEncoder(config)
         self.energy_norm = nn.LayerNorm(config.dim)
         self.formation_energy_head = nn.Linear(config.dim, 1, bias=False)
 
@@ -2821,13 +2770,13 @@ class Structure2Energy(TransformerPreTrainedModel):
         )
 
 
-class Structure2Forces(TransformerPreTrainedModel):
-    """Transformer with a forces head on top for forces prediction."""
+class Structure2Forces(AtomformerPreTrainedModel):
+    """Atomformer with a forces head on top for forces prediction."""
 
-    def __init__(self, config: TransformerConfig):
+    def __init__(self, config: AtomformerConfig):
         super().__init__(config)
         self.config = config
-        self.encoder = TransformerEncoder(config)
+        self.encoder = AtomformerEncoder(config)
         self.force_norm = nn.LayerNorm(config.dim)
         self.force_head = nn.Linear(config.dim, 3)
         self.energy_norm = nn.LayerNorm(config.dim)
@@ -2863,13 +2812,13 @@ class Structure2Forces(TransformerPreTrainedModel):
         )
 
 
-class Structure2EnergyAndForces(TransformerPreTrainedModel):
-    """Transformer with an energy and forces head for energy and forces prediction."""
+class Structure2EnergyAndForces(AtomformerPreTrainedModel):
+    """Atomformer with an energy and forces head for energy and forces prediction."""
 
-    def __init__(self, config: TransformerConfig):
+    def __init__(self, config: AtomformerConfig):
         super().__init__(config)
         self.config = config
-        self.encoder = TransformerEncoder(config)
+        self.encoder = AtomformerEncoder(config)
         self.force_norm = nn.LayerNorm(config.dim)
         self.force_head = nn.Linear(config.dim, 3)
         self.energy_norm = nn.LayerNorm(config.dim)
