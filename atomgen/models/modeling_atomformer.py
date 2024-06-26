@@ -1,11 +1,12 @@
 """Implementation of the Atomformer model."""
 
-from typing import Any, Optional, Tuple
+from typing import Optional, Tuple
 
 import torch
 import torch.nn.functional as f
 from torch import nn
 from transformers.modeling_utils import PreTrainedModel
+
 from .configuration_atomformer import AtomformerConfig
 
 
