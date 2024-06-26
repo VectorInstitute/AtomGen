@@ -1,5 +1,7 @@
-from transformers.configuration_utils import PretrainedConfig
 from typing import Any
+
+from transformers.configuration_utils import PretrainedConfig
+
 
 class AtomformerConfig(PretrainedConfig):  # type: ignore
     r"""
