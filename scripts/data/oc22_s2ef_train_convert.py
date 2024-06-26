@@ -1,5 +1,8 @@
+"""Scripts to pre-process OC22 dataset into a HuggingFace dataset."""
+
 import argparse
 import glob
+from typing import Any, Dict, List
 
 import numpy as np
 from datasets import Dataset, concatenate_datasets, load_from_disk
@@ -7,8 +10,9 @@ from ocpmodels.datasets import LmdbDataset
 from tqdm import tqdm
 
 
-def process_data(db_path, output_dir):
-    dataset = {
+def process_data(db_path: str, output_dir: str) -> None:
+    """Process a LMDB file."""
+    dataset: Dict[str, List[Any]] = {
         "input_ids": [],
         "coords": [],
         "forces": [],
@@ -24,11 +28,12 @@ def process_data(db_path, output_dir):
         dataset["formation_energy"].append(np.array(0).astype("float32"))
         dataset["total_energy"].append(np.array(db[j].y).astype("float32"))
         dataset["has_formation_energy"].append(False)
-    dataset = Dataset.from_dict(dataset)
-    dataset.save_to_disk(f'{output_dir}/{db_path.split("/")[-1].split(".")[-2]}')
+    hf_dataset = Dataset.from_dict(dataset)
+    hf_dataset.save_to_disk(f'{output_dir}/{db_path.split("/")[-1].split(".")[-2]}')
 
 
-def main(args):
+def main(args: argparse.Namespace) -> None:
+    """Process the OC22 dataset."""
     # Process LMDB files
     oc22_dbs = glob.glob(f"{args.input_dir}/*.lmdb")
     oc22_dbs = sorted(oc22_dbs, key=lambda x: int(x.split("/")[-1].split(".")[-2]))
@@ -37,7 +42,7 @@ def main(args):
         process_data(db_path, args.output_dir)
 
     # Concatenate processed datasets
-    datasets = []
+    datasets: List[Dataset] = []
     oc22_s2ef_paths = glob.glob(f"{args.output_dir}/*")
     oc22_s2ef_paths = sorted(oc22_s2ef_paths, key=lambda x: int(x.split("/")[-1]))
 

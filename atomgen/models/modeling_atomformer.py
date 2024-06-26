@@ -7,7 +7,7 @@ import torch.nn.functional as f
 from torch import nn
 from transformers.modeling_utils import PreTrainedModel
 
-from .configuration_atomformer import AtomformerConfig
+from atomgen.models.configuration_atomformer import AtomformerConfig
 
 
 ATOM_METADATA = [

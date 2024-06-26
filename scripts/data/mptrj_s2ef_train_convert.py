@@ -1,5 +1,8 @@
+"""Scripts to pre-process MPtrj dataset into a HuggingFace dataset."""
+
 import argparse
 import json
+from typing import Any, Dict
 
 import numpy as np
 from datasets import Dataset
@@ -7,7 +10,8 @@ from pymatgen.core import Structure
 from tqdm import tqdm
 
 
-def process_json_chunk(chunk):
+def process_json_chunk(chunk: str) -> Dict[str, Any]:
+    """Process a chunk of JSON data and return a dictionary with the processed data."""
     json_loaded = json.loads(chunk)
     struct = Structure.from_dict(json_loaded["structure"])
 
@@ -26,10 +30,11 @@ def process_json_chunk(chunk):
     }
 
 
-def main(args):
+def main(args: argparse.Namespace) -> None:
+    """Process the MPtrj dataset."""
     with open(args.input_file, "r") as file:
         output = ""
-        dataset = {
+        dataset: Dict[str, Any] = {
             "input_ids": [],
             "coords": [],
             "forces": [],
@@ -63,8 +68,10 @@ def main(args):
                         output = output[end:]
 
                         if num_samples == args.samples_per_dataset:
-                            dataset = Dataset.from_dict(dataset)
-                            dataset.save_to_disk(f"{args.output_dir}/{num_datasets}")
+                            dataset_obj = Dataset.from_dict(dataset)
+                            dataset_obj.save_to_disk(
+                                f"{args.output_dir}/{num_datasets}"
+                            )
                             num_datasets += 1
                             num_samples = 0
                             dataset = {
@@ -91,8 +98,8 @@ def main(args):
 
         # Save any remaining data
         if num_samples > 0:
-            dataset = Dataset.from_dict(dataset)
-            dataset.save_to_disk(f"{args.output_dir}/{num_datasets}")
+            dataset_obj = Dataset.from_dict(dataset)
+            dataset_obj.save_to_disk(f"{args.output_dir}/{num_datasets}")
 
         # Concatenate all datasets
         all_datasets = [

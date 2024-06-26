@@ -1,3 +1,5 @@
+"""Configuration class for Atomformer."""
+
 from typing import Any
 
 from transformers.configuration_utils import PretrainedConfig

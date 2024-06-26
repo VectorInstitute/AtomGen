@@ -1,6 +1,9 @@
+"""Scripts to pre-process ODAC23 dataset into a HuggingFace dataset."""
+
 import argparse
 import glob
 from multiprocessing import Pool
+from typing import Any, Dict, List
 
 import numpy as np
 from datasets import Dataset, concatenate_datasets, load_from_disk
@@ -8,9 +11,10 @@ from ocpmodels.datasets import LmdbDataset
 from tqdm import tqdm
 
 
-def process_data(db_paths, output_dir):
+def process_data(db_paths: List[str], output_dir: str) -> None:
+    """Process a chunk of data."""
     for db_path in db_paths:
-        dataset = {
+        dataset_dict: Dict[str, List[Any]] = {
             "input_ids": [],
             "coords": [],
             "forces": [],
@@ -20,17 +24,18 @@ def process_data(db_paths, output_dir):
         }
         db = LmdbDataset(config={"src": db_path})
         for i in range(len(db)):
-            dataset["input_ids"].append(db[i].atomic_numbers.short())
-            dataset["coords"].append(db[i].pos)
-            dataset["forces"].append(db[i].force)
-            dataset["formation_energy"].append(np.array(db[i].y).astype("float32"))
-            dataset["total_energy"].append(np.array(db[i].raw_y).astype("float32"))
-            dataset["has_formation_energy"].append(True)
-        dataset = Dataset.from_dict(dataset)
+            dataset_dict["input_ids"].append(db[i].atomic_numbers.short())
+            dataset_dict["coords"].append(db[i].pos)
+            dataset_dict["forces"].append(db[i].force)
+            dataset_dict["formation_energy"].append(np.array(db[i].y).astype("float32"))
+            dataset_dict["total_energy"].append(np.array(db[i].raw_y).astype("float32"))
+            dataset_dict["has_formation_energy"].append(True)
+        dataset = Dataset.from_dict(dataset_dict)
         dataset.save_to_disk(f'{output_dir}/{db_path.split("/")[-1].split(".")[-2]}')
 
 
-def main(args):
+def main(args: argparse.Namespace) -> None:
+    """Process the ODAC23 dataset."""
     # Process LMDB files
     odac23_dbs = glob.glob(f"{args.input_dir}/*.lmdb")
     odac23_dbs = sorted(odac23_dbs, key=lambda x: int(x.split("/")[-1].split(".")[-2]))
@@ -38,11 +43,11 @@ def main(args):
     num_processes = args.num_processes
     chunks = odac23_dbs
     chunk_size = len(chunks) // num_processes
-    chunks = [chunks[i : i + chunk_size] for i in range(0, len(chunks), chunk_size)]
+    chunks = [chunks[i : i + chunk_size] for i in range(0, len(chunks), chunk_size)]  # type: ignore
 
     with Pool(num_processes) as pool:
         for _ in tqdm(
-            pool.imap_unordered(lambda x: process_data(x, args.output_dir), chunks),
+            pool.imap_unordered(lambda x: process_data(x, args.output_dir), chunks),  # type: ignore
             total=len(chunks),
         ):
             pass

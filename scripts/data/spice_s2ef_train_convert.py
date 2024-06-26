@@ -1,14 +1,18 @@
+"""Convert the SPICE dataset into a HuggingFace dataset."""
+
 import argparse
+from typing import Any, Dict, List
 
 import h5py
 from datasets import Dataset
 from tqdm import tqdm
 
 
-def process_hdf5_file(file_path, output_path):
+def process_hdf5_file(file_path: str, output_path: str) -> None:
+    """Process the SPICE dataset."""
     with h5py.File(file_path, "r") as f:
         keys = list(f.keys())
-        dataset = {
+        dataset: Dict[str, List[Any]] = {
             "input_ids": [],
             "coords": [],
             "forces": [],
@@ -35,11 +39,12 @@ def process_hdf5_file(file_path, output_path):
                 )
                 dataset["has_formation_energy"].append(True)
 
-        dataset = Dataset.from_dict(dataset)
-        dataset.save_to_disk(output_path)
+        hf_dataset = Dataset.from_dict(dataset)
+        hf_dataset.save_to_disk(output_path)
 
 
-def main(args):
+def main(args: Any) -> None:
+    """Process the SPICE dataset."""
     process_hdf5_file(args.input_file, args.output_path)
 
 

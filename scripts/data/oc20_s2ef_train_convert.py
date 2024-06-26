@@ -1,8 +1,11 @@
+"""Scripts to pre-process OC20 dataset into a HuggingFace dataset."""
+
 import argparse
 import glob
 import lzma
 import os
 from multiprocessing import Pool
+from typing import Any, List, Tuple
 
 import pandas as pd
 from ase import io
@@ -10,27 +13,28 @@ from datasets import Dataset, concatenate_datasets, load_from_disk
 from tqdm import tqdm
 
 
-def extract_xz(xz_path):
+def extract_xz(xz_path: str) -> str:
+    """Extract a .xz file and returns the path to the extracted file."""
     output_path = xz_path.replace(".xz", "")
-    with lzma.open(xz_path) as f:
-        with open(output_path, "wb") as out:
-            file_content = f.read()
-            out.write(file_content)
+    with lzma.open(xz_path) as f, open(output_path, "wb") as out:
+        file_content = f.read()
+        out.write(file_content)
     return output_path
 
 
-def extract_txt(txt_path):
+def extract_txt(txt_path: str) -> str:
+    """Extract a .txt file and returns the path to the extracted file."""
     output_path = txt_path.replace(".xz", "")
-    with lzma.open(txt_path) as f:
-        with open(output_path, "wb") as out:
-            file_content = f.read()
-            out.write(file_content)
+    with lzma.open(txt_path) as f, open(output_path, "wb") as out:
+        file_content = f.read()
+        out.write(file_content)
     return output_path
 
 
-def process_data(xz_txt_paths):
+def process_data(xz_txt_paths: List[Tuple[str, str, str]]) -> None:
+    """Process a chunk of data."""
     for xz_txt_path in xz_txt_paths:
-        dataset = {
+        dataset_dict: dict[str, List[Any]] = {
             "input_ids": [],
             "coords": [],
             "forces": [],
@@ -49,27 +53,30 @@ def process_data(xz_txt_paths):
         os.remove(energy_path)
 
         for i in range(len(atoms)):
-            dataset["input_ids"].append(atoms[i].get_atomic_numbers().astype("int16"))
-            dataset["coords"].append(atoms[i].get_positions().astype("float32"))
-            dataset["forces"].append(
+            dataset_dict["input_ids"].append(
+                atoms[i].get_atomic_numbers().astype("int16")
+            )
+            dataset_dict["coords"].append(atoms[i].get_positions().astype("float32"))
+            dataset_dict["forces"].append(
                 atoms[i].get_forces(apply_constraint=False).astype("float32")
             )
-            dataset["formation_energy"].append(
+            dataset_dict["formation_energy"].append(
                 atoms[i].get_potential_energy(apply_constraint=False).astype("float32")
                 - meta.iloc[i]["reference_energy"].astype("float32")
             )
-            dataset["total_energy"].append(
+            dataset_dict["total_energy"].append(
                 atoms[i].get_potential_energy(apply_constraint=False).astype("float32")
             )
-            dataset["has_formation_energy"].append(True)
+            dataset_dict["has_formation_energy"].append(True)
 
-        dataset = Dataset.from_dict(dataset)
+        dataset = Dataset.from_dict(dataset_dict)
         dataset.save_to_disk(
             os.path.join(output_dir, f'{xz_path.split("/")[-1].split(".")[0]}')
         )
 
 
-def main():
+def main() -> None:
+    """Process the OC20 S2EF dataset."""
     parser = argparse.ArgumentParser(description="Process OC20 S2EF data")
     parser.add_argument(
         "--split", type=str, help='The value to replace "val_id" in the paths'
@@ -102,18 +109,13 @@ def main():
     )
 
     # Split data into chunks for parallel processing
-    chunks = [
-        (xz, txt, dir)
-        for xz, txt, dir in zip(
-            oc20_s2ef_xz, oc20_s2ef_txt, [output_dir] * len(oc20_s2ef_xz)
-        )
-    ]
+    chunks = list(zip(oc20_s2ef_xz, oc20_s2ef_txt, [output_dir] * len(oc20_s2ef_xz)))
     chunk_size = len(chunks) // args.num_processes
-    chunks = [chunks[i : i + chunk_size] for i in range(0, len(chunks), chunk_size)]
+    chunks = [chunks[i : i + chunk_size] for i in range(0, len(chunks), chunk_size)]  # type: ignore
 
     # Create a pool of processes
     with Pool(args.num_processes) as pool:
-        for _ in tqdm(pool.imap_unordered(process_data, chunks), total=len(chunks)):
+        for _ in tqdm(pool.imap_unordered(process_data, chunks), total=len(chunks)):  # type: ignore
             pass
 
     datasets = []

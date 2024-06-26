@@ -1,3 +1,5 @@
+"""Script to pre-train the Structure2EnergyAndForces model on the S2EF-15M dataset."""
+
 import argparse
 import os
 
@@ -12,7 +14,8 @@ from atomgen.models.configuration_atomformer import AtomformerConfig
 from atomgen.models.modeling_atomformer import Structure2EnergyAndForces
 
 
-def parse_arguments():
+def parse_arguments() -> argparse.Namespace:
+    """Parse command-line arguments."""
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--seed", type=int, default=42, help="seed for the training run"
@@ -136,7 +139,8 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def train(args):
+def train(args: argparse.Namespace) -> None:
+    """Train the Structure2EnergyAndForces model."""
     args.output_dir = os.path.join(args.output_dir, args.name)
 
     torch.manual_seed(args.seed)
