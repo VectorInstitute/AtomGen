@@ -10,10 +10,10 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
+- [Installation](#installation)
 - [Datasets](#datasets)
 - [Models](#models)
 - [Tasks](#tasks)
-- [Installation](#installation)
 - [Developing](#🧑🏿‍💻-developing)
 
 ## Introduction
@@ -21,6 +21,16 @@
 AtomGen provides a robust framework for handling atomistic graph datasets focusing on transformer-based implementations. We provide utilities for training various models, experimenting with different pre-training tasks, and pre-trained models.
 
 It streamlines the process of aggregation, standardization, and utilization of datasets from diverse sources, enabling large-scale pre-training and generative modeling on atomistic graphs.
+
+
+## Installation
+
+The package can be installed using poetry:
+
+```bash
+python3 -m poetry install
+source $(poetry env info --path)/bin/activate
+```
 
 ## Datasets
 
@@ -36,9 +46,9 @@ Currently, AtomGen has pre-processed datasets for the S2EF pre-training task for
 
 AtomGen supports a variety of models for training on atomistic graph datasets, including:
 
-  - SchNet
-  - TokenGT
-  - Uni-Mol+ (Modified)
+  - **[SchNet](https://arxiv.org/abs/1706.08566)**: A continuous-filter convolutional neural network for modeling quantum interactions.
+  - **[TokenGT](https://github.com/jw9730/tokengt)**: Tokenized graph transformer that treats all nodes and edges as independent tokens.
+  - **AtomFormer**: Custom architecture that leverages gaussian pair-wise positional embeddings and self-attention to model atomistic graphs.
 
 ## Tasks
 
@@ -50,16 +60,7 @@ Experimentation with pre-training tasks is facilitated through AtomGen, includin
 
   - **Coordinate Denoising**: Denoising atom coordinates.
 
-These tasks are all facilitated through the DataCollatorForAtomModeling class and can be used simultaneously or individually.
-
-## Installation
-
-The package can be installed using poetry:
-
-```bash
-python3 -m poetry install
-source $(poetry env info --path)/bin/activate
-```
+These tasks are all facilitated through the `DataCollatorForAtomModeling` class and can be used simultaneously or individually.
 
 
 ## 🧑🏿‍💻 Developing

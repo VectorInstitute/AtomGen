@@ -1,8 +1,8 @@
 {
     "vocab_size": 123,
-    "dim": 768,
-    "num_heads": 32,
-    "depth": 12,
+    "dim": 128,
+    "num_heads": 4,
+    "depth": 2,
     "mlp_ratio": 4,
     "k": 128,
     "op_hidden_dim": 16,
