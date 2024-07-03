@@ -189,9 +189,10 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="reference/api/atomgen.models.html">atomgen.models package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of atomgen.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.configuration_atomformer.html">atomgen.models.configuration_atomformer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.modeling_atomformer.html">atomgen.models.modeling_atomformer module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.schnet.html">atomgen.models.schnet module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.tokengt.html">atomgen.models.tokengt module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.unimolplus.html">atomgen.models.unimolplus module</a></li>
 </ul>
 </li>
 </ul>
@@ -236,6 +237,18 @@
   <h2>A</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.configuration_atomformer.html#atomgen.models.configuration_atomformer.AtomformerConfig">AtomformerConfig (class in atomgen.models.configuration_atomformer)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerEncoder">AtomformerEncoder (class in atomgen.models.modeling_atomformer)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForCoordinateAM">AtomformerForCoordinateAM (class in atomgen.models.modeling_atomformer)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForMaskedAM">AtomformerForMaskedAM (class in atomgen.models.modeling_atomformer)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerModel">AtomformerModel (class in atomgen.models.modeling_atomformer)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerPreTrainedModel">AtomformerPreTrainedModel (class in atomgen.models.modeling_atomformer)</a>
+</li>
         <li>
     atomgen
 
@@ -264,6 +277,8 @@
           <li><a href="reference/api/atomgen.data.tokenizer.html#module-atomgen.data.tokenizer">module</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     atomgen.models
 
@@ -271,8 +286,20 @@
           <li><a href="reference/api/atomgen.models.html#module-atomgen.models">module</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    atomgen.models.configuration_atomformer
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.configuration_atomformer.html#module-atomgen.models.configuration_atomformer">module</a>
+</li>
+        </ul></li>
+        <li>
+    atomgen.models.modeling_atomformer
+
+        <ul>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#module-atomgen.models.modeling_atomformer">module</a>
+</li>
+        </ul></li>
         <li>
     atomgen.models.schnet
 
@@ -287,13 +314,6 @@
           <li><a href="reference/api/atomgen.models.tokengt.html#module-atomgen.models.tokengt">module</a>
 </li>
         </ul></li>
-        <li>
-    atomgen.models.unimolplus
-
-        <ul>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#module-atomgen.models.unimolplus">module</a>
-</li>
-        </ul></li>
         <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.atomref">atomref (SchNetConfig attribute)</a>
 </li>
         <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer">AtomTokenizer (class in atomgen.data.tokenizer)</a>
@@ -306,10 +326,12 @@
   <h2>B</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetPreTrainedModel.base_model_prefix">base_model_prefix (SchNetPreTrainedModel attribute)</a>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerPreTrainedModel.base_model_prefix">base_model_prefix (AtomformerPreTrainedModel attribute)</a>
 
         <ul>
-          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerPreTrainedModel.base_model_prefix">(TransformerPreTrainedModel attribute)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerPreTrainedModel.base_model_prefix">[1]</a>
+          <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetPreTrainedModel.base_model_prefix">(SchNetPreTrainedModel attribute)</a>
+</li>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerPreTrainedModel.base_model_prefix">(TransformerPreTrainedModel attribute)</a>
 </li>
         </ul></li>
     </ul></td>
@@ -328,10 +350,12 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.causal">causal (DataCollatorForAtomModeling attribute)</a>
 </li>
-        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetPreTrainedModel.config_class">config_class (SchNetPreTrainedModel attribute)</a>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerPreTrainedModel.config_class">config_class (AtomformerPreTrainedModel attribute)</a>
 
         <ul>
-          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerPreTrainedModel.config_class">(TransformerPreTrainedModel attribute)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerPreTrainedModel.config_class">[1]</a>
+          <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetPreTrainedModel.config_class">(SchNetPreTrainedModel attribute)</a>
+</li>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerPreTrainedModel.config_class">(TransformerPreTrainedModel attribute)</a>
 </li>
         </ul></li>
     </ul></td>
@@ -376,32 +400,40 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.flatten_batch">flatten_batch() (DataCollatorForAtomModeling method)</a>
 </li>
-        <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.GaussianLayer.forward">forward() (GaussianLayer method)</a>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerEncoder.forward">forward() (AtomformerEncoder method)</a>
 
         <ul>
-          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedEnergy.forward">(InitialStructure2RelaxedEnergy method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedEnergy.forward">[1]</a>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForCoordinateAM.forward">(AtomformerForCoordinateAM method)</a>
 </li>
-          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedStructure.forward">(InitialStructure2RelaxedStructure method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructure.forward">[1]</a>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForMaskedAM.forward">(AtomformerForMaskedAM method)</a>
 </li>
-          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedStructureAndEnergy.forward">(InitialStructure2RelaxedStructureAndEnergy method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructureAndEnergy.forward">[1]</a>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerModel.forward">(AtomformerModel method)</a>
 </li>
-          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.ParallelBlock.forward">(ParallelBlock method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.ParallelBlock.forward">[1]</a>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.GaussianLayer.forward">(GaussianLayer method)</a>
+</li>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedEnergy.forward">(InitialStructure2RelaxedEnergy method)</a>, <a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedEnergy.forward">[1]</a>
+</li>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedStructure.forward">(InitialStructure2RelaxedStructure method)</a>, <a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedStructure.forward">[1]</a>
+</li>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedStructureAndEnergy.forward">(InitialStructure2RelaxedStructureAndEnergy method)</a>, <a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedStructureAndEnergy.forward">[1]</a>
+</li>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.ParallelBlock.forward">(ParallelBlock method)</a>, <a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.ParallelBlock.forward">[1]</a>
 </li>
           <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetModel.forward">(SchNetModel method)</a>
 </li>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Energy.forward">(Structure2Energy method)</a>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2Energy.forward">(Structure2Energy method)</a>
 </li>
-          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.Structure2EnergyAndForces.forward">(Structure2EnergyAndForces method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2EnergyAndForces.forward">[1]</a>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2EnergyAndForces.forward">(Structure2EnergyAndForces method)</a>, <a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.Structure2EnergyAndForces.forward">[1]</a>
 </li>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Forces.forward">(Structure2Forces method)</a>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2Forces.forward">(Structure2Forces method)</a>
 </li>
-          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerEncoder.forward">(TransformerEncoder method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerEncoder.forward">[1]</a>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerEncoder.forward">(TransformerEncoder method)</a>
 </li>
-          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerForCoordinateAM.forward">(TransformerForCoordinateAM method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForCoordinateAM.forward">[1]</a>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerForCoordinateAM.forward">(TransformerForCoordinateAM method)</a>
 </li>
-          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerForMaskedAM.forward">(TransformerForMaskedAM method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForMaskedAM.forward">[1]</a>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerForMaskedAM.forward">(TransformerForMaskedAM method)</a>
 </li>
-          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerModel.forward">(TransformerModel method)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerModel.forward">[1]</a>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerModel.forward">(TransformerModel method)</a>
 </li>
         </ul></li>
     </ul></td>
@@ -416,7 +448,7 @@
   <h2>G</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.GaussianLayer">GaussianLayer (class in atomgen.models.unimolplus)</a>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.GaussianLayer">GaussianLayer (class in atomgen.models.modeling_atomformer)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
@@ -442,24 +474,24 @@
   <h2>I</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedEnergy">InitialStructure2RelaxedEnergy (class in atomgen.models.tokengt)</a>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedEnergy">InitialStructure2RelaxedEnergy (class in atomgen.models.modeling_atomformer)</a>
 
         <ul>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedEnergy">(class in atomgen.models.unimolplus)</a>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedEnergy">(class in atomgen.models.tokengt)</a>
 </li>
         </ul></li>
-        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedStructure">InitialStructure2RelaxedStructure (class in atomgen.models.tokengt)</a>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedStructure">InitialStructure2RelaxedStructure (class in atomgen.models.modeling_atomformer)</a>
 
         <ul>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructure">(class in atomgen.models.unimolplus)</a>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedStructure">(class in atomgen.models.tokengt)</a>
 </li>
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedStructureAndEnergy">InitialStructure2RelaxedStructureAndEnergy (class in atomgen.models.tokengt)</a>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedStructureAndEnergy">InitialStructure2RelaxedStructureAndEnergy (class in atomgen.models.modeling_atomformer)</a>
 
         <ul>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructureAndEnergy">(class in atomgen.models.unimolplus)</a>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.InitialStructure2RelaxedStructureAndEnergy">(class in atomgen.models.tokengt)</a>
 </li>
         </ul></li>
         <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.interaction_graph">interaction_graph (SchNetConfig attribute)</a>
@@ -504,7 +536,7 @@
 </li>
         <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.mean">mean (SchNetConfig attribute)</a>
 </li>
-        <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerConfig.model_type">model_type (TransformerConfig attribute)</a>
+        <li><a href="reference/api/atomgen.models.configuration_atomformer.html#atomgen.models.configuration_atomformer.AtomformerConfig.model_type">model_type (AtomformerConfig attribute)</a>
 </li>
         <li>
     module
@@ -520,11 +552,13 @@
 </li>
           <li><a href="reference/api/atomgen.models.html#module-atomgen.models">atomgen.models</a>
 </li>
+          <li><a href="reference/api/atomgen.models.configuration_atomformer.html#module-atomgen.models.configuration_atomformer">atomgen.models.configuration_atomformer</a>
+</li>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#module-atomgen.models.modeling_atomformer">atomgen.models.modeling_atomformer</a>
+</li>
           <li><a href="reference/api/atomgen.models.schnet.html#module-atomgen.models.schnet">atomgen.models.schnet</a>
 </li>
           <li><a href="reference/api/atomgen.models.tokengt.html#module-atomgen.models.tokengt">atomgen.models.tokengt</a>
-</li>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#module-atomgen.models.unimolplus">atomgen.models.unimolplus</a>
 </li>
         </ul></li>
     </ul></td>
@@ -567,10 +601,10 @@
 </li>
         <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.pad_token_id">pad_token_id (SchNetConfig attribute)</a>
 </li>
-        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.ParallelBlock">ParallelBlock (class in atomgen.models.tokengt)</a>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.ParallelBlock">ParallelBlock (class in atomgen.models.modeling_atomformer)</a>
 
         <ul>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.ParallelBlock">(class in atomgen.models.unimolplus)</a>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.ParallelBlock">(class in atomgen.models.tokengt)</a>
 </li>
         </ul></li>
     </ul></td>
@@ -609,22 +643,24 @@
 </li>
         <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.std">std (SchNetConfig attribute)</a>
 </li>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2Energy">Structure2Energy (class in atomgen.models.modeling_atomformer)</a>
+</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Energy">Structure2Energy (class in atomgen.models.unimolplus)</a>
-</li>
-        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.Structure2EnergyAndForces">Structure2EnergyAndForces (class in atomgen.models.tokengt)</a>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2EnergyAndForces">Structure2EnergyAndForces (class in atomgen.models.modeling_atomformer)</a>
 
         <ul>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2EnergyAndForces">(class in atomgen.models.unimolplus)</a>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.Structure2EnergyAndForces">(class in atomgen.models.tokengt)</a>
 </li>
         </ul></li>
-        <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Forces">Structure2Forces (class in atomgen.models.unimolplus)</a>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2Forces">Structure2Forces (class in atomgen.models.modeling_atomformer)</a>
 </li>
-        <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetPreTrainedModel.supports_gradient_checkpointing">supports_gradient_checkpointing (SchNetPreTrainedModel attribute)</a>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerPreTrainedModel.supports_gradient_checkpointing">supports_gradient_checkpointing (AtomformerPreTrainedModel attribute)</a>
 
         <ul>
-          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerPreTrainedModel.supports_gradient_checkpointing">(TransformerPreTrainedModel attribute)</a>, <a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerPreTrainedModel.supports_gradient_checkpointing">[1]</a>
+          <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetPreTrainedModel.supports_gradient_checkpointing">(SchNetPreTrainedModel attribute)</a>
+</li>
+          <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerPreTrainedModel.supports_gradient_checkpointing">(TransformerPreTrainedModel attribute)</a>
 </li>
         </ul></li>
     </ul></td>
@@ -647,44 +683,20 @@
 </li>
         <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_perturb_coords">torch_perturb_coords() (DataCollatorForAtomModeling method)</a>
 </li>
-        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerConfig">TransformerConfig (class in atomgen.models.tokengt)</a>
-
-        <ul>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerConfig">(class in atomgen.models.unimolplus)</a>
-</li>
-        </ul></li>
-        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerEncoder">TransformerEncoder (class in atomgen.models.tokengt)</a>
-
-        <ul>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerEncoder">(class in atomgen.models.unimolplus)</a>
-</li>
-        </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerConfig">TransformerConfig (class in atomgen.models.tokengt)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerEncoder">TransformerEncoder (class in atomgen.models.tokengt)</a>
+</li>
         <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerForCoordinateAM">TransformerForCoordinateAM (class in atomgen.models.tokengt)</a>
-
-        <ul>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForCoordinateAM">(class in atomgen.models.unimolplus)</a>
 </li>
-        </ul></li>
         <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerForMaskedAM">TransformerForMaskedAM (class in atomgen.models.tokengt)</a>
-
-        <ul>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForMaskedAM">(class in atomgen.models.unimolplus)</a>
 </li>
-        </ul></li>
         <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerModel">TransformerModel (class in atomgen.models.tokengt)</a>
-
-        <ul>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerModel">(class in atomgen.models.unimolplus)</a>
 </li>
-        </ul></li>
         <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerPreTrainedModel">TransformerPreTrainedModel (class in atomgen.models.tokengt)</a>
-
-        <ul>
-          <li><a href="reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerPreTrainedModel">(class in atomgen.models.unimolplus)</a>
 </li>
-        </ul></li>
     </ul></td>
   </tr></table>
 </section>

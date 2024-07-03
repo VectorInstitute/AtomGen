@@ -13,7 +13,7 @@
     
     <meta name="msvalidate.01" content="8D2A5032F006424CAF54C0DDCD16F666" />
       
-        <title>atomgen.models.unimolplus - atomgen documentation</title>
+        <title>atomgen.models.modeling_atomformer - atomgen documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -191,9 +191,10 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/api/atomgen.models.html">atomgen.models package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of atomgen.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api/atomgen.models.configuration_atomformer.html">atomgen.models.configuration_atomformer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api/atomgen.models.modeling_atomformer.html">atomgen.models.modeling_atomformer module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/api/atomgen.models.schnet.html">atomgen.models.schnet module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/api/atomgen.models.tokengt.html">atomgen.models.tokengt module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/api/atomgen.models.unimolplus.html">atomgen.models.unimolplus module</a></li>
 </ul>
 </li>
 </ul>
@@ -229,16 +230,17 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for atomgen.models.unimolplus</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Implementation of the Uni-mol+ model with alterations to the original model.&quot;&quot;&quot;</span>
+          <h1>Source code for atomgen.models.modeling_atomformer</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Implementation of the Atomformer model.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">f</span>
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
-<span class="kn">from</span> <span class="nn">transformers.configuration_utils</span> <span class="kn">import</span> <span class="n">PretrainedConfig</span>
 <span class="kn">from</span> <span class="nn">transformers.modeling_utils</span> <span class="kn">import</span> <span class="n">PreTrainedModel</span>
+
+<span class="kn">from</span> <span class="nn">atomgen.models.configuration_atomformer</span> <span class="kn">import</span> <span class="n">AtomformerConfig</span>
 
 
 <span class="n">ATOM_METADATA</span> <span class="o">=</span> <span class="p">[</span>
@@ -2497,7 +2499,7 @@
 
 
 <div class="viewcode-block" id="GaussianLayer">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.GaussianLayer">[docs]</a>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.GaussianLayer">[docs]</a>
 <span class="k">class</span> <span class="nc">GaussianLayer</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Gaussian pairwise positional embedding layer.&quot;&quot;&quot;</span>
 
@@ -2514,7 +2516,7 @@
         <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">constant_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mul</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <div class="viewcode-block" id="GaussianLayer.forward">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.GaussianLayer.forward">[docs]</a>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.GaussianLayer.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">edge_types</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward pass to compute the Gaussian pos. embeddings.&quot;&quot;&quot;</span>
         <span class="n">mul</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">edge_types</span><span class="p">)</span>
@@ -2530,12 +2532,12 @@
 
 
 <div class="viewcode-block" id="ParallelBlock">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.ParallelBlock">[docs]</a>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.ParallelBlock">[docs]</a>
 <span class="k">class</span> <span class="nc">ParallelBlock</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Parallel transformer block (MLP &amp; Attention in parallel).</span>
 
 <span class="sd">    Based on:</span>
-<span class="sd">      &#39;Scaling Vision Transformers to 22 Billion Parameters` - https://arxiv.org/abs/2302.05442</span>
+<span class="sd">      &#39;Scaling Vision Atomformers to 22 Billion Parameters` - https://arxiv.org/abs/2302.05442</span>
 
 <span class="sd">    Adapted from TIMM implementation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -2547,8 +2549,6 @@
         <span class="n">mlp_ratio</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
         <span class="n">dropout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
         <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
-        <span class="n">op_hidden_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
-        <span class="n">tr_hidden_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
         <span class="n">gradient_checkpointing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -2583,7 +2583,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">pos_embed_ff_norm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ParallelBlock.forward">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.ParallelBlock.forward">[docs]</a>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.ParallelBlock.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
@@ -2633,64 +2633,16 @@
 
 
 
-<div class="viewcode-block" id="TransformerConfig">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerConfig">[docs]</a>
-<span class="k">class</span> <span class="nc">TransformerConfig</span><span class="p">(</span><span class="n">PretrainedConfig</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Configuration of a :class:`~transform:class:`~transformers.UniMolPlusModel`.</span>
-
-<span class="sd">    It is used to instantiate an UniMolPlus model according to the specified arguments.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">model_type</span> <span class="o">=</span> <span class="s2">&quot;transformer&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">vocab_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">123</span><span class="p">,</span>
-        <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">768</span><span class="p">,</span>
-        <span class="n">num_heads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
-        <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
-        <span class="n">mlp_ratio</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
-        <span class="n">op_hidden_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
-        <span class="n">tr_hidden_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
-        <span class="n">dropout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
-        <span class="n">mask_token_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="n">pad_token_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">119</span><span class="p">,</span>
-        <span class="n">bos_token_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">120</span><span class="p">,</span>
-        <span class="n">eos_token_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">121</span><span class="p">,</span>
-        <span class="n">cls_token_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">122</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vocab_size</span> <span class="o">=</span> <span class="n">vocab_size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span> <span class="o">=</span> <span class="n">num_heads</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">depth</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mlp_ratio</span> <span class="o">=</span> <span class="n">mlp_ratio</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">op_hidden_dim</span> <span class="o">=</span> <span class="n">op_hidden_dim</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tr_hidden_dim</span> <span class="o">=</span> <span class="n">tr_hidden_dim</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">dropout</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mask_token_id</span> <span class="o">=</span> <span class="n">mask_token_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pad_token_id</span> <span class="o">=</span> <span class="n">pad_token_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bos_token_id</span> <span class="o">=</span> <span class="n">bos_token_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eos_token_id</span> <span class="o">=</span> <span class="n">eos_token_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cls_token_id</span> <span class="o">=</span> <span class="n">cls_token_id</span></div>
-
-
-
-<div class="viewcode-block" id="TransformerEncoder">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerEncoder">[docs]</a>
-<span class="k">class</span> <span class="nc">TransformerEncoder</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;UniMolPlus Transformer encoder.</span>
+<div class="viewcode-block" id="AtomformerEncoder">
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerEncoder">[docs]</a>
+<span class="k">class</span> <span class="nc">AtomformerEncoder</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Atomformer encoder.</span>
 
 <span class="sd">    The transformer encoder consists of a series of parallel blocks,</span>
 <span class="sd">    each containing a multi-head self-attention mechanism and a feed-forward network.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TransformerConfig</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">AtomformerConfig</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vocab_size</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">vocab_size</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">dim</span>
@@ -2699,8 +2651,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">mlp_ratio</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">mlp_ratio</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">dropout</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">k</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">op_hidden_dim</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">op_hidden_dim</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tr_hidden_dim</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">tr_hidden_dim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gradient_checkpointing</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">gradient_checkpointing</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">metadata_vocab</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vocab_size</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
@@ -2727,8 +2677,6 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">mlp_ratio</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">op_hidden_dim</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">tr_hidden_dim</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">gradient_checkpointing</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
@@ -2759,8 +2707,8 @@
             <span class="n">inverted_mask</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">min</span>
         <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 
-<div class="viewcode-block" id="TransformerEncoder.forward">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerEncoder.forward">[docs]</a>
+<div class="viewcode-block" id="AtomformerEncoder.forward">
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerEncoder.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">input_ids</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
@@ -2823,12 +2771,12 @@
 
 
 
-<div class="viewcode-block" id="TransformerPreTrainedModel">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerPreTrainedModel">[docs]</a>
-<span class="k">class</span> <span class="nc">TransformerPreTrainedModel</span><span class="p">(</span><span class="n">PreTrainedModel</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
+<div class="viewcode-block" id="AtomformerPreTrainedModel">
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerPreTrainedModel">[docs]</a>
+<span class="k">class</span> <span class="nc">AtomformerPreTrainedModel</span><span class="p">(</span><span class="n">PreTrainedModel</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for all transformer models.&quot;&quot;&quot;</span>
 
-    <span class="n">config_class</span> <span class="o">=</span> <span class="n">TransformerConfig</span>
+    <span class="n">config_class</span> <span class="o">=</span> <span class="n">AtomformerConfig</span>
     <span class="n">base_model_prefix</span> <span class="o">=</span> <span class="s2">&quot;model&quot;</span>
     <span class="n">supports_gradient_checkpointing</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">_no_split_modules</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ParallelBlock&quot;</span><span class="p">]</span>
@@ -2836,23 +2784,23 @@
     <span class="k">def</span> <span class="nf">_set_gradient_checkpointing</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="p">(</span><span class="n">TransformerEncoder</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="p">(</span><span class="n">AtomformerEncoder</span><span class="p">)):</span>
             <span class="n">module</span><span class="o">.</span><span class="n">gradient_checkpointing</span> <span class="o">=</span> <span class="n">value</span></div>
 
 
 
-<div class="viewcode-block" id="TransformerModel">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerModel">[docs]</a>
-<span class="k">class</span> <span class="nc">TransformerModel</span><span class="p">(</span><span class="n">TransformerPreTrainedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transformer model for atom modeling.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="AtomformerModel">
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerModel">[docs]</a>
+<span class="k">class</span> <span class="nc">AtomformerModel</span><span class="p">(</span><span class="n">AtomformerPreTrainedModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Atomformer model for atom modeling.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TransformerConfig</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">AtomformerConfig</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">TransformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">AtomformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
-<div class="viewcode-block" id="TransformerModel.forward">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerModel.forward">[docs]</a>
+<div class="viewcode-block" id="AtomformerModel.forward">
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerModel.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">input_ids</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
@@ -2866,19 +2814,19 @@
 
 
 
-<div class="viewcode-block" id="TransformerForMaskedAM">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForMaskedAM">[docs]</a>
-<span class="k">class</span> <span class="nc">TransformerForMaskedAM</span><span class="p">(</span><span class="n">TransformerPreTrainedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transformer with an atom modeling head on top for masked atom modeling.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="AtomformerForMaskedAM">
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForMaskedAM">[docs]</a>
+<span class="k">class</span> <span class="nc">AtomformerForMaskedAM</span><span class="p">(</span><span class="n">AtomformerPreTrainedModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Atomformer with an atom modeling head on top for masked atom modeling.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TransformerConfig</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">AtomformerConfig</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">TransformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">AtomformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">am_head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<div class="viewcode-block" id="TransformerForMaskedAM.forward">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForMaskedAM.forward">[docs]</a>
+<div class="viewcode-block" id="AtomformerForMaskedAM.forward">
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForMaskedAM.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">input_ids</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
@@ -2902,19 +2850,19 @@
 
 
 
-<div class="viewcode-block" id="TransformerForCoordinateAM">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForCoordinateAM">[docs]</a>
-<span class="k">class</span> <span class="nc">TransformerForCoordinateAM</span><span class="p">(</span><span class="n">TransformerPreTrainedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transformer with an atom coordinate head on top for coordinate denoising.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="AtomformerForCoordinateAM">
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForCoordinateAM">[docs]</a>
+<span class="k">class</span> <span class="nc">AtomformerForCoordinateAM</span><span class="p">(</span><span class="n">AtomformerPreTrainedModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Atomformer with an atom coordinate head on top for coordinate denoising.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TransformerConfig</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">AtomformerConfig</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">TransformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">AtomformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coords_head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
-<div class="viewcode-block" id="TransformerForCoordinateAM.forward">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForCoordinateAM.forward">[docs]</a>
+<div class="viewcode-block" id="AtomformerForCoordinateAM.forward">
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForCoordinateAM.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">input_ids</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
@@ -2939,18 +2887,18 @@
 
 
 <div class="viewcode-block" id="InitialStructure2RelaxedStructure">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructure">[docs]</a>
-<span class="k">class</span> <span class="nc">InitialStructure2RelaxedStructure</span><span class="p">(</span><span class="n">TransformerPreTrainedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transformer with an coordinate head on top for relaxed structure prediction.&quot;&quot;&quot;</span>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedStructure">[docs]</a>
+<span class="k">class</span> <span class="nc">InitialStructure2RelaxedStructure</span><span class="p">(</span><span class="n">AtomformerPreTrainedModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Atomformer with an coordinate head on top for relaxed structure prediction.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TransformerConfig</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">AtomformerConfig</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">TransformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">AtomformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coords_head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
 <div class="viewcode-block" id="InitialStructure2RelaxedStructure.forward">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructure.forward">[docs]</a>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedStructure.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">input_ids</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
@@ -2978,19 +2926,19 @@
 
 
 <div class="viewcode-block" id="InitialStructure2RelaxedEnergy">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedEnergy">[docs]</a>
-<span class="k">class</span> <span class="nc">InitialStructure2RelaxedEnergy</span><span class="p">(</span><span class="n">TransformerPreTrainedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transformer with an energy head on top for relaxed energy prediction.&quot;&quot;&quot;</span>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedEnergy">[docs]</a>
+<span class="k">class</span> <span class="nc">InitialStructure2RelaxedEnergy</span><span class="p">(</span><span class="n">AtomformerPreTrainedModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Atomformer with an energy head on top for relaxed energy prediction.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TransformerConfig</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">AtomformerConfig</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">TransformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">AtomformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">energy_norm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">energy_head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <div class="viewcode-block" id="InitialStructure2RelaxedEnergy.forward">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedEnergy.forward">[docs]</a>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedEnergy.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">input_ids</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
@@ -3014,20 +2962,20 @@
 
 
 <div class="viewcode-block" id="InitialStructure2RelaxedStructureAndEnergy">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructureAndEnergy">[docs]</a>
-<span class="k">class</span> <span class="nc">InitialStructure2RelaxedStructureAndEnergy</span><span class="p">(</span><span class="n">TransformerPreTrainedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transformer with an coordinate and energy head.&quot;&quot;&quot;</span>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedStructureAndEnergy">[docs]</a>
+<span class="k">class</span> <span class="nc">InitialStructure2RelaxedStructureAndEnergy</span><span class="p">(</span><span class="n">AtomformerPreTrainedModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Atomformer with an coordinate and energy head.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TransformerConfig</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">AtomformerConfig</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">TransformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">AtomformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">energy_norm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">energy_head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coords_head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
 <div class="viewcode-block" id="InitialStructure2RelaxedStructureAndEnergy.forward">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructureAndEnergy.forward">[docs]</a>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedStructureAndEnergy.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">input_ids</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
@@ -3072,19 +3020,19 @@
 
 
 <div class="viewcode-block" id="Structure2Energy">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Energy">[docs]</a>
-<span class="k">class</span> <span class="nc">Structure2Energy</span><span class="p">(</span><span class="n">TransformerPreTrainedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transformer with an atom modeling head on top for masked atom modeling.&quot;&quot;&quot;</span>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2Energy">[docs]</a>
+<span class="k">class</span> <span class="nc">Structure2Energy</span><span class="p">(</span><span class="n">AtomformerPreTrainedModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Atomformer with an atom modeling head on top for masked atom modeling.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TransformerConfig</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">AtomformerConfig</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">TransformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">AtomformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">energy_norm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">formation_energy_head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Structure2Energy.forward">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Energy.forward">[docs]</a>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2Energy.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">input_ids</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
@@ -3120,21 +3068,21 @@
 
 
 <div class="viewcode-block" id="Structure2Forces">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Forces">[docs]</a>
-<span class="k">class</span> <span class="nc">Structure2Forces</span><span class="p">(</span><span class="n">TransformerPreTrainedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transformer with a forces head on top for forces prediction.&quot;&quot;&quot;</span>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2Forces">[docs]</a>
+<span class="k">class</span> <span class="nc">Structure2Forces</span><span class="p">(</span><span class="n">AtomformerPreTrainedModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Atomformer with a forces head on top for forces prediction.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TransformerConfig</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">AtomformerConfig</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">TransformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">AtomformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">force_norm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">force_head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">energy_norm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">formation_energy_head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Structure2Forces.forward">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Forces.forward">[docs]</a>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2Forces.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">input_ids</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
@@ -3168,21 +3116,21 @@
 
 
 <div class="viewcode-block" id="Structure2EnergyAndForces">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2EnergyAndForces">[docs]</a>
-<span class="k">class</span> <span class="nc">Structure2EnergyAndForces</span><span class="p">(</span><span class="n">TransformerPreTrainedModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transformer with an energy and forces head for energy and forces prediction.&quot;&quot;&quot;</span>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2EnergyAndForces">[docs]</a>
+<span class="k">class</span> <span class="nc">Structure2EnergyAndForces</span><span class="p">(</span><span class="n">AtomformerPreTrainedModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Atomformer with an energy and forces head for energy and forces prediction.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TransformerConfig</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">AtomformerConfig</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">TransformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">AtomformerEncoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">force_norm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">force_head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">energy_norm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">formation_energy_head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Structure2EnergyAndForces.forward">
-<a class="viewcode-back" href="../../../reference/api/atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2EnergyAndForces.forward">[docs]</a>
+<a class="viewcode-back" href="../../../reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2EnergyAndForces.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">input_ids</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>

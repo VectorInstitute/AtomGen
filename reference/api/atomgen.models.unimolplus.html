@@ -7,7 +7,7 @@
 
     
       <meta name="description" content="aieng-template Python API documentation">
-    <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="prev" title="atomgen.models.tokengt module" href="atomgen.models.tokengt.html" />
+    <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-7.2.6, furo 2024.01.29"/>
 
@@ -162,7 +162,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -184,17 +184,18 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
+  <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide.html">User Guide (WIP)</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="atomgen.data.html">atomgen.data package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of atomgen.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="atomgen.data.data_collator.html">atomgen.data.data_collator module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="atomgen.data.tokenizer.html">atomgen.data.tokenizer module</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="atomgen.models.html">atomgen.models package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of atomgen.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="atomgen.models.html">atomgen.models package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of atomgen.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.configuration_atomformer.html">atomgen.models.configuration_atomformer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html">atomgen.models.modeling_atomformer module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="atomgen.models.schnet.html">atomgen.models.schnet module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="atomgen.models.tokengt.html">atomgen.models.tokengt module</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">atomgen.models.unimolplus module</a></li>
 </ul>
 </li>
 </ul>
@@ -225,275 +226,14 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="module-atomgen.models.unimolplus">
-<span id="atomgen-models-unimolplus-module"></span><h1>atomgen.models.unimolplus module<a class="headerlink" href="#module-atomgen.models.unimolplus" title="Link to this heading">#</a></h1>
-<p>Implementation of the Uni-mol+ model with alterations to the original model.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.GaussianLayer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GaussianLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#GaussianLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.GaussianLayer" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-<p>Gaussian pairwise positional embedding layer.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.GaussianLayer.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_types</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#GaussianLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.GaussianLayer.forward" title="Link to this definition">#</a></dt>
-<dd><p>Forward pass to compute the Gaussian pos. embeddings.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></span></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.InitialStructure2RelaxedEnergy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InitialStructure2RelaxedEnergy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#InitialStructure2RelaxedEnergy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.InitialStructure2RelaxedEnergy" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#atomgen.models.unimolplus.TransformerPreTrainedModel" title="atomgen.models.unimolplus.TransformerPreTrainedModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerPreTrainedModel</span></code></a></p>
-<p>Transformer with an energy head on top for relaxed energy prediction.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.InitialStructure2RelaxedEnergy.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#InitialStructure2RelaxedEnergy.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.InitialStructure2RelaxedEnergy.forward" title="Link to this definition">#</a></dt>
-<dd><p>Forward function call for the relaxed energy prediction model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]</span></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.InitialStructure2RelaxedStructure">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InitialStructure2RelaxedStructure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#InitialStructure2RelaxedStructure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.InitialStructure2RelaxedStructure" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#atomgen.models.unimolplus.TransformerPreTrainedModel" title="atomgen.models.unimolplus.TransformerPreTrainedModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerPreTrainedModel</span></code></a></p>
-<p>Transformer with an coordinate head on top for relaxed structure prediction.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.InitialStructure2RelaxedStructure.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#InitialStructure2RelaxedStructure.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.InitialStructure2RelaxedStructure.forward" title="Link to this definition">#</a></dt>
-<dd><p>Forward function call.</p>
-<p>Initial structure to relaxed structure model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]</span></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.InitialStructure2RelaxedStructureAndEnergy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InitialStructure2RelaxedStructureAndEnergy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#InitialStructure2RelaxedStructureAndEnergy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.InitialStructure2RelaxedStructureAndEnergy" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#atomgen.models.unimolplus.TransformerPreTrainedModel" title="atomgen.models.unimolplus.TransformerPreTrainedModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerPreTrainedModel</span></code></a></p>
-<p>Transformer with an coordinate and energy head.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.InitialStructure2RelaxedStructureAndEnergy.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formation_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_formation_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#InitialStructure2RelaxedStructureAndEnergy.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.InitialStructure2RelaxedStructureAndEnergy.forward" title="Link to this definition">#</a></dt>
-<dd><p>Forward function call for the relaxed structure and energy model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]]</span></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.ParallelBlock">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ParallelBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mlp_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradient_checkpointing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#ParallelBlock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.ParallelBlock" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-<p>Parallel transformer block (MLP &amp; Attention in parallel).</p>
-<dl class="simple">
-<dt>Based on:</dt><dd><p>‘Scaling Vision Transformers to 22 Billion Parameters` - <a class="reference external" href="https://arxiv.org/abs/2302.05442">https://arxiv.org/abs/2302.05442</a></p>
-</dd>
-</dl>
-<p>Adapted from TIMM implementation.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.ParallelBlock.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_embed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#ParallelBlock.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.ParallelBlock.forward" title="Link to this definition">#</a></dt>
-<dd><p>Forward pass for the parallel block.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]</span></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.Structure2Energy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Structure2Energy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#Structure2Energy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.Structure2Energy" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#atomgen.models.unimolplus.TransformerPreTrainedModel" title="atomgen.models.unimolplus.TransformerPreTrainedModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerPreTrainedModel</span></code></a></p>
-<p>Transformer with an atom modeling head on top for masked atom modeling.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.Structure2Energy.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formation_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_formation_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#Structure2Energy.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.Structure2Energy.forward" title="Link to this definition">#</a></dt>
-<dd><p>Forward function call for the structure to energy model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>], <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]]]</span></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.Structure2EnergyAndForces">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Structure2EnergyAndForces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#Structure2EnergyAndForces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.Structure2EnergyAndForces" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#atomgen.models.unimolplus.TransformerPreTrainedModel" title="atomgen.models.unimolplus.TransformerPreTrainedModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerPreTrainedModel</span></code></a></p>
-<p>Transformer with an energy and forces head for energy and forces prediction.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.Structure2EnergyAndForces.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formation_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_formation_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#Structure2EnergyAndForces.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.Structure2EnergyAndForces.forward" title="Link to this definition">#</a></dt>
-<dd><p>Forward function call for the structure to energy and forces model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]]]</span></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.Structure2Forces">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Structure2Forces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#Structure2Forces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.Structure2Forces" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#atomgen.models.unimolplus.TransformerPreTrainedModel" title="atomgen.models.unimolplus.TransformerPreTrainedModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerPreTrainedModel</span></code></a></p>
-<p>Transformer with a forces head on top for forces prediction.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.Structure2Forces.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formation_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_formation_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#Structure2Forces.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.Structure2Forces.forward" title="Link to this definition">#</a></dt>
-<dd><p>Forward function call for the structure to forces model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]]]</span></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.TransformerConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TransformerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vocab_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">123</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">768</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mlp_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_token_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_token_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">119</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bos_token_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">120</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eos_token_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">121</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls_token_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">122</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#TransformerConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.TransformerConfig" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PretrainedConfig</span></code></p>
-<p>Configuration of a <code class="xref py py-class docutils literal notranslate"><span class="pre">UniMolPlusModel</span></code>.</p>
-<p>It is used to instantiate an UniMolPlus model according to the specified arguments.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.TransformerConfig.model_type">
-<span class="sig-name descname"><span class="pre">model_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'transformer'</span></em><a class="headerlink" href="#atomgen.models.unimolplus.TransformerConfig.model_type" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.TransformerEncoder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TransformerEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#TransformerEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.TransformerEncoder" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-<p>UniMolPlus Transformer encoder.</p>
-<p>The transformer encoder consists of a series of parallel blocks,
-each containing a multi-head self-attention mechanism and a feed-forward network.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.TransformerEncoder.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#TransformerEncoder.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.TransformerEncoder.forward" title="Link to this definition">#</a></dt>
-<dd><p>Forward pass for the transformer encoder.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]</span></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.TransformerForCoordinateAM">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TransformerForCoordinateAM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#TransformerForCoordinateAM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.TransformerForCoordinateAM" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#atomgen.models.unimolplus.TransformerPreTrainedModel" title="atomgen.models.unimolplus.TransformerPreTrainedModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerPreTrainedModel</span></code></a></p>
-<p>Transformer with an atom coordinate head on top for coordinate denoising.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.TransformerForCoordinateAM.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#TransformerForCoordinateAM.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.TransformerForCoordinateAM.forward" title="Link to this definition">#</a></dt>
-<dd><p>Forward function call for the coordinate atom modeling model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]</span></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.TransformerForMaskedAM">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TransformerForMaskedAM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#TransformerForMaskedAM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.TransformerForMaskedAM" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#atomgen.models.unimolplus.TransformerPreTrainedModel" title="atomgen.models.unimolplus.TransformerPreTrainedModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerPreTrainedModel</span></code></a></p>
-<p>Transformer with an atom modeling head on top for masked atom modeling.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.TransformerForMaskedAM.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#TransformerForMaskedAM.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.TransformerForMaskedAM.forward" title="Link to this definition">#</a></dt>
-<dd><p>Forward function call for the masked atom modeling model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]</span></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.TransformerModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TransformerModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#TransformerModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.TransformerModel" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#atomgen.models.unimolplus.TransformerPreTrainedModel" title="atomgen.models.unimolplus.TransformerPreTrainedModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerPreTrainedModel</span></code></a></p>
-<p>Transformer model for atom modeling.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.TransformerModel.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#TransformerModel.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.TransformerModel.forward" title="Link to this definition">#</a></dt>
-<dd><p>Forward function call for the transformer model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></span></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.TransformerPreTrainedModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TransformerPreTrainedModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/unimolplus.html#TransformerPreTrainedModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.unimolplus.TransformerPreTrainedModel" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PreTrainedModel</span></code></p>
-<p>Base class for all transformer models.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.TransformerPreTrainedModel.base_model_prefix">
-<span class="sig-name descname"><span class="pre">base_model_prefix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'model'</span></em><a class="headerlink" href="#atomgen.models.unimolplus.TransformerPreTrainedModel.base_model_prefix" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.TransformerPreTrainedModel.config_class">
-<span class="sig-name descname"><span class="pre">config_class</span></span><a class="headerlink" href="#atomgen.models.unimolplus.TransformerPreTrainedModel.config_class" title="Link to this definition">#</a></dt>
-<dd><p>alias of <a class="reference internal" href="#atomgen.models.unimolplus.TransformerConfig" title="atomgen.models.unimolplus.TransformerConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerConfig</span></code></a></p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.models.unimolplus.TransformerPreTrainedModel.supports_gradient_checkpointing">
-<span class="sig-name descname"><span class="pre">supports_gradient_checkpointing</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#atomgen.models.unimolplus.TransformerPreTrainedModel.supports_gradient_checkpointing" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+          <section id="atomgen-models-unimolplus-module">
+<h1>atomgen.models.unimolplus module<a class="headerlink" href="#atomgen-models-unimolplus-module" title="Link to this heading">#</a></h1>
 </section>
 
         </article>
@@ -502,17 +242,7 @@ each containing a multi-head self-attention mechanism and a feed-forward network
         
         <div class="related-pages">
           
-          <a class="prev-page" href="atomgen.models.tokengt.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">atomgen.models.tokengt module</div>
-                
-              </div>
-            </a>
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -548,84 +278,8 @@ each containing a multi-head self-attention mechanism and a feed-forward network
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">atomgen.models.unimolplus module</a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.GaussianLayer"><code class="docutils literal notranslate"><span class="pre">GaussianLayer</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.GaussianLayer.forward"><code class="docutils literal notranslate"><span class="pre">GaussianLayer.forward()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.InitialStructure2RelaxedEnergy"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedEnergy</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.InitialStructure2RelaxedEnergy.forward"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedEnergy.forward()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.InitialStructure2RelaxedStructure"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedStructure</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.InitialStructure2RelaxedStructure.forward"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedStructure.forward()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.InitialStructure2RelaxedStructureAndEnergy"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedStructureAndEnergy</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.InitialStructure2RelaxedStructureAndEnergy.forward"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedStructureAndEnergy.forward()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.ParallelBlock"><code class="docutils literal notranslate"><span class="pre">ParallelBlock</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.ParallelBlock.forward"><code class="docutils literal notranslate"><span class="pre">ParallelBlock.forward()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.Structure2Energy"><code class="docutils literal notranslate"><span class="pre">Structure2Energy</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.Structure2Energy.forward"><code class="docutils literal notranslate"><span class="pre">Structure2Energy.forward()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.Structure2EnergyAndForces"><code class="docutils literal notranslate"><span class="pre">Structure2EnergyAndForces</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.Structure2EnergyAndForces.forward"><code class="docutils literal notranslate"><span class="pre">Structure2EnergyAndForces.forward()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.Structure2Forces"><code class="docutils literal notranslate"><span class="pre">Structure2Forces</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.Structure2Forces.forward"><code class="docutils literal notranslate"><span class="pre">Structure2Forces.forward()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.TransformerConfig"><code class="docutils literal notranslate"><span class="pre">TransformerConfig</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.TransformerConfig.model_type"><code class="docutils literal notranslate"><span class="pre">TransformerConfig.model_type</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.TransformerEncoder"><code class="docutils literal notranslate"><span class="pre">TransformerEncoder</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.TransformerEncoder.forward"><code class="docutils literal notranslate"><span class="pre">TransformerEncoder.forward()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.TransformerForCoordinateAM"><code class="docutils literal notranslate"><span class="pre">TransformerForCoordinateAM</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.TransformerForCoordinateAM.forward"><code class="docutils literal notranslate"><span class="pre">TransformerForCoordinateAM.forward()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.TransformerForMaskedAM"><code class="docutils literal notranslate"><span class="pre">TransformerForMaskedAM</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.TransformerForMaskedAM.forward"><code class="docutils literal notranslate"><span class="pre">TransformerForMaskedAM.forward()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.TransformerModel"><code class="docutils literal notranslate"><span class="pre">TransformerModel</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.TransformerModel.forward"><code class="docutils literal notranslate"><span class="pre">TransformerModel.forward()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.TransformerPreTrainedModel"><code class="docutils literal notranslate"><span class="pre">TransformerPreTrainedModel</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.TransformerPreTrainedModel.base_model_prefix"><code class="docutils literal notranslate"><span class="pre">TransformerPreTrainedModel.base_model_prefix</span></code></a></li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.TransformerPreTrainedModel.config_class"><code class="docutils literal notranslate"><span class="pre">TransformerPreTrainedModel.config_class</span></code></a></li>
-<li><a class="reference internal" href="#atomgen.models.unimolplus.TransformerPreTrainedModel.supports_gradient_checkpointing"><code class="docutils literal notranslate"><span class="pre">TransformerPreTrainedModel.supports_gradient_checkpointing</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

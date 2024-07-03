@@ -7,7 +7,7 @@
 
     
       <meta name="description" content="aieng-template Python API documentation">
-    <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="atomgen.models.schnet module" href="atomgen.models.schnet.html" /><link rel="prev" title="atomgen.data.tokenizer module" href="atomgen.data.tokenizer.html" />
+    <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="atomgen.models.configuration_atomformer module" href="atomgen.models.configuration_atomformer.html" /><link rel="prev" title="atomgen.data.tokenizer module" href="atomgen.data.tokenizer.html" />
 
     <meta name="generator" content="sphinx-7.2.6, furo 2024.01.29"/>
 
@@ -192,9 +192,10 @@
 </ul>
 </li>
 <li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">atomgen.models package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of atomgen.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.configuration_atomformer.html">atomgen.models.configuration_atomformer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html">atomgen.models.modeling_atomformer module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="atomgen.models.schnet.html">atomgen.models.schnet module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="atomgen.models.tokengt.html">atomgen.models.tokengt module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html">atomgen.models.unimolplus module</a></li>
 </ul>
 </li>
 </ul>
@@ -240,6 +241,70 @@ training and inference.</p>
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="atomgen.models.configuration_atomformer.html">atomgen.models.configuration_atomformer module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.configuration_atomformer.html#atomgen.models.configuration_atomformer.AtomformerConfig"><code class="docutils literal notranslate"><span class="pre">AtomformerConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.configuration_atomformer.html#atomgen.models.configuration_atomformer.AtomformerConfig.model_type"><code class="docutils literal notranslate"><span class="pre">AtomformerConfig.model_type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="atomgen.models.modeling_atomformer.html">atomgen.models.modeling_atomformer module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerEncoder"><code class="docutils literal notranslate"><span class="pre">AtomformerEncoder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerEncoder.forward"><code class="docutils literal notranslate"><span class="pre">AtomformerEncoder.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForCoordinateAM"><code class="docutils literal notranslate"><span class="pre">AtomformerForCoordinateAM</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForCoordinateAM.forward"><code class="docutils literal notranslate"><span class="pre">AtomformerForCoordinateAM.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForMaskedAM"><code class="docutils literal notranslate"><span class="pre">AtomformerForMaskedAM</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForMaskedAM.forward"><code class="docutils literal notranslate"><span class="pre">AtomformerForMaskedAM.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerModel"><code class="docutils literal notranslate"><span class="pre">AtomformerModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerModel.forward"><code class="docutils literal notranslate"><span class="pre">AtomformerModel.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerPreTrainedModel"><code class="docutils literal notranslate"><span class="pre">AtomformerPreTrainedModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerPreTrainedModel.base_model_prefix"><code class="docutils literal notranslate"><span class="pre">AtomformerPreTrainedModel.base_model_prefix</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerPreTrainedModel.config_class"><code class="docutils literal notranslate"><span class="pre">AtomformerPreTrainedModel.config_class</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerPreTrainedModel.supports_gradient_checkpointing"><code class="docutils literal notranslate"><span class="pre">AtomformerPreTrainedModel.supports_gradient_checkpointing</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.GaussianLayer"><code class="docutils literal notranslate"><span class="pre">GaussianLayer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.GaussianLayer.forward"><code class="docutils literal notranslate"><span class="pre">GaussianLayer.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedEnergy"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedEnergy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedEnergy.forward"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedEnergy.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedStructure"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedStructure</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedStructure.forward"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedStructure.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedStructureAndEnergy"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedStructureAndEnergy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.InitialStructure2RelaxedStructureAndEnergy.forward"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedStructureAndEnergy.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.ParallelBlock"><code class="docutils literal notranslate"><span class="pre">ParallelBlock</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.ParallelBlock.forward"><code class="docutils literal notranslate"><span class="pre">ParallelBlock.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2Energy"><code class="docutils literal notranslate"><span class="pre">Structure2Energy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2Energy.forward"><code class="docutils literal notranslate"><span class="pre">Structure2Energy.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2EnergyAndForces"><code class="docutils literal notranslate"><span class="pre">Structure2EnergyAndForces</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2EnergyAndForces.forward"><code class="docutils literal notranslate"><span class="pre">Structure2EnergyAndForces.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2Forces"><code class="docutils literal notranslate"><span class="pre">Structure2Forces</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2Forces.forward"><code class="docutils literal notranslate"><span class="pre">Structure2Forces.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="atomgen.models.schnet.html">atomgen.models.schnet module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig"><code class="docutils literal notranslate"><span class="pre">SchNetConfig</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.vocab_size"><code class="docutils literal notranslate"><span class="pre">SchNetConfig.vocab_size</span></code></a></li>
@@ -319,67 +384,6 @@ training and inference.</p>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="atomgen.models.unimolplus.html">atomgen.models.unimolplus module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.GaussianLayer"><code class="docutils literal notranslate"><span class="pre">GaussianLayer</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.GaussianLayer.forward"><code class="docutils literal notranslate"><span class="pre">GaussianLayer.forward()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedEnergy"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedEnergy</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedEnergy.forward"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedEnergy.forward()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructure"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedStructure</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructure.forward"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedStructure.forward()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructureAndEnergy"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedStructureAndEnergy</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.InitialStructure2RelaxedStructureAndEnergy.forward"><code class="docutils literal notranslate"><span class="pre">InitialStructure2RelaxedStructureAndEnergy.forward()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.ParallelBlock"><code class="docutils literal notranslate"><span class="pre">ParallelBlock</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.ParallelBlock.forward"><code class="docutils literal notranslate"><span class="pre">ParallelBlock.forward()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Energy"><code class="docutils literal notranslate"><span class="pre">Structure2Energy</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Energy.forward"><code class="docutils literal notranslate"><span class="pre">Structure2Energy.forward()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2EnergyAndForces"><code class="docutils literal notranslate"><span class="pre">Structure2EnergyAndForces</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2EnergyAndForces.forward"><code class="docutils literal notranslate"><span class="pre">Structure2EnergyAndForces.forward()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Forces"><code class="docutils literal notranslate"><span class="pre">Structure2Forces</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.Structure2Forces.forward"><code class="docutils literal notranslate"><span class="pre">Structure2Forces.forward()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerConfig"><code class="docutils literal notranslate"><span class="pre">TransformerConfig</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerConfig.model_type"><code class="docutils literal notranslate"><span class="pre">TransformerConfig.model_type</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerEncoder"><code class="docutils literal notranslate"><span class="pre">TransformerEncoder</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerEncoder.forward"><code class="docutils literal notranslate"><span class="pre">TransformerEncoder.forward()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForCoordinateAM"><code class="docutils literal notranslate"><span class="pre">TransformerForCoordinateAM</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForCoordinateAM.forward"><code class="docutils literal notranslate"><span class="pre">TransformerForCoordinateAM.forward()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForMaskedAM"><code class="docutils literal notranslate"><span class="pre">TransformerForMaskedAM</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerForMaskedAM.forward"><code class="docutils literal notranslate"><span class="pre">TransformerForMaskedAM.forward()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerModel"><code class="docutils literal notranslate"><span class="pre">TransformerModel</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerModel.forward"><code class="docutils literal notranslate"><span class="pre">TransformerModel.forward()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerPreTrainedModel"><code class="docutils literal notranslate"><span class="pre">TransformerPreTrainedModel</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerPreTrainedModel.base_model_prefix"><code class="docutils literal notranslate"><span class="pre">TransformerPreTrainedModel.base_model_prefix</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerPreTrainedModel.config_class"><code class="docutils literal notranslate"><span class="pre">TransformerPreTrainedModel.config_class</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.models.unimolplus.html#atomgen.models.unimolplus.TransformerPreTrainedModel.supports_gradient_checkpointing"><code class="docutils literal notranslate"><span class="pre">TransformerPreTrainedModel.supports_gradient_checkpointing</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 </div>
 </section>
@@ -390,12 +394,12 @@ training and inference.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="atomgen.models.schnet.html">
+          <a class="next-page" href="atomgen.models.configuration_atomformer.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">atomgen.models.schnet module</div>
+                <div class="title">atomgen.models.configuration_atomformer module</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
