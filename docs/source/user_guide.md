@@ -15,16 +15,11 @@ Welcome to the AtomGen User Guide. This document provides comprehensive instruct
 
 ## Installation
 
-To install AtomGen, run the following command:
+The package can be installed using poetry:
 
 ```bash
-pip install atomgen
-```
-
-For the latest development version, you can install directly from the GitHub repository:
-
-```bash
-pip install git+https://github.com/your-repo/atomgen.git
+python3 -m poetry install
+source $(poetry env info --path)/bin/activate
 ```
 
 ## Quick Start
