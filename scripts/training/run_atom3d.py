@@ -1,52 +1,83 @@
+"""Run ATOM3D finetuning tasks."""
+
 import argparse
 import os
-import wandb
+from typing import Any, Callable, Dict
+
 from datasets import load_dataset
 from transformers import Trainer, TrainingArguments
 
+import wandb
 from atomgen.data.data_collator import DataCollatorForAtomModeling
 from atomgen.data.tokenizer import AtomTokenizer
-from atomgen.models.modeling_atomformer import AtomFormerForSystemClassification
-from atomgen.models.configuration_atomformer import AtomformerConfig
 from atomgen.data.utils import (
-    compute_metrics_smp,
-    compute_metrics_res,
-    compute_metrics_msp,
     compute_metrics_lba,
     compute_metrics_lep,
+    compute_metrics_msp,
     compute_metrics_ppi,
     compute_metrics_psr,
+    compute_metrics_res,
     compute_metrics_rsr,
+    compute_metrics_smp,
 )
+from atomgen.models.configuration_atomformer import AtomformerConfig
+from atomgen.models.modeling_atomformer import AtomFormerForSystemClassification
 
-def parse_arguments():
+
+def parse_arguments() -> argparse.Namespace:
+    """Parse command-line arguments."""
     parser = argparse.ArgumentParser(description="Run ATOM3D finetuning tasks")
-    parser.add_argument("--task", type=str, required=True, choices=["RES", "PPI", "MSP", "LBA", "LEP", "PSR", "RSR", "SMP"],
-                        help="ATOM3D task to run")
-    parser.add_argument("--model", type=str, default="vector-institute/atomformer-base",
-                        help="Name or path of the pre-trained model")
-    parser.add_argument("--output_dir", type=str, default="./output",
-                        help="Path to the output directory")
-    parser.add_argument("--num_train_epochs", type=float, default=10,
-                        help="Number of training epochs")
-    parser.add_argument("--learning_rate", type=float, default=1e-4,
-                        help="Learning rate")
-    parser.add_argument("--batch_size", type=int, default=32,
-                        help="Batch size")
-    parser.add_argument("--seed", type=int, default=42,
-                        help="Random seed")
-    parser.add_argument("--gradient_checkpointing", action="store_true",
-                        help="Whether to use gradient checkpointing")
-    parser.add_argument("--weight_decay", type=float, default=1e-2,
-                        help="Weight decay")
-    parser.add_argument("--warmup_ratio", type=float, default=0.001,
-                        help="Warmup ratio for learning rate scheduler")
-    parser.add_argument("--select", type=int, default=-1,
-                        help="Number of samples to select from the dataset, -1 for all")
-    
+    parser.add_argument(
+        "--task",
+        type=str,
+        required=True,
+        choices=["RES", "PPI", "MSP", "LBA", "LEP", "PSR", "RSR", "SMP"],
+        help="ATOM3D task to run",
+    )
+    parser.add_argument(
+        "--model",
+        type=str,
+        default="vector-institute/atomformer-base",
+        help="Name or path of the pre-trained model",
+    )
+    parser.add_argument(
+        "--output_dir",
+        type=str,
+        default="./output",
+        help="Path to the output directory",
+    )
+    parser.add_argument(
+        "--num_train_epochs", type=float, default=10, help="Number of training epochs"
+    )
+    parser.add_argument(
+        "--learning_rate", type=float, default=1e-4, help="Learning rate"
+    )
+    parser.add_argument("--batch_size", type=int, default=32, help="Batch size")
+    parser.add_argument("--seed", type=int, default=42, help="Random seed")
+    parser.add_argument(
+        "--gradient_checkpointing",
+        action="store_true",
+        help="Whether to use gradient checkpointing",
+    )
+    parser.add_argument("--weight_decay", type=float, default=1e-2, help="Weight decay")
+    parser.add_argument(
+        "--warmup_ratio",
+        type=float,
+        default=0.001,
+        help="Warmup ratio for learning rate scheduler",
+    )
+    parser.add_argument(
+        "--select",
+        type=int,
+        default=-1,
+        help="Number of samples to select from the dataset, -1 for all",
+    )
+
     return parser.parse_args()
 
-def get_task_config(task):
+
+def get_task_config(task: str) -> Dict[str, Any]:
+    """Get task-specific configuration."""
     task_configs = {
         "SMP": {"num_labels": 20, "problem_type": "regression"},
         "RES": {"num_labels": 20, "problem_type": "multiclass_classification"},
@@ -55,11 +86,13 @@ def get_task_config(task):
         "LEP": {"num_labels": 1, "problem_type": "classification"},
         "PPI": {"num_labels": 1, "problem_type": "classification"},
         "PSR": {"num_labels": 4, "problem_type": "regression"},
-        "RSR": {"num_labels": 1, "problem_type": "regression"}
+        "RSR": {"num_labels": 1, "problem_type": "regression"},
     }
     return task_configs[task]
 
-def get_compute_metrics(task):
+
+def get_compute_metrics(task: str) -> Callable[[Any], Dict[str, Any]]:
+    """Get task-specific compute_metrics function."""
     task_compute_metrics = {
         "SMP": compute_metrics_smp,
         "RES": compute_metrics_res,
@@ -68,36 +101,50 @@ def get_compute_metrics(task):
         "LEP": compute_metrics_lep,
         "PPI": compute_metrics_ppi,
         "PSR": compute_metrics_psr,
-        "RSR": compute_metrics_rsr
+        "RSR": compute_metrics_rsr,
     }
     return task_compute_metrics[task]
 
-def run_atom3d(args):
+
+def run_atom3d(args: argparse.Namespace) -> None:
+    """Run ATOM3D finetuning tasks."""
     task_config = get_task_config(args.task)
-    
+
     # Set up model configuration
     if args.model == "scratch":
-        config = AtomformerConfig.from_pretrained("vector-institute/atomformer-base",
-                                                  num_labels=task_config["num_labels"],
-                                                  gradient_checkpointing=args.gradient_checkpointing if args.gradient_checkpointing is not None else False,
-                                                  problem_type=task_config["problem_type"])
+        config = AtomformerConfig.from_pretrained(
+            "vector-institute/atomformer-base",
+            num_labels=task_config["num_labels"],
+            gradient_checkpointing=args.gradient_checkpointing
+            if args.gradient_checkpointing is not None
+            else False,
+            problem_type=task_config["problem_type"],
+        )
         model = AtomFormerForSystemClassification(config)
     else:
-        config = AtomformerConfig.from_pretrained(args.model,
-                                                  num_labels=task_config["num_labels"],
-                                                  gradient_checkpointing=args.gradient_checkpointing if args.gradient_checkpointing is not None else False,
-                                                  problem_type=task_config["problem_type"])
-        model = AtomFormerForSystemClassification.from_pretrained(args.model, config=config)
+        config = AtomformerConfig.from_pretrained(
+            args.model,
+            num_labels=task_config["num_labels"],
+            gradient_checkpointing=args.gradient_checkpointing
+            if args.gradient_checkpointing is not None
+            else False,
+            problem_type=task_config["problem_type"],
+        )
+        model = AtomFormerForSystemClassification.from_pretrained(
+            args.model, config=config
+        )
 
     # Load dataset
     dataset = load_dataset(f"vector-institute/atom3d-{args.task.lower()}")
     if args.select != -1:
-        for split in dataset.keys():
-            dataset[split] = dataset[split].select(range(min(args.select, len(dataset[split]))))
-    
+        for split in dataset:
+            dataset[split] = dataset[split].select(
+                range(min(args.select, len(dataset[split])))
+            )
+
     # Rename 'label' column to 'labels' if it exists
-    if 'label' in dataset['train'].features:
-        dataset = dataset.rename_column('label', 'labels')
+    if "label" in dataset["train"].features:
+        dataset = dataset.rename_column("label", "labels")
 
     # Set up tokenizer and data collator
     tokenizer = AtomTokenizer(vocab_file="atomgen/data/tokenizer.json")
@@ -151,6 +198,7 @@ def run_atom3d(args):
 
     # Save the model
     trainer.save_model(args.output_dir)
+
 
 if __name__ == "__main__":
     args = parse_arguments()
