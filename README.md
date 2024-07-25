@@ -6,6 +6,8 @@
 [![docs](https://github.com/VectorInstitute/atomgen/actions/workflows/docs_deploy.yml/badge.svg)](https://github.com/VectorInstitute/atomgen/actions/workflows/docs_deploy.yml)
 <!-- [![codecov](https://codecov.io/gh/VectorInstitute/atomgen/branch/main/graph/badge.svg)](https://codecov.io/gh/VectorInstitute/atomgen) -->
 [![license](https://img.shields.io/github/license/VectorInstitute/cyclops.svg)](https://github.com/VectorInstitute/atomgen/blob/main/LICENSE)
+<!-- add huggingface hub badge to link to collection -->
+[]
 
 ## Table of Contents
 
@@ -18,7 +20,7 @@
 
 ## Introduction
 
-AtomGen provides a robust framework for handling atomistic graph datasets focusing on transformer-based implementations. We provide utilities for training various models, experimenting with different pre-training tasks, and pre-trained models.
+AtomGen provides a robust framework for handling atomistic graph datasets focusing on transformer-based implementations. We provide utilities for training various models, experimenting with different pre-training tasks, and [pre-trained models and datasets on huggingface hub](https://huggingface.co/collections/vector-institute/atomgen-667ac9c1bee0df974e8b4be8).
 
 It streamlines the process of aggregation, standardization, and utilization of datasets from diverse sources, enabling large-scale pre-training and generative modeling on atomistic graphs.
 

@@ -11,9 +11,9 @@ def test_data_collator():
     tokenizer = AtomTokenizer(vocab_file="atomgen/data/tokenizer.json")
     data_collator = DataCollatorForAtomModeling(
         tokenizer=tokenizer,
-        mam=False,
-        coords_perturb=False,
-        causal=False,
+        mam=True,
+        coords_perturb=0.0,
+        autoregressive=False,
         return_edge_indices=False,
         pad=True,
     )

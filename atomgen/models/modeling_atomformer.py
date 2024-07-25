@@ -1,6 +1,6 @@
 """Implementation of the Atomformer model."""
 
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Union
 
 import torch
 import torch.nn.functional as f
@@ -2258,7 +2258,11 @@ ATOM_METADATA = [
 
 @torch.jit.script
 def gaussian(x: torch.Tensor, mean: torch.Tensor, std: torch.Tensor) -> torch.Tensor:
-    """Compute the Gaussian distribution probability density."""
+    """Compute the Gaussian distribution probability density.
+
+    Taken from: https://https://github.com/microsoft/Graphormer/blob/main/graphormer/models/graphormer_3d.py
+
+    """
     pi = 3.14159
     a = (2 * pi) ** 0.5
     output: torch.Tensor = torch.exp(-0.5 * (((x - mean) / std) ** 2)) / (a * std)
@@ -2266,7 +2270,13 @@ def gaussian(x: torch.Tensor, mean: torch.Tensor, std: torch.Tensor) -> torch.Te
 
 
 class GaussianLayer(nn.Module):
-    """Gaussian pairwise positional embedding layer."""
+    """Gaussian pairwise positional embedding layer.
+
+    This layer computes the Gaussian positional embeddings for the pairwise distances
+    between atoms in a molecule.
+
+    Taken from: https://github.com/microsoft/Graphormer/blob/main/graphormer/models/graphormer_3d.py
+    """
 
     def __init__(self, k: int = 128, edge_types: int = 1024):
         super().__init__()
@@ -2296,7 +2306,7 @@ class ParallelBlock(nn.Module):
     """Parallel transformer block (MLP & Attention in parallel).
 
     Based on:
-      'Scaling Vision Atomformers to 22 Billion Parameters` - https://arxiv.org/abs/2302.05442
+      'Scaling Vision Transformers to 22 Billion Parameters` - https://arxiv.org/abs/2302.05442
 
     Adapted from TIMM implementation.
     """
@@ -2418,6 +2428,9 @@ class AtomformerEncoder(nn.Module):
             k=self.k, edge_types=(self.vocab_size + 1) ** 2
         )
 
+        self.token_type_embedding = nn.Embedding(4, self.dim)
+        nn.init.zeros_(self.token_type_embedding.weight)
+
         self.embed_tokens = nn.Embedding(config.vocab_size, config.dim)
         nn.init.normal_(self.embed_tokens.weight, std=0.02)
 
@@ -2465,6 +2478,7 @@ class AtomformerEncoder(nn.Module):
         input_ids: torch.Tensor,
         coords: torch.Tensor,
         attention_mask: Optional[torch.Tensor] = None,
+        token_type_ids: Optional[torch.Tensor] = None,
     ) -> Tuple[torch.Tensor, torch.Tensor]:
         """Forward pass for the transformer encoder."""
         # pad coords by zeros for graph token
@@ -2488,6 +2502,19 @@ class AtomformerEncoder(nn.Module):
         pos_embeds = self.gaussian_embed(r_ij, edge_type)  # [B, N, N, K]
 
         input_embeds = self.embed_tokens(input_ids)
+        if token_type_ids is not None:
+            token_type_ids = torch.cat(
+                [
+                    torch.empty(
+                        input_ids.size(0), 1, dtype=torch.long, device=input_ids.device
+                    ).fill_(3),
+                    token_type_ids,
+                ],
+                dim=1,
+            )
+            token_type_embeddings = self.token_type_embedding(token_type_ids)
+            input_embeds = input_embeds + token_type_embeddings
+
         atom_metadata = self.metadata_vocab(input_ids)
         input_embeds = input_embeds + self.embed_metadata(atom_metadata)  # [B, N, C]
 
@@ -2850,6 +2877,7 @@ class Structure2EnergyAndForces(AtomformerPreTrainedModel):
                 formation_energy_pred[has_formation_energy],
                 formation_energy[has_formation_energy],
             )
+            loss = loss_formation_energy
         attention_mask = attention_mask.bool() if attention_mask is not None else None
         forces_pred: torch.Tensor = self.force_head(
             self.force_norm(atom_hidden_states[:, 1:])
@@ -2858,11 +2886,113 @@ class Structure2EnergyAndForces(AtomformerPreTrainedModel):
         if forces is not None:
             loss_fct = nn.L1Loss()
             loss_forces = loss_fct(forces_pred[attention_mask], forces[attention_mask])
-
-        loss = torch.Tensor(0).to(coords.device)
-        loss = (
-            loss + loss_formation_energy if loss_formation_energy is not None else loss
-        )
-        loss = loss + loss_forces if loss_forces is not None else loss
+            loss = loss + loss_forces if loss is not None else loss_forces
 
         return loss, (formation_energy_pred, forces_pred, attention_mask)
+
+
+class Structure2TotalEnergyAndForces(AtomformerPreTrainedModel):
+    """Atomformer with an energy and forces head for energy and forces prediction."""
+
+    def __init__(self, config: AtomformerConfig):
+        super().__init__(config)
+        self.config = config
+        self.encoder = AtomformerEncoder(config)
+        self.force_norm = nn.LayerNorm(config.dim)
+        self.force_head = nn.Linear(config.dim, 3, bias=False)
+        nn.init.zeros_(self.force_head.weight)
+        self.energy_norm = nn.LayerNorm(config.dim)
+        self.total_energy_head = nn.Linear(config.dim, 1, bias=False)
+        nn.init.zeros_(self.total_energy_head.weight)
+
+    def forward(
+        self,
+        input_ids: torch.Tensor,
+        coords: torch.Tensor,
+        forces: Optional[torch.Tensor] = None,
+        total_energy: Optional[torch.Tensor] = None,
+        formation_energy: Optional[torch.Tensor] = None,
+        has_formation_energy: Optional[torch.Tensor] = None,
+        attention_mask: Optional[torch.Tensor] = None,
+    ) -> Tuple[
+        Optional[torch.Tensor],
+        Tuple[torch.Tensor, torch.Tensor, Optional[torch.Tensor]],
+    ]:
+        """Forward function call for the structure to energy and forces model."""
+        atom_hidden_states, pos_hidden_states = self.encoder(
+            input_ids, coords, attention_mask
+        )
+
+        loss = None
+        total_energy_pred: torch.Tensor = self.total_energy_head(
+            self.energy_norm(atom_hidden_states[:, 0])
+        ).squeeze(-1)
+        loss_total_energy = None
+        if formation_energy is not None:
+            loss_fct = nn.L1Loss()
+            loss_total_energy = loss_fct(
+                total_energy_pred,
+                total_energy,
+            )
+            loss = loss_total_energy
+        attention_mask = attention_mask.bool() if attention_mask is not None else None
+        forces_pred: torch.Tensor = self.force_head(
+            self.force_norm(atom_hidden_states[:, 1:])
+        )
+        loss_forces = None
+        if forces is not None:
+            loss_fct = nn.L1Loss()
+            loss_forces = loss_fct(forces_pred[attention_mask], forces[attention_mask])
+            loss = loss + loss_forces if loss is not None else loss_forces
+
+        return loss, (total_energy_pred, forces_pred, attention_mask)
+
+
+class AtomFormerForSystemClassification(AtomformerPreTrainedModel):
+    """Atomformer with a classification head for system classification."""
+
+    def __init__(self, config: AtomformerConfig):
+        super().__init__(config)
+        self.num_labels = config.num_labels
+        self.problem_type = config.problem_type
+        self.config = config
+
+        self.encoder = AtomformerEncoder(config)
+
+        self.cls_norm = nn.LayerNorm(config.dim)
+        self.classification_head = nn.Linear(config.dim, self.num_labels, bias=False)
+        nn.init.zeros_(self.classification_head.weight)
+
+        self.loss_fct: Union[nn.L1Loss, nn.BCEWithLogitsLoss, nn.CrossEntropyLoss]
+
+        if self.problem_type == "regression":
+            self.loss_fct = nn.L1Loss()
+        elif self.problem_type == "classification":
+            self.loss_fct = nn.BCEWithLogitsLoss()
+        elif self.problem_type == "multiclass_classification":
+            self.loss_fct = nn.CrossEntropyLoss()
+
+    def forward(
+        self,
+        input_ids: torch.Tensor,
+        coords: torch.Tensor,
+        labels: Optional[torch.Tensor] = None,
+        attention_mask: Optional[torch.Tensor] = None,
+        token_type_ids: Optional[torch.Tensor] = None,
+    ) -> Tuple[Optional[torch.Tensor], torch.Tensor]:
+        """Forward function call for the structure to energy and forces model."""
+        atom_hidden_states, pos_hidden_states = self.encoder(
+            input_ids, coords, attention_mask, token_type_ids
+        )
+        pred = self.classification_head(self.cls_norm(atom_hidden_states[:, 0]))
+
+        loss = None
+        if labels is not None:
+            if self.problem_type == "multiclass_classification":
+                labels = labels.long()
+            elif self.problem_type == "classification":
+                labels = labels.float()
+
+            loss = self.loss_fct(pred.squeeze(), labels.squeeze())
+
+        return loss, pred

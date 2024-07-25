@@ -3,7 +3,6 @@
 import collections
 import json
 import os
-import re
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 from transformers.tokenization_utils import PreTrainedTokenizer
@@ -70,8 +69,17 @@ class AtomTokenizer(PreTrainedTokenizer):  # type: ignore[misc]
         return vocab
 
     def _tokenize(self, text: str) -> List[str]:
-        """Split the text into chemical symbols."""
-        return re.findall("[A-Z][a-z]*", text)
+        """Tokenize the text."""
+        tokens = []
+        i = 0
+        while i < len(text):
+            if i + 1 < len(text) and text[i : i + 2] in self.vocab:
+                tokens.append(text[i : i + 2])
+                i += 2
+            else:
+                tokens.append(text[i])
+                i += 1
+        return tokens
 
     def _convert_token_to_id(self, token: str) -> int:
         """Convert the chemical symbols to atomic numbers."""

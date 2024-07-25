@@ -2,15 +2,14 @@
     "vocab_size": 123,
     "dim": 128,
     "num_heads": 4,
-    "depth": 2,
+    "depth": 4,
     "mlp_ratio": 4,
     "k": 128,
-    "op_hidden_dim": 16,
-    "tr_hidden_dim": 16,
     "dropout": 0.0,
     "mask_token_id": 0,
     "pad_token_id": 119,
     "bos_token_id": 120,
     "eos_token_id": 121,
+    "cls_token_id": 122,
     "gradient_checkpointing": false
 }
