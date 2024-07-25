@@ -4,10 +4,10 @@ import argparse
 import os
 
 import torch
+import wandb
 from datasets import load_from_disk
 from transformers import Trainer, TrainingArguments
 
-import wandb
 from atomgen.data.data_collator import DataCollatorForAtomModeling
 from atomgen.data.tokenizer import AtomTokenizer
 from atomgen.models.configuration_atomformer import AtomformerConfig

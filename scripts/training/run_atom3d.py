@@ -4,10 +4,10 @@ import argparse
 import os
 from typing import Any, Callable, Dict
 
+import wandb
 from datasets import load_dataset
 from transformers import Trainer, TrainingArguments
 
-import wandb
 from atomgen.data.data_collator import DataCollatorForAtomModeling
 from atomgen.data.tokenizer import AtomTokenizer
 from atomgen.data.utils import (
