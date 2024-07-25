@@ -183,22 +183,7 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User Guide (WIP)</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/api/atomgen.data.html">atomgen.data package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of atomgen.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/api/atomgen.data.data_collator.html">atomgen.data.data_collator module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/api/atomgen.data.tokenizer.html">atomgen.data.tokenizer module</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/api/atomgen.models.html">atomgen.models package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of atomgen.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/api/atomgen.models.configuration_atomformer.html">atomgen.models.configuration_atomformer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/api/atomgen.models.modeling_atomformer.html">atomgen.models.modeling_atomformer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/api/atomgen.models.schnet.html">atomgen.models.schnet module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/api/atomgen.models.tokengt.html">atomgen.models.tokengt module</a></li>
-</ul>
-</li>
-</ul>
-
+  
 </div>
 </div>
 
@@ -248,33 +233,48 @@
 <a class="viewcode-back" href="../../../reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">DataCollatorForAtomModeling</span><span class="p">(</span><span class="n">DataCollatorMixin</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data collator used for atom modeling.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Data collator used for atom modeling tasks in molecular representations.</span>
+
+<span class="sd">    This collator prepares input data for various atom modeling tasks, including</span>
+<span class="sd">    masked atom modeling (MAM), autoregressive modeling, and coordinate perturbation.</span>
+<span class="sd">    It supports both padding and flattening of input data.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        tokenizer: The tokenizer used for encoding the data.</span>
-<span class="sd">        mam: Whether to use masked atom modeling.</span>
-<span class="sd">        causal: Whether to use causal modeling.</span>
-<span class="sd">        coords_perturb: Whether to perturb the coordinates.</span>
-<span class="sd">        return_lap_pe: Whether to return Laplacian positional encoding.</span>
-<span class="sd">        return_edge_indices: Whether to return edge indices.</span>
-<span class="sd">        k: Number of eigenvectors to use for Laplacian positional encoding.</span>
-<span class="sd">        max_radius: Maximum distance for edge cutoff.</span>
-<span class="sd">        max_neighbors: Maximum number of neighbors.</span>
-<span class="sd">        pad: Whether to pad the input data, if False, flatten all samples and</span>
-<span class="sd">             concatenates with batch indicator.</span>
-<span class="sd">        pad_to_multiple_of: Pad to multiple of this value.</span>
-<span class="sd">        return_tensors: Return tensors as &quot;pt&quot; or &quot;tf&quot;.</span>
+<span class="sd">        tokenizer (PreTrainedTokenizer): Tokenizer used for encoding the data.</span>
+<span class="sd">        mam (Union[bool, float]): If True, uses original masked atom modeling.</span>
+<span class="sd">                                  If float, masks a constant fraction of atoms/tokens.</span>
+<span class="sd">        autoregressive (bool): Whether to use autoregressive modeling.</span>
+<span class="sd">        coords_perturb (float): Standard deviation for coordinate perturbation.</span>
+<span class="sd">        return_lap_pe (bool): Whether to return Laplacian positional encoding.</span>
+<span class="sd">        return_edge_indices (bool): Whether to return edge indices.</span>
+<span class="sd">        k (int): Number of eigenvectors to use for Laplacian positional encoding.</span>
+<span class="sd">        max_radius (float): Maximum distance for edge cutoff.</span>
+<span class="sd">        max_neighbors (int): Maximum number of neighbors.</span>
+<span class="sd">        pad (bool): Whether to pad the input data.</span>
+<span class="sd">        pad_to_multiple_of (Optional[int]): Pad to multiple of this value.</span>
+<span class="sd">        return_tensors (str): Return tensors as &quot;pt&quot; or &quot;tf&quot;.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">        Dict[str, Any]: Dictionary of batched data.</span>
-
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">        tokenizer (PreTrainedTokenizer): The tokenizer used for encoding.</span>
+<span class="sd">        mam (Union[bool, float]): The masked atom modeling setting.</span>
+<span class="sd">        autoregressive (bool): The autoregressive modeling setting.</span>
+<span class="sd">        coords_perturb (float): The coordinate perturbation standard deviation.</span>
+<span class="sd">        return_lap_pe (bool): The Laplacian positional encoding setting.</span>
+<span class="sd">        return_edge_indices (bool): The edge indices return setting.</span>
+<span class="sd">        k (int): The number of eigenvectors for Laplacian PE.</span>
+<span class="sd">        max_radius (float): The maximum distance for edge cutoff.</span>
+<span class="sd">        max_neighbors (int): The maximum number of neighbors.</span>
+<span class="sd">        pad (bool): The padding setting.</span>
+<span class="sd">        pad_to_multiple_of (Optional[int]): The multiple for padding.</span>
+<span class="sd">        return_tensors (str): The tensor return format.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">tokenizer</span><span class="p">:</span> <span class="n">PreTrainedTokenizer</span>
-    <span class="n">mam</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="n">causal</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">coords_perturb</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">mam</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">autoregressive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">coords_perturb</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">return_lap_pe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">return_edge_indices</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span>
@@ -284,6 +284,7 @@
     <span class="n">pad_to_multiple_of</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">return_tensors</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;pt&quot;</span>
 
+    <span class="c1"># ruff: noqa: PLR0912</span>
 <div class="viewcode-block" id="DataCollatorForAtomModeling.torch_call">
 <a class="viewcode-back" href="../../../reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_call">[docs]</a>
     <span class="k">def</span> <span class="nf">torch_call</span><span class="p">(</span>
@@ -338,7 +339,6 @@
         <span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mam</span><span class="p">:</span>
-            <span class="c1"># If special token mask has been preprocessed, pop it from the dict.</span>
             <span class="n">special_tokens_mask</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;special_tokens_mask&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">special_tokens_mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">special_tokens_mask</span> <span class="o">=</span> <span class="p">[</span>
@@ -352,10 +352,22 @@
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">special_tokens_mask</span> <span class="o">=</span> <span class="n">special_tokens_mask</span><span class="o">.</span><span class="n">bool</span><span class="p">()</span>
-            <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">],</span> <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">torch_mask_tokens</span><span class="p">(</span>
-                <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">],</span> <span class="n">t</span><span class="p">,</span> <span class="n">special_tokens_mask</span><span class="o">=</span><span class="n">special_tokens_mask</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">causal</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mam</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="c1"># Constant masking of a float fraction of the atoms/tokens</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bernoulli</span><span class="p">(</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mam</span><span class="p">)</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">bool</span><span class="p">()</span>
+                <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">],</span> <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_mask</span><span class="p">(</span>
+                    <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">],</span> <span class="n">mask</span><span class="p">,</span> <span class="n">special_tokens_mask</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Original MaskGIT functionality</span>
+                <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">],</span> <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">torch_mask_tokens</span><span class="p">(</span>
+                    <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">],</span> <span class="n">t</span><span class="p">,</span> <span class="n">special_tokens_mask</span><span class="o">=</span><span class="n">special_tokens_mask</span>
+                <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoregressive</span><span class="p">:</span>
             <span class="c1"># extend coords</span>
             <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;coords&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
                 <span class="p">[</span>
@@ -374,9 +386,11 @@
             <span class="n">special_tokens_mask</span><span class="p">[</span><span class="n">batch</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">special_tokens_mask</span><span class="p">,</span> <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">],</span> <span class="o">-</span><span class="mi">100</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">coords_perturb</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">coords_perturb</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;coords&quot;</span><span class="p">],</span> <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;labels_coords&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">torch_perturb_coords</span><span class="p">(</span>
-                <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;coords&quot;</span><span class="p">],</span> <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;fixed&quot;</span><span class="p">],</span> <span class="n">t</span>
+                <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;coords&quot;</span><span class="p">],</span>
+                <span class="n">batch</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;fixed&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">coords_perturb</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">batch</span></div>
@@ -406,22 +420,40 @@
         <span class="k">return</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span></div>
 
 
+<div class="viewcode-block" id="DataCollatorForAtomModeling.apply_mask">
+<a class="viewcode-back" href="../../../reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.apply_mask">[docs]</a>
+    <span class="k">def</span> <span class="nf">apply_mask</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">inputs</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">mask</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">special_tokens_mask</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply the mask to the input tokens.&quot;&quot;&quot;</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+            <span class="n">mask</span><span class="p">,</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">mask_token_id</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">inputs</span><span class="o">.</span><span class="n">device</span><span class="p">),</span>
+            <span class="n">inputs</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+            <span class="o">~</span><span class="n">mask</span> <span class="o">|</span> <span class="n">special_tokens_mask</span><span class="p">,</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">labels</span><span class="o">.</span><span class="n">device</span><span class="p">),</span>
+            <span class="n">labels</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span></div>
+
+
 <div class="viewcode-block" id="DataCollatorForAtomModeling.torch_perturb_coords">
 <a class="viewcode-back" href="../../../reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_perturb_coords">[docs]</a>
-    <span class="k">def</span> <span class="nf">torch_perturb_coords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">fixed</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">torch_perturb_coords</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">fixed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">perturb_std</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepare perturbed coords inputs/labels for coordinate denoising.&quot;&quot;&quot;</span>
-        <span class="n">batch</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">shape</span>
-        <span class="n">num_token_perturbed</span> <span class="o">=</span> <span class="p">(</span><span class="n">seq_len</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">batch_randperm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">((</span><span class="n">batch</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">))</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">mask</span> <span class="o">=</span> <span class="n">batch_randperm</span> <span class="o">&lt;</span> <span class="n">num_token_perturbed</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fixed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fixed</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">bool</span><span class="p">()</span>
         <span class="n">labels</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
-        <span class="n">noise</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">inputs</span><span class="p">[</span><span class="o">~</span><span class="n">fixed</span><span class="o">.</span><span class="n">bool</span><span class="p">()]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
-            <span class="n">mask</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="o">~</span><span class="n">fixed</span><span class="o">.</span><span class="n">bool</span><span class="p">()],</span>
-            <span class="n">inputs</span><span class="p">[</span><span class="o">~</span><span class="n">fixed</span><span class="o">.</span><span class="n">bool</span><span class="p">()],</span>
-            <span class="n">inputs</span><span class="p">[</span><span class="o">~</span><span class="n">fixed</span><span class="o">.</span><span class="n">bool</span><span class="p">()]</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">noise</span><span class="p">)[</span><span class="o">~</span><span class="n">fixed</span><span class="o">.</span><span class="n">bool</span><span class="p">()],</span>
-        <span class="p">)</span>
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">perturb_std</span><span class="p">)</span>
+        <span class="n">inputs</span><span class="p">[</span><span class="o">~</span><span class="n">fixed</span><span class="o">.</span><span class="n">bool</span><span class="p">()]</span> <span class="o">+=</span> <span class="n">noise</span><span class="p">[</span><span class="o">~</span><span class="n">fixed</span><span class="o">.</span><span class="n">bool</span><span class="p">()]</span>
         <span class="k">return</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span></div>
 
 

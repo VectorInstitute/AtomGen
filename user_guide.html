@@ -7,14 +7,14 @@
 
     
       <meta name="description" content="aieng-template Python API documentation">
-    <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="atomgen.data package" href="reference/api/atomgen.data.html" /><link rel="prev" title="AtomGen Documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
     <meta name="generator" content="sphinx-7.2.6, furo 2024.01.29"/>
 
     
     <meta name="msvalidate.01" content="8D2A5032F006424CAF54C0DDCD16F666" />
       
-        <title>User Guide (WIP) - atomgen documentation</title>
+        <title>AtomGen User Guide - atomgen documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -162,7 +162,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -184,22 +184,7 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">User Guide (WIP)</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="reference/api/atomgen.data.html">atomgen.data package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of atomgen.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.data.data_collator.html">atomgen.data.data_collator module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.data.tokenizer.html">atomgen.data.tokenizer module</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="reference/api/atomgen.models.html">atomgen.models package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of atomgen.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.configuration_atomformer.html">atomgen.models.configuration_atomformer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.modeling_atomformer.html">atomgen.models.modeling_atomformer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.schnet.html">atomgen.models.schnet module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.tokengt.html">atomgen.models.tokengt module</a></li>
-</ul>
-</li>
-</ul>
-
+  
 </div>
 </div>
 
@@ -226,15 +211,219 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="user-guide-wip">
-<span id="user-guide"></span><h1>User Guide (WIP)<a class="headerlink" href="#user-guide-wip" title="Link to this heading">#</a></h1>
-<p><strong>This is a work in progress.</strong></p>
+          <section id="atomgen-user-guide">
+<h1>AtomGen User Guide<a class="headerlink" href="#atomgen-user-guide" title="Link to this heading">#</a></h1>
+<p>Welcome to the AtomGen User Guide. This document provides comprehensive instructions on how to use all components of the AtomGen library for molecular modeling tasks.</p>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#installation">Installation</a></p></li>
+<li><p><a class="reference internal" href="#quick-start">Quick Start</a></p></li>
+<li><p><a class="reference internal" href="#data-loading">Data Loading</a></p></li>
+<li><p><a class="reference internal" href="#pretraining">Pretraining</a></p></li>
+<li><p><a class="reference internal" href="#fine-tuning">Fine-tuning</a></p></li>
+<li><p><a class="reference internal" href="#inference">Inference</a></p></li>
+<li><p><a class="reference internal" href="#advanced-features">Advanced Features</a></p></li>
+<li><p><a class="reference internal" href="#troubleshooting">Troubleshooting</a></p></li>
+</ol>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p>To install AtomGen, run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>atomgen
+</pre></div>
+</div>
+<p>For the latest development version, you can install directly from the GitHub repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/your-repo/atomgen.git
+</pre></div>
+</div>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
+<p>Here’s a simple example to get you started with AtomGen using a pretrained model to extract features:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModel</span>
+
+<span class="c1"># Load a pretrained model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;vector-institute/atomformer-base&quot;</span><span class="p">,</span>
+                                   <span class="n">trust_remote_code</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Example input data</span>
+<span class="n">input_ids</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">attention_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Extract features</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span> <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">last_hidden_state</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Should be (1, 10, 768) for the base model</span>
+</pre></div>
+</div>
+<p>This example demonstrates how to load the pretrained AtomFormer model and use it to extract features from molecular data.</p>
+</section>
+<section id="data-loading">
+<h2>Data Loading<a class="headerlink" href="#data-loading" title="Link to this heading">#</a></h2>
+<p>AtomGen leverages the HuggingFace <code class="docutils literal notranslate"><span class="pre">datasets</span></code> library for data loading. Here are examples of loading some of the available datasets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+
+<span class="c1"># Load the S2EF-15M dataset</span>
+<span class="n">s2ef_dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;vector-institute/s2ef-15m&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load ATOM3D SMP dataset</span>
+<span class="n">smp_dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;vector-institute/atom3d-smp&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load ATOM3D LBA dataset</span>
+<span class="n">lba_dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;vector-institute/atom3d-lba&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Dataset structure:</p>
+<ul class="simple">
+<li><p>S2EF-15M: Contains ‘input_ids’ (atomic numbers), ‘coords’ (3D coordinates), ‘forces’, ‘formation_energy’, ‘total_energy’, and ‘has_formation_energy’ fields.</p></li>
+<li><p>ATOM3D datasets: Generally contain ‘input_ids’, ‘coords’, and task-specific labels. For example, SMP has 20 regression targets, while LBA has a single binding affinity value.</p></li>
+</ul>
+<p>You can inspect the structure of a dataset using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="pretraining">
+<h2>Pretraining<a class="headerlink" href="#pretraining" title="Link to this heading">#</a></h2>
+<p>To pretrain an AtomFormer model, use the <code class="docutils literal notranslate"><span class="pre">pretrain_s2ef.py</span></code> script. Here’s an example of how to use it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>pretrain_s2ef.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--project<span class="w"> </span><span class="s2">&quot;AtomGen&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">&quot;s2ef_15m_train_base_10epochs&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_dir<span class="w"> </span><span class="s2">&quot;./checkpoint&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dataset_dir<span class="w"> </span><span class="s2">&quot;./s2ef_15m&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--model_config<span class="w"> </span><span class="s2">&quot;atomgen/models/configs/atomformer-base.json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tokenizer_json<span class="w"> </span><span class="s2">&quot;atomgen/data/tokenizer.json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--micro_batch_size<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--macro_batch_size<span class="w"> </span><span class="m">128</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--num_train_epochs<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--warmup_ratio<span class="w"> </span><span class="m">0</span>.001<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--lr_scheduler_type<span class="w"> </span><span class="s2">&quot;cosine&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--weight_decay<span class="w"> </span><span class="m">1</span>.0e-2<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--max_grad_norm<span class="w"> </span><span class="m">5</span>.0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--learning_rate<span class="w"> </span>3e-4<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--gradient_checkpointing
+</pre></div>
+</div>
+<p>This script handles the complexities of pretraining, including data loading, model initialization, and training loop management.</p>
+</section>
+<section id="fine-tuning">
+<h2>Fine-tuning<a class="headerlink" href="#fine-tuning" title="Link to this heading">#</a></h2>
+<p>For fine-tuning on ATOM3D tasks, use the <code class="docutils literal notranslate"><span class="pre">run_atom3d.py</span></code> script. Here’s an example command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>run_atom3d.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--model_name_or_path<span class="w"> </span><span class="s2">&quot;vector-institute/atomformer-base&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dataset_name<span class="w"> </span><span class="s2">&quot;vector-institute/atom3d-smp&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_dir<span class="w"> </span><span class="s2">&quot;./results&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--do_train<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--do_eval<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--max_seq_length<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--per_device_train_batch_size<span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--learning_rate<span class="w"> </span>5e-5<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--num_train_epochs<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--save_steps<span class="w"> </span><span class="m">10000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--evaluation_strategy<span class="w"> </span><span class="s2">&quot;steps&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--eval_steps<span class="w"> </span><span class="m">5000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--load_best_model_at_end<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--metric_for_best_model<span class="w"> </span><span class="s2">&quot;mae&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--greater_is_better<span class="w"> </span><span class="nb">false</span>
+</pre></div>
+</div>
+<p>Key arguments for <code class="docutils literal notranslate"><span class="pre">run_atom3d.py</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--model_name_or_path</span></code>: Pretrained model to start from</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--dataset_name</span></code>: ATOM3D dataset to use for fine-tuning</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--output_dir</span></code>: Directory to save results</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--do_train</span></code>: Perform training</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--do_eval</span></code>: Perform evaluation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--max_seq_length</span></code>: Maximum sequence length</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--per_device_train_batch_size</span></code>: Batch size per GPU/CPU for training</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--learning_rate</span></code>: Initial learning rate</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--num_train_epochs</span></code>: Total number of training epochs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--evaluation_strategy</span></code>: When to evaluate during training</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--metric_for_best_model</span></code>: Metric to use for saving best model</p></li>
+</ul>
+</section>
+<section id="inference">
+<h2>Inference<a class="headerlink" href="#inference" title="Link to this heading">#</a></h2>
+<p>To use a trained model for inference, you can load it directly from the HuggingFace Hub or from a local directory:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForSequenceClassification</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="c1"># Load from HuggingFace Hub</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;vector-institute/atomformer-base-smp&quot;</span><span class="p">,</span>
+                                                           <span class="n">trust_remote_code</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Or load from a local directory</span>
+<span class="c1"># model = AutoModelForSequenceClassification.from_pretrained(&quot;path/to/your/model/directory&quot;,</span>
+<span class="c1">#                                                            trust_remote_code=True)</span>
+
+<span class="c1"># Prepare your input data</span>
+<span class="n">input_ids</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">attention_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Run inference</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span> <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">)</span>
+
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">logits</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Should be (1, 20) for the SMP task</span>
+</pre></div>
+</div>
+<p>This example assumes the model has been fine-tuned on the SMP task. Adjust the model class and output processing based on the specific task you’re working with.</p>
+</section>
+<section id="advanced-features">
+<h2>Advanced Features<a class="headerlink" href="#advanced-features" title="Link to this heading">#</a></h2>
+<section id="data-collation">
+<h3>Data Collation<a class="headerlink" href="#data-collation" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling</span></code> class handles batching of molecular data. Here’s how to use it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">atomgen.data</span> <span class="kn">import</span> <span class="n">DataCollatorForAtomModeling</span>
+
+<span class="n">data_collator</span> <span class="o">=</span> <span class="n">DataCollatorForAtomModeling</span><span class="p">(</span>
+    <span class="n">mam</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Enable Masked Atom Modeling</span>
+    <span class="n">coords_perturb</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>  <span class="c1"># Enable coordinate perturbation</span>
+    <span class="n">return_lap_pe</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Return Laplacian Positional Encoding</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="distributed-training">
+<h3>Distributed Training<a class="headerlink" href="#distributed-training" title="Link to this heading">#</a></h3>
+<p>For multi-GPU training, modify your <code class="docutils literal notranslate"><span class="pre">run_atom3d.py</span></code> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>torch.distributed.launch<span class="w"> </span>--nproc_per_node<span class="o">=</span><span class="m">4</span><span class="w"> </span>run_atom3d.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--model_name_or_path<span class="w"> </span><span class="s2">&quot;vector-institute/atomformer-base&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dataset_name<span class="w"> </span><span class="s2">&quot;vector-institute/atom3d-smp&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_dir<span class="w"> </span><span class="s2">&quot;./results&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--do_train<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--do_eval<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--per_device_train_batch_size<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--learning_rate<span class="w"> </span>5e-5<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--num_train_epochs<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--fp16<span class="w">  </span><span class="c1"># Enable mixed precision training</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
+<p>If you encounter out-of-memory errors, try the following:</p>
+<ol class="arabic simple">
+<li><p>Reduce batch size in the script arguments</p></li>
+<li><p>Enable gradient checkpointing (add <code class="docutils literal notranslate"><span class="pre">--gradient_checkpointing</span></code> to your command)</p></li>
+<li><p>Use mixed precision training (add <code class="docutils literal notranslate"><span class="pre">--fp16</span></code> to your command)</p></li>
+</ol>
+<p>For more help, please check our <a class="reference external" href="https://github.com/your-repo/atomgen/issues">GitHub Issues</a> or open a new issue if you can’t find a solution to your problem.</p>
+</section>
 </section>
 
         </article>
@@ -242,26 +431,8 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="reference/api/atomgen.data.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">atomgen.data package</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="index.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">Home</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -297,8 +468,39 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">AtomGen User Guide</a><ul>
+<li><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#quick-start">Quick Start</a></li>
+<li><a class="reference internal" href="#data-loading">Data Loading</a></li>
+<li><a class="reference internal" href="#pretraining">Pretraining</a></li>
+<li><a class="reference internal" href="#fine-tuning">Fine-tuning</a></li>
+<li><a class="reference internal" href="#inference">Inference</a></li>
+<li><a class="reference internal" href="#advanced-features">Advanced Features</a><ul>
+<li><a class="reference internal" href="#data-collation">Data Collation</a></li>
+<li><a class="reference internal" href="#distributed-training">Distributed Training</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

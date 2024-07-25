@@ -7,7 +7,7 @@
 
     
       <meta name="description" content="aieng-template Python API documentation">
-    <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="User Guide (WIP)" href="user_guide.html" />
+    <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
     <meta name="generator" content="sphinx-7.2.6, furo 2024.01.29"/>
 
@@ -162,7 +162,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -184,22 +184,7 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul>
-<li class="toctree-l1"><a class="reference internal" href="user_guide.html">User Guide (WIP)</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="reference/api/atomgen.data.html">atomgen.data package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of atomgen.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.data.data_collator.html">atomgen.data.data_collator module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.data.tokenizer.html">atomgen.data.tokenizer module</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="reference/api/atomgen.models.html">atomgen.models package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of atomgen.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.configuration_atomformer.html">atomgen.models.configuration_atomformer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.modeling_atomformer.html">atomgen.models.modeling_atomformer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.schnet.html">atomgen.models.schnet module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.tokengt.html">atomgen.models.tokengt module</a></li>
-</ul>
-</li>
-</ul>
-
+  
 </div>
 </div>
 
@@ -226,48 +211,89 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <div class="toctree-wrapper compound">
+          <p>Certainly! I’ll update the index.md file based on the context provided in the other project files. Here’s a revised version of the index.md that better represents the AtomGen project:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span>---
+<span class="gu">hide-toc: true</span>
+<span class="gu">---</span>
+
+```{toctree}
+:hidden:
+
+user_guide
+reference/api/atomgen.data
+reference/api/atomgen.models
+</pre></div>
 </div>
 <section id="atomgen-documentation">
 <h1>AtomGen Documentation<a class="headerlink" href="#atomgen-documentation" title="Link to this heading">#</a></h1>
-<p>Welcome to the documentation for AtomGen, a toolkit for atomistic graph pre-training and generative modeling. AtomGen empowers researchers and developers with tools to explore, experiment, and innovate in the realm of atomistic graph analysis.</p>
+<p>Welcome to the documentation for AtomGen, a toolkit for atomistic machine learning and generative modeling. AtomGen provides researchers and developers with tools to explore, experiment, and innovate in the realm of molecular and materials science using state-of-the-art deep learning techniques.</p>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>AtomGen provides a robust framework for handling atomistic graph datasets, training various models, and experimenting with different pre-training tasks. It streamlines the process of aggregation, standardization, and utilization of datasets from diverse sources, enabling large-scale pre-training and generative modeling on atomistic graphs.</p>
+<p>AtomGen offers a comprehensive framework for handling atomistic datasets, training various models, and experimenting with different pre-training and fine-tuning tasks. It streamlines the process of working with diverse molecular and materials datasets, enabling large-scale pre-training and task-specific fine-tuning on atomistic data.</p>
+<section id="key-features">
+<h3>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Data Handling</strong>: Efficient processing and loading of large-scale atomistic datasets.</p></li>
+<li><p><strong>Model Architectures</strong>: Implementation of advanced models like AtomFormer, designed for molecular representation learning.</p></li>
+<li><p><strong>Pre-training</strong>: Support for various pre-training tasks such as Structure to Energy and Forces (S2EF) prediction.</p></li>
+<li><p><strong>Fine-tuning</strong>: Easy adaptation of pre-trained models to downstream tasks using ATOM3D benchmarks.</p></li>
+<li><p><strong>Scalability</strong>: Designed for distributed training on multiple GPUs.</p></li>
+</ul>
+</section>
 <section id="datasets">
 <h3>Datasets<a class="headerlink" href="#datasets" title="Link to this heading">#</a></h3>
-<p>AtomGen facilitates the aggregation and standardization of datasets, including but not limited to:</p>
+<p>AtomGen supports a variety of datasets, including:</p>
 <ul class="simple">
-<li><p><strong>S2EF Datasets</strong>: Aggregated from multiple sources such as OC20, OC22, ODAC23, MPtrj, and SPICE with structures and energies for pre-training.</p></li>
-<li><p><strong>Misc. Atomistic Graph Datasets</strong>: Including Molecule3D, Protein Data Bank (PDB), and the Open Quantum Materials Database (OQMD).</p></li>
+<li><p><strong>S2EF-15M</strong>: A large-scale dataset aggregated from multiple sources (OC20, OC22, ODAC23, MPtrj, SPICE) for pre-training.</p></li>
+<li><p><strong>ATOM3D Benchmarks</strong>: Task-specific datasets for molecular property prediction, including:</p>
+<ul>
+<li><p>SMP (Small Molecule Properties)</p></li>
+<li><p>PPI (Protein-Protein Interfaces)</p></li>
+<li><p>RES (Residue Identity)</p></li>
+<li><p>MSP (Mutation Stability Prediction)</p></li>
+<li><p>LBA (Ligand Binding Affinity)</p></li>
+<li><p>LEP (Ligand Efficacy Prediction)</p></li>
+<li><p>PSR (Protein Structure Ranking)</p></li>
+<li><p>RSR (RNA Structure Ranking)</p></li>
 </ul>
-<p>Currently, AtomGen has pre-processed datasets for the S2EF pre-training task for OC20 and a mixed dataset of OC20, OC22, ODAC23, MPtrj, and SPICE.  They have been uploaded to huggingface hub and can be accessed using the datasets API.</p>
+</li>
+</ul>
 </section>
 <section id="models">
 <h3>Models<a class="headerlink" href="#models" title="Link to this heading">#</a></h3>
-<p>AtomGen supports a variety of models for training on atomistic graph datasets, including:</p>
+<p>The implemented model architectures in AtomGen is:</p>
 <ul class="simple">
-<li><p>AtomFormer</p></li>
-<li><p>SchNet</p></li>
-<li><p>TokenGT</p></li>
+<li><p><strong>AtomFormer</strong>: A transformer encoder model adapted for atomistic data, leveraging 3D spatial information.</p></li>
+<li><p><strong><a class="reference external" href="https://arxiv.org/abs/1706.08566">SchNet</a></strong>: A continuous-filter convolutional neural network for modeling quantum interactions.</p></li>
+<li><p><strong><a class="reference external" href="https://github.com/jw9730/tokengt">TokenGT</a></strong>: Tokenized graph transformer that treats all nodes and edges as independent tokens.</p></li>
 </ul>
+<p>The pre-trained models are based on AtomFormer, which can be fine-tuned on ATOM3D benchmarks for specific molecular property predictions.</p>
 </section>
 <section id="tasks">
 <h3>Tasks<a class="headerlink" href="#tasks" title="Link to this heading">#</a></h3>
-<p>Experimentation with pre-training tasks is facilitated through AtomGen, including:</p>
+<p>AtomGen facilitates various tasks in molecular machine learning:</p>
 <ul class="simple">
-<li><p><strong>Structure to Energy &amp; Forces</strong>: Predicting energies and forces for atomistic graphs.</p></li>
-<li><p><strong>Masked Atom Modeling</strong>: Masking atoms and predicting their properties.</p></li>
-<li><p><strong>Coordinate Denoising</strong>: Denoising atom coordinates.</p></li>
+<li><p><strong>Structure to Energy &amp; Forces (S2EF)</strong>: Predicting energies and forces for atomistic systems.</p></li>
+<li><p><strong>Masked Atom Modeling (MAM)</strong>: Self-supervised learning by masking and predicting atom properties.</p></li>
+<li><p><strong>Coordinate Denoising</strong>: Improving structural predictions by denoising perturbed coordinates.</p></li>
+<li><p><strong>Downstream Tasks</strong>: Fine-tuning on ATOM3D benchmarks for specific molecular property predictions.</p></li>
 </ul>
-<p>These tasks are all facilitated through the <code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling</span></code> class and can be used simultaneously or individually.</p>
 </section>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
+<p>To get started with AtomGen, check out our <a class="reference internal" href="user_guide.html"><span class="std std-doc">User Guide</span></a> for installation instructions, basic usage examples, and more detailed information on training and inference.</p>
+<p>For a deep dive into the API, explore the reference documentation for the <a class="reference internal" href="reference/api/atomgen.data.html"><span class="doc std std-doc">data</span></a> and <a class="reference internal" href="reference/api/atomgen.models.html"><span class="doc std std-doc">models</span></a> modules.</p>
+<p>AtomGen is designed to be user-friendly while providing powerful capabilities for atomistic machine learning. Whether you’re conducting research, developing new models, or applying machine learning to molecular systems, AtomGen provides a versatile toolkit to support your work.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -276,15 +302,7 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="user_guide.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">User Guide (WIP)</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
+          
           
         </div>
         <div class="bottom-of-page">
@@ -321,8 +339,34 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">AtomGen Documentation</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a><ul>
+<li><a class="reference internal" href="#key-features">Key Features</a></li>
+<li><a class="reference internal" href="#datasets">Datasets</a></li>
+<li><a class="reference internal" href="#models">Models</a></li>
+<li><a class="reference internal" href="#tasks">Tasks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

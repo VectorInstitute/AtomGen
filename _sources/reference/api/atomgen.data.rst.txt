@@ -14,3 +14,4 @@ Submodules
 
    atomgen.data.data_collator
    atomgen.data.tokenizer
+   atomgen.data.utils

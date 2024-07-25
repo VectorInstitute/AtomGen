@@ -7,7 +7,7 @@
 
     
       <meta name="description" content="aieng-template Python API documentation">
-    <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="atomgen.models.schnet module" href="atomgen.models.schnet.html" /><link rel="prev" title="atomgen.models.configuration_atomformer module" href="atomgen.models.configuration_atomformer.html" />
+    <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-7.2.6, furo 2024.01.29"/>
 
@@ -184,22 +184,7 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide.html">User Guide (WIP)</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="atomgen.data.html">atomgen.data package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of atomgen.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.data.data_collator.html">atomgen.data.data_collator module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.data.tokenizer.html">atomgen.data.tokenizer module</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="atomgen.models.html">atomgen.models package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of atomgen.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.configuration_atomformer.html">atomgen.models.configuration_atomformer module</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">atomgen.models.modeling_atomformer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.schnet.html">atomgen.models.schnet module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.tokengt.html">atomgen.models.tokengt module</a></li>
-</ul>
-</li>
-</ul>
-
+  
 </div>
 </div>
 
@@ -236,6 +221,24 @@
 <span id="atomgen-models-modeling-atomformer-module"></span><h1>atomgen.models.modeling_atomformer module<a class="headerlink" href="#module-atomgen.models.modeling_atomformer" title="Link to this heading">#</a></h1>
 <p>Implementation of the Atomformer model.</p>
 <dl class="py class">
+<dt class="sig sig-object py" id="atomgen.models.modeling_atomformer.AtomFormerForSystemClassification">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AtomFormerForSystemClassification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/modeling_atomformer.html#AtomFormerForSystemClassification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.modeling_atomformer.AtomFormerForSystemClassification" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#atomgen.models.modeling_atomformer.AtomformerPreTrainedModel" title="atomgen.models.modeling_atomformer.AtomformerPreTrainedModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AtomformerPreTrainedModel</span></code></a></p>
+<p>Atomformer with a classification head for system classification.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="atomgen.models.modeling_atomformer.AtomFormerForSystemClassification.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_type_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/modeling_atomformer.html#AtomFormerForSystemClassification.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.modeling_atomformer.AtomFormerForSystemClassification.forward" title="Link to this definition">#</a></dt>
+<dd><p>Forward function call for the structure to energy and forces model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="atomgen.models.modeling_atomformer.AtomformerEncoder">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AtomformerEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/modeling_atomformer.html#AtomformerEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.modeling_atomformer.AtomformerEncoder" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
@@ -244,7 +247,7 @@
 each containing a multi-head self-attention mechanism and a feed-forward network.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="atomgen.models.modeling_atomformer.AtomformerEncoder.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/modeling_atomformer.html#AtomformerEncoder.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.modeling_atomformer.AtomformerEncoder.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_type_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/modeling_atomformer.html#AtomformerEncoder.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.modeling_atomformer.AtomformerEncoder.forward" title="Link to this definition">#</a></dt>
 <dd><p>Forward pass for the transformer encoder.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -337,6 +340,9 @@ each containing a multi-head self-attention mechanism and a feed-forward network
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GaussianLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/modeling_atomformer.html#GaussianLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.modeling_atomformer.GaussianLayer" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>Gaussian pairwise positional embedding layer.</p>
+<p>This layer computes the Gaussian positional embeddings for the pairwise distances
+between atoms in a molecule.</p>
+<p>Taken from: <a class="reference external" href="https://github.com/microsoft/Graphormer/blob/main/graphormer/models/graphormer_3d.py">https://github.com/microsoft/Graphormer/blob/main/graphormer/models/graphormer_3d.py</a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="atomgen.models.modeling_atomformer.GaussianLayer.forward">
 <span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_types</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/modeling_atomformer.html#GaussianLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.modeling_atomformer.GaussianLayer.forward" title="Link to this definition">#</a></dt>
@@ -411,7 +417,7 @@ each containing a multi-head self-attention mechanism and a feed-forward network
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>Parallel transformer block (MLP &amp; Attention in parallel).</p>
 <dl class="simple">
-<dt>Based on:</dt><dd><p>‘Scaling Vision Atomformers to 22 Billion Parameters` - <a class="reference external" href="https://arxiv.org/abs/2302.05442">https://arxiv.org/abs/2302.05442</a></p>
+<dt>Based on:</dt><dd><p>‘Scaling Vision Transformers to 22 Billion Parameters` - <a class="reference external" href="https://arxiv.org/abs/2302.05442">https://arxiv.org/abs/2302.05442</a></p>
 </dd>
 </dl>
 <p>Adapted from TIMM implementation.</p>
@@ -482,6 +488,24 @@ each containing a multi-head self-attention mechanism and a feed-forward network
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="atomgen.models.modeling_atomformer.Structure2TotalEnergyAndForces">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Structure2TotalEnergyAndForces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/modeling_atomformer.html#Structure2TotalEnergyAndForces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.modeling_atomformer.Structure2TotalEnergyAndForces" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#atomgen.models.modeling_atomformer.AtomformerPreTrainedModel" title="atomgen.models.modeling_atomformer.AtomformerPreTrainedModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AtomformerPreTrainedModel</span></code></a></p>
+<p>Atomformer with an energy and forces head for energy and forces prediction.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="atomgen.models.modeling_atomformer.Structure2TotalEnergyAndForces.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formation_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_formation_energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/models/modeling_atomformer.html#Structure2TotalEnergyAndForces.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.models.modeling_atomformer.Structure2TotalEnergyAndForces.forward" title="Link to this definition">#</a></dt>
+<dd><p>Forward function call for the structure to energy and forces model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>], <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]]]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article>
@@ -489,26 +513,8 @@ each containing a multi-head self-attention mechanism and a feed-forward network
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="atomgen.models.schnet.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">atomgen.models.schnet module</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="atomgen.models.configuration_atomformer.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">atomgen.models.configuration_atomformer module</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -557,6 +563,10 @@ each containing a multi-head self-attention mechanism and a feed-forward network
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">atomgen.models.modeling_atomformer module</a><ul>
+<li><a class="reference internal" href="#atomgen.models.modeling_atomformer.AtomFormerForSystemClassification"><code class="docutils literal notranslate"><span class="pre">AtomFormerForSystemClassification</span></code></a><ul>
+<li><a class="reference internal" href="#atomgen.models.modeling_atomformer.AtomFormerForSystemClassification.forward"><code class="docutils literal notranslate"><span class="pre">AtomFormerForSystemClassification.forward()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#atomgen.models.modeling_atomformer.AtomformerEncoder"><code class="docutils literal notranslate"><span class="pre">AtomformerEncoder</span></code></a><ul>
 <li><a class="reference internal" href="#atomgen.models.modeling_atomformer.AtomformerEncoder.forward"><code class="docutils literal notranslate"><span class="pre">AtomformerEncoder.forward()</span></code></a></li>
 </ul>
@@ -609,6 +619,10 @@ each containing a multi-head self-attention mechanism and a feed-forward network
 </li>
 <li><a class="reference internal" href="#atomgen.models.modeling_atomformer.Structure2Forces"><code class="docutils literal notranslate"><span class="pre">Structure2Forces</span></code></a><ul>
 <li><a class="reference internal" href="#atomgen.models.modeling_atomformer.Structure2Forces.forward"><code class="docutils literal notranslate"><span class="pre">Structure2Forces.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#atomgen.models.modeling_atomformer.Structure2TotalEnergyAndForces"><code class="docutils literal notranslate"><span class="pre">Structure2TotalEnergyAndForces</span></code></a><ul>
+<li><a class="reference internal" href="#atomgen.models.modeling_atomformer.Structure2TotalEnergyAndForces.forward"><code class="docutils literal notranslate"><span class="pre">Structure2TotalEnergyAndForces.forward()</span></code></a></li>
 </ul>
 </li>
 </ul>

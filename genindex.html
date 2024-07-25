@@ -181,22 +181,7 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul>
-<li class="toctree-l1"><a class="reference internal" href="user_guide.html">User Guide (WIP)</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="reference/api/atomgen.data.html">atomgen.data package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of atomgen.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.data.data_collator.html">atomgen.data.data_collator module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.data.tokenizer.html">atomgen.data.tokenizer module</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="reference/api/atomgen.models.html">atomgen.models package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of atomgen.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.configuration_atomformer.html">atomgen.models.configuration_atomformer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.modeling_atomformer.html">atomgen.models.modeling_atomformer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.schnet.html">atomgen.models.schnet module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.tokengt.html">atomgen.models.tokengt module</a></li>
-</ul>
-</li>
-</ul>
-
+  
 </div>
 </div>
 
@@ -237,6 +222,8 @@
   <h2>A</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.apply_mask">apply_mask() (DataCollatorForAtomModeling method)</a>
+</li>
         <li><a href="reference/api/atomgen.models.configuration_atomformer.html#atomgen.models.configuration_atomformer.AtomformerConfig">AtomformerConfig (class in atomgen.models.configuration_atomformer)</a>
 </li>
         <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerEncoder">AtomformerEncoder (class in atomgen.models.modeling_atomformer)</a>
@@ -244,6 +231,8 @@
         <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForCoordinateAM">AtomformerForCoordinateAM (class in atomgen.models.modeling_atomformer)</a>
 </li>
         <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForMaskedAM">AtomformerForMaskedAM (class in atomgen.models.modeling_atomformer)</a>
+</li>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomFormerForSystemClassification">AtomFormerForSystemClassification (class in atomgen.models.modeling_atomformer)</a>
 </li>
         <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerModel">AtomformerModel (class in atomgen.models.modeling_atomformer)</a>
 </li>
@@ -279,6 +268,13 @@
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    atomgen.data.utils
+
+        <ul>
+          <li><a href="reference/api/atomgen.data.utils.html#module-atomgen.data.utils">module</a>
+</li>
+        </ul></li>
         <li>
     atomgen.models
 
@@ -318,6 +314,8 @@
 </li>
         <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer">AtomTokenizer (class in atomgen.data.tokenizer)</a>
 </li>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.autoregressive">autoregressive (DataCollatorForAtomModeling attribute)</a>, <a href="reference/api/atomgen.data.data_collator.html#id0">[1]</a>
+</li>
     </ul></td>
   </tr></table>
 </section>
@@ -348,7 +346,23 @@
   <h2>C</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.causal">causal (DataCollatorForAtomModeling attribute)</a>
+        <li><a href="reference/api/atomgen.data.utils.html#atomgen.data.utils.compute_metrics_lba">compute_metrics_lba() (in module atomgen.data.utils)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.utils.html#atomgen.data.utils.compute_metrics_lep">compute_metrics_lep() (in module atomgen.data.utils)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.utils.html#atomgen.data.utils.compute_metrics_msp">compute_metrics_msp() (in module atomgen.data.utils)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.utils.html#atomgen.data.utils.compute_metrics_ppi">compute_metrics_ppi() (in module atomgen.data.utils)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.utils.html#atomgen.data.utils.compute_metrics_psr">compute_metrics_psr() (in module atomgen.data.utils)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.utils.html#atomgen.data.utils.compute_metrics_res">compute_metrics_res() (in module atomgen.data.utils)</a>
+</li>
+        <li><a href="reference/api/atomgen.data.utils.html#atomgen.data.utils.compute_metrics_rsr">compute_metrics_rsr() (in module atomgen.data.utils)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/api/atomgen.data.utils.html#atomgen.data.utils.compute_metrics_smp">compute_metrics_smp() (in module atomgen.data.utils)</a>
 </li>
         <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerPreTrainedModel.config_class">config_class (AtomformerPreTrainedModel attribute)</a>
 
@@ -358,11 +372,9 @@
           <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerPreTrainedModel.config_class">(TransformerPreTrainedModel attribute)</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer.convert_tokens_to_string">convert_tokens_to_string() (AtomTokenizer method)</a>
 </li>
-        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.coords_perturb">coords_perturb (DataCollatorForAtomModeling attribute)</a>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.coords_perturb">coords_perturb (DataCollatorForAtomModeling attribute)</a>, <a href="reference/api/atomgen.data.data_collator.html#id1">[1]</a>
 </li>
         <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.cutoff">cutoff (SchNetConfig attribute)</a>
 </li>
@@ -407,6 +419,8 @@
 </li>
           <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerForMaskedAM.forward">(AtomformerForMaskedAM method)</a>
 </li>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomFormerForSystemClassification.forward">(AtomFormerForSystemClassification method)</a>
+</li>
           <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerModel.forward">(AtomformerModel method)</a>
 </li>
           <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.GaussianLayer.forward">(GaussianLayer method)</a>
@@ -426,6 +440,8 @@
           <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2EnergyAndForces.forward">(Structure2EnergyAndForces method)</a>, <a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.Structure2EnergyAndForces.forward">[1]</a>
 </li>
           <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2Forces.forward">(Structure2Forces method)</a>
+</li>
+          <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2TotalEnergyAndForces.forward">(Structure2TotalEnergyAndForces method)</a>
 </li>
           <li><a href="reference/api/atomgen.models.tokengt.html#atomgen.models.tokengt.TransformerEncoder.forward">(TransformerEncoder method)</a>
 </li>
@@ -504,7 +520,7 @@
   <h2>K</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.k">k (DataCollatorForAtomModeling attribute)</a>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.k">k (DataCollatorForAtomModeling attribute)</a>, <a href="reference/api/atomgen.data.data_collator.html#id2">[1]</a>
 </li>
     </ul></td>
   </tr></table>
@@ -524,15 +540,15 @@
   <h2>M</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.mam">mam (DataCollatorForAtomModeling attribute)</a>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.mam">mam (DataCollatorForAtomModeling attribute)</a>, <a href="reference/api/atomgen.data.data_collator.html#id3">[1]</a>
 </li>
         <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.mask_token_id">mask_token_id (SchNetConfig attribute)</a>
 </li>
-        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.max_neighbors">max_neighbors (DataCollatorForAtomModeling attribute)</a>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.max_neighbors">max_neighbors (DataCollatorForAtomModeling attribute)</a>, <a href="reference/api/atomgen.data.data_collator.html#id4">[1]</a>
 </li>
         <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.max_num_neighbors">max_num_neighbors (SchNetConfig attribute)</a>
 </li>
-        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.max_radius">max_radius (DataCollatorForAtomModeling attribute)</a>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.max_radius">max_radius (DataCollatorForAtomModeling attribute)</a>, <a href="reference/api/atomgen.data.data_collator.html#id5">[1]</a>
 </li>
         <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.mean">mean (SchNetConfig attribute)</a>
 </li>
@@ -549,6 +565,8 @@
           <li><a href="reference/api/atomgen.data.data_collator.html#module-atomgen.data.data_collator">atomgen.data.data_collator</a>
 </li>
           <li><a href="reference/api/atomgen.data.tokenizer.html#module-atomgen.data.tokenizer">atomgen.data.tokenizer</a>
+</li>
+          <li><a href="reference/api/atomgen.data.utils.html#module-atomgen.data.utils">atomgen.data.utils</a>
 </li>
           <li><a href="reference/api/atomgen.models.html#module-atomgen.models">atomgen.models</a>
 </li>
@@ -585,7 +603,7 @@
   <h2>P</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.pad">pad (DataCollatorForAtomModeling attribute)</a>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.pad">pad (DataCollatorForAtomModeling attribute)</a>, <a href="reference/api/atomgen.data.data_collator.html#id6">[1]</a>
 </li>
         <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer.pad">pad() (AtomTokenizer method)</a>
 </li>
@@ -597,7 +615,7 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/api/atomgen.data.tokenizer.html#atomgen.data.tokenizer.AtomTokenizer.pad_forces">pad_forces() (AtomTokenizer method)</a>
 </li>
-        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.pad_to_multiple_of">pad_to_multiple_of (DataCollatorForAtomModeling attribute)</a>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.pad_to_multiple_of">pad_to_multiple_of (DataCollatorForAtomModeling attribute)</a>, <a href="reference/api/atomgen.data.data_collator.html#id7">[1]</a>
 </li>
         <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.pad_token_id">pad_token_id (SchNetConfig attribute)</a>
 </li>
@@ -617,13 +635,13 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/api/atomgen.models.schnet.html#atomgen.models.schnet.SchNetConfig.readout">readout (SchNetConfig attribute)</a>
 </li>
-        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.return_edge_indices">return_edge_indices (DataCollatorForAtomModeling attribute)</a>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.return_edge_indices">return_edge_indices (DataCollatorForAtomModeling attribute)</a>, <a href="reference/api/atomgen.data.data_collator.html#id8">[1]</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.return_lap_pe">return_lap_pe (DataCollatorForAtomModeling attribute)</a>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.return_lap_pe">return_lap_pe (DataCollatorForAtomModeling attribute)</a>, <a href="reference/api/atomgen.data.data_collator.html#id9">[1]</a>
 </li>
-        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.return_tensors">return_tensors (DataCollatorForAtomModeling attribute)</a>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.return_tensors">return_tensors (DataCollatorForAtomModeling attribute)</a>, <a href="reference/api/atomgen.data.data_collator.html#id10">[1]</a>
 </li>
     </ul></td>
   </tr></table>
@@ -655,6 +673,8 @@
         </ul></li>
         <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2Forces">Structure2Forces (class in atomgen.models.modeling_atomformer)</a>
 </li>
+        <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.Structure2TotalEnergyAndForces">Structure2TotalEnergyAndForces (class in atomgen.models.modeling_atomformer)</a>
+</li>
         <li><a href="reference/api/atomgen.models.modeling_atomformer.html#atomgen.models.modeling_atomformer.AtomformerPreTrainedModel.supports_gradient_checkpointing">supports_gradient_checkpointing (AtomformerPreTrainedModel attribute)</a>
 
         <ul>
@@ -671,7 +691,7 @@
   <h2>T</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.tokenizer">tokenizer (DataCollatorForAtomModeling attribute)</a>
+        <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.tokenizer">tokenizer (DataCollatorForAtomModeling attribute)</a>, <a href="reference/api/atomgen.data.data_collator.html#id11">[1]</a>
 </li>
         <li><a href="reference/api/atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_call">torch_call() (DataCollatorForAtomModeling method)</a>
 </li>

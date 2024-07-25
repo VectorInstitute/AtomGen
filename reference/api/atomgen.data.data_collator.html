@@ -7,7 +7,7 @@
 
     
       <meta name="description" content="aieng-template Python API documentation">
-    <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="atomgen.data.tokenizer module" href="atomgen.data.tokenizer.html" /><link rel="prev" title="atomgen.data package" href="atomgen.data.html" />
+    <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-7.2.6, furo 2024.01.29"/>
 
@@ -184,22 +184,7 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide.html">User Guide (WIP)</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="atomgen.data.html">atomgen.data package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of atomgen.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">atomgen.data.data_collator module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.data.tokenizer.html">atomgen.data.tokenizer module</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="atomgen.models.html">atomgen.models package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of atomgen.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.configuration_atomformer.html">atomgen.models.configuration_atomformer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html">atomgen.models.modeling_atomformer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.schnet.html">atomgen.models.schnet module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.tokengt.html">atomgen.models.tokengt module</a></li>
-</ul>
-</li>
-</ul>
-
+  
 </div>
 </div>
 
@@ -237,43 +222,169 @@
 <p>Data collator for atom modeling.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DataCollatorForAtomModeling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">causal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords_perturb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_lap_pe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_edge_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_neighbors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_to_multiple_of</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_tensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pt'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/data/data_collator.html#DataCollatorForAtomModeling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DataCollatorForAtomModeling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoregressive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords_perturb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_lap_pe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_edge_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_neighbors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_to_multiple_of</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_tensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pt'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/data/data_collator.html#DataCollatorForAtomModeling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">DataCollatorMixin</span></code></p>
-<p>Data collator used for atom modeling.</p>
+<p>Data collator used for atom modeling tasks in molecular representations.</p>
+<p>This collator prepares input data for various atom modeling tasks, including
+masked atom modeling (MAM), autoregressive modeling, and coordinate perturbation.
+It supports both padding and flattening of input data.</p>
 <dl>
-<dt>Args:</dt><dd><p>tokenizer: The tokenizer used for encoding the data.
-mam: Whether to use masked atom modeling.
-causal: Whether to use causal modeling.
-coords_perturb: Whether to perturb the coordinates.
-return_lap_pe: Whether to return Laplacian positional encoding.
-return_edge_indices: Whether to return edge indices.
-k: Number of eigenvectors to use for Laplacian positional encoding.
-max_radius: Maximum distance for edge cutoff.
-max_neighbors: Maximum number of neighbors.
-pad: Whether to pad the input data, if False, flatten all samples and</p>
+<dt>Args:</dt><dd><p>tokenizer (PreTrainedTokenizer): Tokenizer used for encoding the data.
+mam (Union[bool, float]): If True, uses original masked atom modeling.</p>
 <blockquote>
-<div><p>concatenates with batch indicator.</p>
+<div><p>If float, masks a constant fraction of atoms/tokens.</p>
 </div></blockquote>
-<p>pad_to_multiple_of: Pad to multiple of this value.
-return_tensors: Return tensors as “pt” or “tf”.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>Dict[str, Any]</strong></p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary of batched data.</p>
+<p>autoregressive (bool): Whether to use autoregressive modeling.
+coords_perturb (float): Standard deviation for coordinate perturbation.
+return_lap_pe (bool): Whether to return Laplacian positional encoding.
+return_edge_indices (bool): Whether to return edge indices.
+k (int): Number of eigenvectors to use for Laplacian positional encoding.
+max_radius (float): Maximum distance for edge cutoff.
+max_neighbors (int): Maximum number of neighbors.
+pad (bool): Whether to pad the input data.
+pad_to_multiple_of (Optional[int]): Pad to multiple of this value.
+return_tensors (str): Return tensors as “pt” or “tf”.</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.causal">
-<span class="sig-name descname"><span class="pre">causal</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.causal" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.tokenizer">
+<span class="sig-name descname"><span class="pre">tokenizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PreTrainedTokenizer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.tokenizer" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The tokenizer used for encoding.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.mam">
+<span class="sig-name descname"><span class="pre">mam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">Union[bool,</span> <span class="pre">float]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.mam" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The masked atom modeling setting.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.autoregressive">
+<span class="sig-name descname"><span class="pre">autoregressive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.autoregressive" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The autoregressive modeling setting.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.coords_perturb">
-<span class="sig-name descname"><span class="pre">coords_perturb</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.coords_perturb" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">coords_perturb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.coords_perturb" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The coordinate perturbation standard deviation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.return_lap_pe">
+<span class="sig-name descname"><span class="pre">return_lap_pe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.return_lap_pe" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Laplacian positional encoding setting.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.return_edge_indices">
+<span class="sig-name descname"><span class="pre">return_edge_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.return_edge_indices" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The edge indices return setting.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.k">
+<span class="sig-name descname"><span class="pre">k</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.k" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The number of eigenvectors for Laplacian PE.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.max_radius">
+<span class="sig-name descname"><span class="pre">max_radius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.max_radius" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The maximum distance for edge cutoff.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.max_neighbors">
+<span class="sig-name descname"><span class="pre">max_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.max_neighbors" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The maximum number of neighbors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.pad">
+<span class="sig-name descname"><span class="pre">pad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.pad" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The padding setting.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.pad_to_multiple_of">
+<span class="sig-name descname"><span class="pre">pad_to_multiple_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">Optional[int]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.pad_to_multiple_of" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The multiple for padding.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.return_tensors">
+<span class="sig-name descname"><span class="pre">return_tensors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.return_tensors" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The tensor return format.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.apply_mask">
+<span class="sig-name descname"><span class="pre">apply_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">special_tokens_mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/data/data_collator.html#DataCollatorForAtomModeling.apply_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.apply_mask" title="Link to this definition">#</a></dt>
+<dd><p>Apply the mask to the input tokens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">autoregressive</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">coords_perturb</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#id1" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -288,53 +399,53 @@ return_tensors: Return tensors as “pt” or “tf”.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.k">
-<span class="sig-name descname"><span class="pre">k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></em><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.k" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></em><a class="headerlink" href="#id2" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.mam">
-<span class="sig-name descname"><span class="pre">mam</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.mam" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">mam</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#id3" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.max_neighbors">
-<span class="sig-name descname"><span class="pre">max_neighbors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.max_neighbors" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">max_neighbors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#id4" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.max_radius">
-<span class="sig-name descname"><span class="pre">max_radius</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12.0</span></em><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.max_radius" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">max_radius</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12.0</span></em><a class="headerlink" href="#id5" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.pad">
-<span class="sig-name descname"><span class="pre">pad</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.pad" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">pad</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#id6" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.pad_to_multiple_of">
-<span class="sig-name descname"><span class="pre">pad_to_multiple_of</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.pad_to_multiple_of" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">pad_to_multiple_of</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id7" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.return_edge_indices">
-<span class="sig-name descname"><span class="pre">return_edge_indices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.return_edge_indices" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">return_edge_indices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#id8" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.return_lap_pe">
-<span class="sig-name descname"><span class="pre">return_lap_pe</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.return_lap_pe" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">return_lap_pe</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#id9" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.return_tensors">
-<span class="sig-name descname"><span class="pre">return_tensors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pt'</span></em><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.return_tensors" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">return_tensors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pt'</span></em><a class="headerlink" href="#id10" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.tokenizer">
-<span class="sig-name descname"><span class="pre">tokenizer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">PreTrainedTokenizer</span></code></em><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.tokenizer" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id11">
+<span class="sig-name descname"><span class="pre">tokenizer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">PreTrainedTokenizer</span></code></em><a class="headerlink" href="#id11" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -390,11 +501,11 @@ return_tensors: Return tensors as “pt” or “tf”.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="atomgen.data.data_collator.DataCollatorForAtomModeling.torch_perturb_coords">
-<span class="sig-name descname"><span class="pre">torch_perturb_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/data/data_collator.html#DataCollatorForAtomModeling.torch_perturb_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_perturb_coords" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">torch_perturb_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perturb_std</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atomgen/data/data_collator.html#DataCollatorForAtomModeling.torch_perturb_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_perturb_coords" title="Link to this definition">#</a></dt>
 <dd><p>Prepare perturbed coords inputs/labels for coordinate denoising.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -408,26 +519,8 @@ return_tensors: Return tensors as “pt” or “tf”.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="atomgen.data.tokenizer.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">atomgen.data.tokenizer module</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="atomgen.data.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">atomgen.data package</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -477,19 +570,32 @@ return_tensors: Return tensors as “pt” or “tf”.</p>
             <ul>
 <li><a class="reference internal" href="#">atomgen.data.data_collator module</a><ul>
 <li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling</span></code></a><ul>
-<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.causal"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.causal</span></code></a></li>
-<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.coords_perturb"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.coords_perturb</span></code></a></li>
-<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.flatten_batch"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.flatten_batch()</span></code></a></li>
-<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.k"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.k</span></code></a></li>
+<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.tokenizer"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.tokenizer</span></code></a></li>
 <li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.mam"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.mam</span></code></a></li>
-<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.max_neighbors"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.max_neighbors</span></code></a></li>
+<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.autoregressive"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.autoregressive</span></code></a></li>
+<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.coords_perturb"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.coords_perturb</span></code></a></li>
+<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.return_lap_pe"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_lap_pe</span></code></a></li>
+<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.return_edge_indices"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_edge_indices</span></code></a></li>
+<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.k"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.k</span></code></a></li>
 <li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.max_radius"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.max_radius</span></code></a></li>
+<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.max_neighbors"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.max_neighbors</span></code></a></li>
 <li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.pad"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.pad</span></code></a></li>
 <li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.pad_to_multiple_of"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.pad_to_multiple_of</span></code></a></li>
-<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.return_edge_indices"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_edge_indices</span></code></a></li>
-<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.return_lap_pe"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_lap_pe</span></code></a></li>
 <li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.return_tensors"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_tensors</span></code></a></li>
-<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.tokenizer"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.tokenizer</span></code></a></li>
+<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.apply_mask"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.apply_mask()</span></code></a></li>
+<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.autoregressive</span></code></a></li>
+<li><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.coords_perturb</span></code></a></li>
+<li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.flatten_batch"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.flatten_batch()</span></code></a></li>
+<li><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.k</span></code></a></li>
+<li><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.mam</span></code></a></li>
+<li><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.max_neighbors</span></code></a></li>
+<li><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.max_radius</span></code></a></li>
+<li><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.pad</span></code></a></li>
+<li><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.pad_to_multiple_of</span></code></a></li>
+<li><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_edge_indices</span></code></a></li>
+<li><a class="reference internal" href="#id9"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_lap_pe</span></code></a></li>
+<li><a class="reference internal" href="#id10"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_tensors</span></code></a></li>
+<li><a class="reference internal" href="#id11"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.tokenizer</span></code></a></li>
 <li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_call"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.torch_call()</span></code></a></li>
 <li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_compute_edges"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.torch_compute_edges()</span></code></a></li>
 <li><a class="reference internal" href="#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_compute_lap_pe"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.torch_compute_lap_pe()</span></code></a></li>

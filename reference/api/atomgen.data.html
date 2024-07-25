@@ -7,7 +7,7 @@
 
     
       <meta name="description" content="aieng-template Python API documentation">
-    <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="atomgen.data.data_collator module" href="atomgen.data.data_collator.html" /><link rel="prev" title="User Guide (WIP)" href="../../user_guide.html" />
+    <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-7.2.6, furo 2024.01.29"/>
 
@@ -184,22 +184,7 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide.html">User Guide (WIP)</a></li>
-<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">atomgen.data package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of atomgen.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.data.data_collator.html">atomgen.data.data_collator module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.data.tokenizer.html">atomgen.data.tokenizer module</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="atomgen.models.html">atomgen.models package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of atomgen.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.configuration_atomformer.html">atomgen.models.configuration_atomformer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.modeling_atomformer.html">atomgen.models.modeling_atomformer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.schnet.html">atomgen.models.schnet module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="atomgen.models.tokengt.html">atomgen.models.tokengt module</a></li>
-</ul>
-</li>
-</ul>
-
+  
 </div>
 </div>
 
@@ -243,19 +228,32 @@ pre-processing and collating data for training/inference.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="atomgen.data.data_collator.html">atomgen.data.data_collator module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.causal"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.causal</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.coords_perturb"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.coords_perturb</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.flatten_batch"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.flatten_batch()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.k"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.k</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.tokenizer"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.tokenizer</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.mam"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.mam</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.max_neighbors"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.max_neighbors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.autoregressive"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.autoregressive</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.coords_perturb"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.coords_perturb</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.return_lap_pe"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_lap_pe</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.return_edge_indices"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_edge_indices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.k"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.k</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.max_radius"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.max_radius</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.max_neighbors"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.max_neighbors</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.pad"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.pad</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.pad_to_multiple_of"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.pad_to_multiple_of</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.return_edge_indices"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_edge_indices</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.return_lap_pe"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_lap_pe</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.return_tensors"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_tensors</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.tokenizer"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.tokenizer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.apply_mask"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.apply_mask()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#id0"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.autoregressive</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#id1"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.coords_perturb</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.flatten_batch"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.flatten_batch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#id2"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.k</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#id3"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.mam</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#id4"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.max_neighbors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#id5"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.max_radius</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#id6"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.pad</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#id7"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.pad_to_multiple_of</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#id8"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_edge_indices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#id9"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_lap_pe</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#id10"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.return_tensors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#id11"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.tokenizer</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_call"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.torch_call()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_compute_edges"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.torch_compute_edges()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="atomgen.data.data_collator.html#atomgen.data.data_collator.DataCollatorForAtomModeling.torch_compute_lap_pe"><code class="docutils literal notranslate"><span class="pre">DataCollatorForAtomModeling.torch_compute_lap_pe()</span></code></a></li>
@@ -282,6 +280,17 @@ pre-processing and collating data for training/inference.</p>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="atomgen.data.utils.html">atomgen.data.utils module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.data.utils.html#atomgen.data.utils.compute_metrics_lba"><code class="docutils literal notranslate"><span class="pre">compute_metrics_lba()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.data.utils.html#atomgen.data.utils.compute_metrics_lep"><code class="docutils literal notranslate"><span class="pre">compute_metrics_lep()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.data.utils.html#atomgen.data.utils.compute_metrics_msp"><code class="docutils literal notranslate"><span class="pre">compute_metrics_msp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.data.utils.html#atomgen.data.utils.compute_metrics_ppi"><code class="docutils literal notranslate"><span class="pre">compute_metrics_ppi()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.data.utils.html#atomgen.data.utils.compute_metrics_psr"><code class="docutils literal notranslate"><span class="pre">compute_metrics_psr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.data.utils.html#atomgen.data.utils.compute_metrics_res"><code class="docutils literal notranslate"><span class="pre">compute_metrics_res()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.data.utils.html#atomgen.data.utils.compute_metrics_rsr"><code class="docutils literal notranslate"><span class="pre">compute_metrics_rsr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="atomgen.data.utils.html#atomgen.data.utils.compute_metrics_smp"><code class="docutils literal notranslate"><span class="pre">compute_metrics_smp()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
@@ -292,26 +301,8 @@ pre-processing and collating data for training/inference.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="atomgen.data.data_collator.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">atomgen.data.data_collator module</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="../../user_guide.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">User Guide (WIP)</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
