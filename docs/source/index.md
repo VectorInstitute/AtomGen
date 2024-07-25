@@ -1,4 +1,3 @@
-```markdown
 ---
 hide-toc: true
 ---
@@ -9,9 +8,11 @@ hide-toc: true
 user_guide
 reference/api/atomgen.data
 reference/api/atomgen.models
+
 ```
 
 # AtomGen Documentation
+
 
 Welcome to the documentation for AtomGen, a toolkit for atomistic machine learning and generative modeling. AtomGen provides researchers and developers with tools to explore, experiment, and innovate in the realm of molecular and materials science using state-of-the-art deep learning techniques.
 
