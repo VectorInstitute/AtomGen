@@ -15,16 +15,11 @@ Welcome to the AtomGen User Guide. This document provides comprehensive instruct
 
 ## Installation
 
-To install AtomGen, run the following command:
+The package can be installed using poetry:
 
 ```bash
-pip install atomgen
-```
-
-For the latest development version, you can install directly from the GitHub repository:
-
-```bash
-pip install git+https://github.com/your-repo/atomgen.git
+python3 -m poetry install
+source $(poetry env info --path)/bin/activate
 ```
 
 ## Quick Start
@@ -48,7 +43,7 @@ attention_mask = torch.ones(1, 10)
 with torch.no_grad():
     output = model(input_ids, coords=coords, attention_mask=attention_mask)
 
-print(output.last_hidden_state.shape)  # Should be (1, 10, 768) for the base model
+print(output.shape) # Should be (1, 10, 768) for the base model
 ```
 
 This example demonstrates how to load the pretrained AtomFormer model and use it to extract features from molecular data.
@@ -168,7 +163,7 @@ attention_mask = torch.ones(1, 10)
 with torch.no_grad():
     output = model(input_ids, coords=coords, attention_mask=attention_mask)
 
-predictions = output.logits
+predictions = output[1]
 print(predictions.shape)  # Should be (1, 20) for the SMP task
 ```
 
@@ -205,7 +200,6 @@ python -m torch.distributed.launch --nproc_per_node=4 run_atom3d.py \
     --per_device_train_batch_size 8 \
     --learning_rate 5e-5 \
     --num_train_epochs 3 \
-    --fp16  # Enable mixed precision training
 ```
 
 ## Troubleshooting
@@ -214,6 +208,5 @@ If you encounter out-of-memory errors, try the following:
 
 1. Reduce batch size in the script arguments
 2. Enable gradient checkpointing (add `--gradient_checkpointing` to your command)
-3. Use mixed precision training (add `--fp16` to your command)
 
 For more help, please check our [GitHub Issues](https://github.com/your-repo/atomgen/issues) or open a new issue if you can't find a solution to your problem.

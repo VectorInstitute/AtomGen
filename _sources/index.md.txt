@@ -1,5 +1,3 @@
-Certainly! I'll update the index.md file based on the context provided in the other project files. Here's a revised version of the index.md that better represents the AtomGen project:
-
 ```markdown
 ---
 hide-toc: true

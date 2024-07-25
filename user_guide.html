@@ -235,12 +235,9 @@
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
-<p>To install AtomGen, run the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>atomgen
-</pre></div>
-</div>
-<p>For the latest development version, you can install directly from the GitHub repository:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/your-repo/atomgen.git
+<p>The package can be installed using poetry:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>poetry<span class="w"> </span>install
+<span class="nb">source</span><span class="w"> </span><span class="k">$(</span>poetry<span class="w"> </span>env<span class="w"> </span>info<span class="w"> </span>--path<span class="k">)</span>/bin/activate
 </pre></div>
 </div>
 </section>
@@ -263,7 +260,7 @@
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
     <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span> <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">last_hidden_state</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Should be (1, 10, 768) for the base model</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># Should be (1, 10, 768) for the base model</span>
 </pre></div>
 </div>
 <p>This example demonstrates how to load the pretrained AtomFormer model and use it to extract features from molecular data.</p>
@@ -376,7 +373,7 @@
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
     <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span> <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">)</span>
 
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">logits</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Should be (1, 20) for the SMP task</span>
 </pre></div>
 </div>
@@ -409,7 +406,6 @@
 <span class="w">    </span>--per_device_train_batch_size<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--learning_rate<span class="w"> </span>5e-5<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--num_train_epochs<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--fp16<span class="w">  </span><span class="c1"># Enable mixed precision training</span>
 </pre></div>
 </div>
 </section>
@@ -420,7 +416,6 @@
 <ol class="arabic simple">
 <li><p>Reduce batch size in the script arguments</p></li>
 <li><p>Enable gradient checkpointing (add <code class="docutils literal notranslate"><span class="pre">--gradient_checkpointing</span></code> to your command)</p></li>
-<li><p>Use mixed precision training (add <code class="docutils literal notranslate"><span class="pre">--fp16</span></code> to your command)</p></li>
 </ol>
 <p>For more help, please check our <a class="reference external" href="https://github.com/your-repo/atomgen/issues">GitHub Issues</a> or open a new issue if you can’t find a solution to your problem.</p>
 </section>
