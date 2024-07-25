@@ -10,5 +10,6 @@
     "pad_token_id": 119,
     "bos_token_id": 120,
     "eos_token_id": 121,
+    "cls_token_id": 122,
     "gradient_checkpointing": false
 }

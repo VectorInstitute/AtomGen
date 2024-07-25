@@ -13,33 +13,48 @@ from transformers.data.data_collator import DataCollatorMixin, _torch_collate_ba
 
 @dataclass
 class DataCollatorForAtomModeling(DataCollatorMixin):  # type: ignore
-    """Data collator used for atom modeling.
+    """
+    Data collator used for atom modeling tasks in molecular representations.
+
+    This collator prepares input data for various atom modeling tasks, including
+    masked atom modeling (MAM), autoregressive modeling, and coordinate perturbation.
+    It supports both padding and flattening of input data.
 
     Args:
-        tokenizer: The tokenizer used for encoding the data.
-        mam: Whether to use masked atom modeling.
-        causal: Whether to use causal modeling.
-        coords_perturb: Whether to perturb the coordinates.
-        return_lap_pe: Whether to return Laplacian positional encoding.
-        return_edge_indices: Whether to return edge indices.
-        k: Number of eigenvectors to use for Laplacian positional encoding.
-        max_radius: Maximum distance for edge cutoff.
-        max_neighbors: Maximum number of neighbors.
-        pad: Whether to pad the input data, if False, flatten all samples and
-             concatenates with batch indicator.
-        pad_to_multiple_of: Pad to multiple of this value.
-        return_tensors: Return tensors as "pt" or "tf".
+        tokenizer (PreTrainedTokenizer): Tokenizer used for encoding the data.
+        mam (Union[bool, float]): If True, uses original masked atom modeling.
+                                  If float, masks a constant fraction of atoms/tokens.
+        autoregressive (bool): Whether to use autoregressive modeling.
+        coords_perturb (float): Standard deviation for coordinate perturbation.
+        return_lap_pe (bool): Whether to return Laplacian positional encoding.
+        return_edge_indices (bool): Whether to return edge indices.
+        k (int): Number of eigenvectors to use for Laplacian positional encoding.
+        max_radius (float): Maximum distance for edge cutoff.
+        max_neighbors (int): Maximum number of neighbors.
+        pad (bool): Whether to pad the input data.
+        pad_to_multiple_of (Optional[int]): Pad to multiple of this value.
+        return_tensors (str): Return tensors as "pt" or "tf".
 
-    Returns
-    -------
-        Dict[str, Any]: Dictionary of batched data.
-
+    Attributes
+    ----------
+        tokenizer (PreTrainedTokenizer): The tokenizer used for encoding.
+        mam (Union[bool, float]): The masked atom modeling setting.
+        autoregressive (bool): The autoregressive modeling setting.
+        coords_perturb (float): The coordinate perturbation standard deviation.
+        return_lap_pe (bool): The Laplacian positional encoding setting.
+        return_edge_indices (bool): The edge indices return setting.
+        k (int): The number of eigenvectors for Laplacian PE.
+        max_radius (float): The maximum distance for edge cutoff.
+        max_neighbors (int): The maximum number of neighbors.
+        pad (bool): The padding setting.
+        pad_to_multiple_of (Optional[int]): The multiple for padding.
+        return_tensors (str): The tensor return format.
     """
 
     tokenizer: PreTrainedTokenizer
-    mam: bool = True
-    causal: bool = False
-    coords_perturb: bool = False
+    mam: Union[bool, float] = True
+    autoregressive: bool = False
+    coords_perturb: float = 0.0
     return_lap_pe: bool = False
     return_edge_indices: bool = False
     k: int = 16
@@ -49,6 +64,7 @@ class DataCollatorForAtomModeling(DataCollatorMixin):  # type: ignore
     pad_to_multiple_of: Optional[int] = None
     return_tensors: str = "pt"
 
+    # ruff: noqa: PLR0912
     def torch_call(
         self, examples: List[Union[List[int], Any, Dict[str, Any]]]
     ) -> Dict[str, Any]:
@@ -101,7 +117,6 @@ class DataCollatorForAtomModeling(DataCollatorMixin):  # type: ignore
         t = torch.cos(t * math.pi * 0.5)
 
         if self.mam:
-            # If special token mask has been preprocessed, pop it from the dict.
             special_tokens_mask = batch.pop("special_tokens_mask", None)
             if special_tokens_mask is None:
                 special_tokens_mask = [
@@ -115,10 +130,22 @@ class DataCollatorForAtomModeling(DataCollatorMixin):  # type: ignore
                 )
             else:
                 special_tokens_mask = special_tokens_mask.bool()
-            batch["input_ids"], batch["labels"] = self.torch_mask_tokens(
-                batch["input_ids"], t, special_tokens_mask=special_tokens_mask
-            )
-        if self.causal:
+
+            if isinstance(self.mam, float):
+                # Constant masking of a float fraction of the atoms/tokens
+                mask = torch.bernoulli(
+                    torch.full(batch["input_ids"].shape, self.mam)
+                ).bool()
+                batch["input_ids"], batch["labels"] = self.apply_mask(
+                    batch["input_ids"], mask, special_tokens_mask
+                )
+            else:
+                # Original MaskGIT functionality
+                batch["input_ids"], batch["labels"] = self.torch_mask_tokens(
+                    batch["input_ids"], t, special_tokens_mask=special_tokens_mask
+                )
+
+        if self.autoregressive:
             # extend coords
             batch["coords"] = torch.cat(
                 [
@@ -137,9 +164,11 @@ class DataCollatorForAtomModeling(DataCollatorMixin):  # type: ignore
             special_tokens_mask[batch["labels"] == self.tokenizer.eos_token_id] = False
             batch["labels"] = torch.where(~special_tokens_mask, batch["labels"], -100)
 
-        if self.coords_perturb:
+        if self.coords_perturb > 0:
             batch["coords"], batch["labels_coords"] = self.torch_perturb_coords(
-                batch["coords"], batch["fixed"], t
+                batch["coords"],
+                batch.get("fixed", None),
+                self.coords_perturb,
             )
 
         return batch
@@ -165,20 +194,35 @@ class DataCollatorForAtomModeling(DataCollatorMixin):  # type: ignore
 
         return inputs, labels
 
-    def torch_perturb_coords(self, inputs: Any, fixed: Any, t: Any) -> Tuple[Any, Any]:
-        """Prepare perturbed coords inputs/labels for coordinate denoising."""
-        batch, seq_len, _ = inputs.shape
-        num_token_perturbed = (seq_len * t).round().clamp(min=1)
-        batch_randperm = torch.rand((batch, seq_len)).argsort(dim=-1)
-        mask = batch_randperm < num_token_perturbed.unsqueeze(1)
+    def apply_mask(
+        self,
+        inputs: torch.Tensor,
+        mask: torch.Tensor,
+        special_tokens_mask: torch.Tensor,
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        """Apply the mask to the input tokens."""
         labels = inputs.clone()
-        noise = torch.empty_like(inputs).normal_(0, 0.1)
-        t = t.unsqueeze(-1).unsqueeze(-1)
-        inputs[~fixed.bool()] = torch.where(
-            mask.unsqueeze(-1)[~fixed.bool()],
-            inputs[~fixed.bool()],
-            inputs[~fixed.bool()] + ((1 - t) * noise)[~fixed.bool()],
+        inputs = torch.where(
+            mask,
+            torch.tensor(self.tokenizer.mask_token_id, device=inputs.device),
+            inputs,
         )
+        labels = torch.where(
+            ~mask | special_tokens_mask,
+            torch.tensor(-100, device=labels.device),
+            labels,
+        )
+        return inputs, labels
+
+    def torch_perturb_coords(
+        self, inputs: torch.Tensor, fixed: Optional[torch.Tensor], perturb_std: float
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        """Prepare perturbed coords inputs/labels for coordinate denoising."""
+        if fixed is None:
+            fixed = torch.zeros_like(inputs).bool()
+        labels = inputs.clone()
+        noise = torch.empty_like(inputs).normal_(0, perturb_std)
+        inputs[~fixed.bool()] += noise[~fixed.bool()]
         return inputs, labels
 
     def flatten_batch(self, examples: Any) -> Dict[str, Any]:
