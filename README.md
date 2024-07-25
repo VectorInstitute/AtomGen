@@ -5,9 +5,7 @@
 [![integration tests](https://github.com/VectorInstitute/atomgen/actions/workflows/integration_tests.yml/badge.svg)](https://github.com/VectorInstitute/atomgen/actions/workflows/integration_tests.yml)
 [![docs](https://github.com/VectorInstitute/atomgen/actions/workflows/docs_deploy.yml/badge.svg)](https://github.com/VectorInstitute/atomgen/actions/workflows/docs_deploy.yml)
 <!-- [![codecov](https://codecov.io/gh/VectorInstitute/atomgen/branch/main/graph/badge.svg)](https://codecov.io/gh/VectorInstitute/atomgen) -->
-[![license](https://img.shields.io/github/license/VectorInstitute/cyclops.svg)](https://github.com/VectorInstitute/atomgen/blob/main/LICENSE)
-<!-- add huggingface hub badge to link to collection -->
-[]
+<!-- [![license](https://img.shields.io/github/license/VectorInstitute/cyclops.svg)](https://github.com/VectorInstitute/atomgen/blob/main/LICENSE) -->
 
 ## Table of Contents
 
@@ -48,9 +46,9 @@ Currently, AtomGen has pre-processed datasets for the S2EF pre-training task for
 
 AtomGen supports a variety of models for training on atomistic graph datasets, including:
 
+  - **AtomFormer**: Custom architecture that leverages gaussian pair-wise positional embeddings and self-attention to model atomistic graphs.
   - **[SchNet](https://arxiv.org/abs/1706.08566)**: A continuous-filter convolutional neural network for modeling quantum interactions.
   - **[TokenGT](https://github.com/jw9730/tokengt)**: Tokenized graph transformer that treats all nodes and edges as independent tokens.
-  - **AtomFormer**: Custom architecture that leverages gaussian pair-wise positional embeddings and self-attention to model atomistic graphs.
 
 ## Tasks
 
