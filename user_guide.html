@@ -7,7 +7,7 @@
 
     
       <meta name="description" content="aieng-template Python API documentation">
-    <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
+    <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="atomgen.data package" href="reference/api/atomgen.data.html" /><link rel="prev" title="AtomGen Documentation" href="index.html" />
 
     <meta name="generator" content="sphinx-7.2.6, furo 2024.01.29"/>
 
@@ -184,7 +184,23 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  
+  <ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">AtomGen User Guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="reference/api/atomgen.data.html">atomgen.data package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of atomgen.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.data.data_collator.html">atomgen.data.data_collator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.data.tokenizer.html">atomgen.data.tokenizer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.data.utils.html">atomgen.data.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="reference/api/atomgen.models.html">atomgen.models package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of atomgen.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.configuration_atomformer.html">atomgen.models.configuration_atomformer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.modeling_atomformer.html">atomgen.models.modeling_atomformer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.schnet.html">atomgen.models.schnet module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/api/atomgen.models.tokengt.html">atomgen.models.tokengt module</a></li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 
@@ -321,18 +337,9 @@
 <span class="w">    </span>--model_name_or_path<span class="w"> </span><span class="s2">&quot;vector-institute/atomformer-base&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--dataset_name<span class="w"> </span><span class="s2">&quot;vector-institute/atom3d-smp&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--output_dir<span class="w"> </span><span class="s2">&quot;./results&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--do_train<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--do_eval<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--max_seq_length<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--per_device_train_batch_size<span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--batch_size<span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--learning_rate<span class="w"> </span>5e-5<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--num_train_epochs<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--save_steps<span class="w"> </span><span class="m">10000</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--evaluation_strategy<span class="w"> </span><span class="s2">&quot;steps&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--eval_steps<span class="w"> </span><span class="m">5000</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--load_best_model_at_end<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--metric_for_best_model<span class="w"> </span><span class="s2">&quot;mae&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--greater_is_better<span class="w"> </span><span class="nb">false</span>
 </pre></div>
 </div>
 <p>Key arguments for <code class="docutils literal notranslate"><span class="pre">run_atom3d.py</span></code>:</p>
@@ -340,14 +347,9 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">--model_name_or_path</span></code>: Pretrained model to start from</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--dataset_name</span></code>: ATOM3D dataset to use for fine-tuning</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--output_dir</span></code>: Directory to save results</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--do_train</span></code>: Perform training</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--do_eval</span></code>: Perform evaluation</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--max_seq_length</span></code>: Maximum sequence length</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--per_device_train_batch_size</span></code>: Batch size per GPU/CPU for training</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--batch_size</span></code>: Batch size per GPU/CPU for training</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--learning_rate</span></code>: Initial learning rate</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--num_train_epochs</span></code>: Total number of training epochs</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--evaluation_strategy</span></code>: When to evaluate during training</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--metric_for_best_model</span></code>: Metric to use for saving best model</p></li>
 </ul>
 </section>
 <section id="inference">
@@ -401,9 +403,7 @@
 <span class="w">    </span>--model_name_or_path<span class="w"> </span><span class="s2">&quot;vector-institute/atomformer-base&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--dataset_name<span class="w"> </span><span class="s2">&quot;vector-institute/atom3d-smp&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--output_dir<span class="w"> </span><span class="s2">&quot;./results&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--do_train<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--do_eval<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--per_device_train_batch_size<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--batch_size<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--learning_rate<span class="w"> </span>5e-5<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--num_train_epochs<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
 </pre></div>
@@ -426,8 +426,26 @@
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="reference/api/atomgen.data.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">atomgen.data package</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Home</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
