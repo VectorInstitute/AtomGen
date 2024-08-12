@@ -110,18 +110,9 @@ python run_atom3d.py \
     --model_name_or_path "vector-institute/atomformer-base" \
     --dataset_name "vector-institute/atom3d-smp" \
     --output_dir "./results" \
-    --do_train \
-    --do_eval \
-    --max_seq_length 512 \
-    --per_device_train_batch_size 32 \
+    --batch_size 32 \
     --learning_rate 5e-5 \
     --num_train_epochs 3 \
-    --save_steps 10000 \
-    --evaluation_strategy "steps" \
-    --eval_steps 5000 \
-    --load_best_model_at_end \
-    --metric_for_best_model "mae" \
-    --greater_is_better false
 ```
 
 Key arguments for `run_atom3d.py`:
@@ -129,14 +120,9 @@ Key arguments for `run_atom3d.py`:
 - `--model_name_or_path`: Pretrained model to start from
 - `--dataset_name`: ATOM3D dataset to use for fine-tuning
 - `--output_dir`: Directory to save results
-- `--do_train`: Perform training
-- `--do_eval`: Perform evaluation
-- `--max_seq_length`: Maximum sequence length
-- `--per_device_train_batch_size`: Batch size per GPU/CPU for training
+- `--batch_size`: Batch size per GPU/CPU for training
 - `--learning_rate`: Initial learning rate
 - `--num_train_epochs`: Total number of training epochs
-- `--evaluation_strategy`: When to evaluate during training
-- `--metric_for_best_model`: Metric to use for saving best model
 
 ## Inference
 
@@ -195,9 +181,7 @@ python -m torch.distributed.launch --nproc_per_node=4 run_atom3d.py \
     --model_name_or_path "vector-institute/atomformer-base" \
     --dataset_name "vector-institute/atom3d-smp" \
     --output_dir "./results" \
-    --do_train \
-    --do_eval \
-    --per_device_train_batch_size 8 \
+    --batch_size 8 \
     --learning_rate 5e-5 \
     --num_train_epochs 3 \
 ```
