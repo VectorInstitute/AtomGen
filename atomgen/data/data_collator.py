@@ -184,11 +184,11 @@ class DataCollatorForAtomModeling(DataCollatorMixin):  # type: ignore
         batch_randperm = torch.rand((batch, seq_len)).argsort(dim=-1)
         mask = batch_randperm < num_token_masked.unsqueeze(1)
         inputs = torch.where(
-            mask,
+            ~mask,
             inputs,
             self.tokenizer.convert_tokens_to_ids(self.tokenizer.mask_token),
         )
-        labels = torch.where(~mask, labels, -100)
+        labels = torch.where(mask, labels, -100)
         if special_tokens_mask is not None:
             labels = torch.where(~special_tokens_mask, labels, -100)
 
