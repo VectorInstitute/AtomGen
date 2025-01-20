@@ -29,7 +29,7 @@ def process_data(db_path: str, output_dir: str) -> None:
         dataset["total_energy"].append(np.array(db[j].y).astype("float32"))
         dataset["has_formation_energy"].append(False)
     hf_dataset = Dataset.from_dict(dataset)
-    hf_dataset.save_to_disk(f'{output_dir}/{db_path.split("/")[-1].split(".")[-2]}')
+    hf_dataset.save_to_disk(f"{output_dir}/{db_path.split('/')[-1].split('.')[-2]}")
 
 
 def main(args: argparse.Namespace) -> None:
