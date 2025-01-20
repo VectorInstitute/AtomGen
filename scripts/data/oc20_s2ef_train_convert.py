@@ -71,7 +71,7 @@ def process_data(xz_txt_paths: List[Tuple[str, str, str]]) -> None:
 
         dataset = Dataset.from_dict(dataset_dict)
         dataset.save_to_disk(
-            os.path.join(output_dir, f'{xz_path.split("/")[-1].split(".")[0]}')
+            os.path.join(output_dir, f"{xz_path.split('/')[-1].split('.')[0]}")
         )
 
 
