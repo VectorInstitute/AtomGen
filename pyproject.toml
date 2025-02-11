@@ -14,7 +14,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.9, <3.13"
 torch = "^2.2.2"
-transformers = "^4.40.0"
+transformers = "^4.48.0"
 datasets = "^2.19.0"
 wandb = "^0.16.6"
 accelerate = "^0.29.3"
