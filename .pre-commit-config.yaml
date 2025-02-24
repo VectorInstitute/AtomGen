@@ -16,7 +16,7 @@ repos:
     - id: check-toml
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.9.6'
+    rev: 'v0.9.7'
     hooks:
     - id: ruff
       args: [--fix, --exit-non-zero-on-fix]
@@ -34,7 +34,7 @@ repos:
       exclude: "tests"
 
   - repo: https://github.com/crate-ci/typos
-    rev: typos-dict-v0.12.5
+    rev: v1.29.9
     hooks:
       - id: typos
         args: [--force-exclude]
