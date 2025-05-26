@@ -25,11 +25,11 @@ It streamlines the process of aggregation, standardization, and utilization of d
 
 ## Installation
 
-The package can be installed using poetry:
+The package can be installed using uv:
 
 ```bash
-python3 -m poetry install
-source $(poetry env info --path)/bin/activate
+uv sync
+source .venv/bin/activate
 ```
 
 ## Datasets
@@ -68,17 +68,17 @@ These tasks are all facilitated through the `DataCollatorForAtomModeling` class 
 ### Installing dependencies
 
 The development environment can be set up using
-[poetry](https://python-poetry.org/docs/#installation). Hence, make sure it is
+[uv](https://docs.astral.sh/uv/). Hence, make sure it is
 installed and then run:
 
 ```bash
-python3 -m poetry install
-source $(poetry env info --path)/bin/activate
+uv sync
+source .venv/bin/activate
 ```
 
 In order to install dependencies for testing (codestyle, unit tests, integration tests),
 run:
 
 ```bash
-python3 -m poetry install --with test
+uv sync --group test
 ```
