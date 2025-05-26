@@ -7,7 +7,7 @@ authors = [{name = "Vector AI Engineering", email = "ai_engineering@vectorinstit
 license = "Apache-2.0"
 repository = "https://github.com/VectorInstitute/atomgen"
 documentation = "https://vectorinstitute.github.io/atomgen/"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<4.0"
 dependencies = [
     "torch>=2.2.2",
     "transformers>=4.48.0",
