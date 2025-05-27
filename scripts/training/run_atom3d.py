@@ -6,7 +6,8 @@ from typing import Any, Callable, Dict
 
 import wandb
 from datasets import load_dataset
-from transformers import Trainer, TrainingArguments
+from transformers import Trainer
+from transformers.training_args import TrainingArguments
 
 from atomgen.data.data_collator import DataCollatorForAtomModeling
 from atomgen.data.tokenizer import AtomTokenizer
@@ -120,7 +121,7 @@ def run_atom3d(args: argparse.Namespace) -> None:
             else False,
             problem_type=task_config["problem_type"],
         )
-        model = AtomFormerForSystemClassification(config)
+        model = AtomFormerForSystemClassification(config)  # type: ignore[arg-type]
     else:
         config = AtomformerConfig.from_pretrained(
             args.model,
@@ -152,7 +153,6 @@ def run_atom3d(args: argparse.Namespace) -> None:
         tokenizer=tokenizer,
         mam=False,
         coords_perturb=False,
-        causal=False,
         return_lap_pe=False,
         return_edge_indices=False,
     )
@@ -174,7 +174,7 @@ def run_atom3d(args: argparse.Namespace) -> None:
         logging_dir=os.path.join(args.output_dir, args.task.lower(), "logs"),
         logging_steps=100,
         save_strategy="epoch",
-        evaluation_strategy="epoch",
+        eval_strategy="epoch",
         load_best_model_at_end=True,
         metric_for_best_model="eval_loss",
         greater_is_better=False,
@@ -182,7 +182,7 @@ def run_atom3d(args: argparse.Namespace) -> None:
     )
 
     # Initialize trainer
-    trainer = Trainer(
+    trainer = Trainer(  # type: ignore[no-untyped-call]
         model=model,
         args=training_args,
         train_dataset=dataset["train"],
@@ -192,12 +192,12 @@ def run_atom3d(args: argparse.Namespace) -> None:
     )
 
     # Train the model
-    trainer.train()
+    trainer.train()  # type: ignore[attr-defined]
 
-    trainer.evaluate(dataset["test"])
+    trainer.evaluate(dataset["test"])  # type: ignore[attr-defined]
 
     # Save the model
-    trainer.save_model(args.output_dir)
+    trainer.save_model(args.output_dir)  # type: ignore[attr-defined]
 
 
 if __name__ == "__main__":

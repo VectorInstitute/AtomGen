@@ -6,7 +6,8 @@ import os
 import torch
 import wandb
 from datasets import load_from_disk
-from transformers import Trainer, TrainingArguments
+from transformers import Trainer
+from transformers.training_args import TrainingArguments
 
 from atomgen.data.data_collator import DataCollatorForAtomModeling
 from atomgen.data.tokenizer import AtomTokenizer
@@ -161,14 +162,13 @@ def train(args: argparse.Namespace) -> None:
         config.gradient_checkpointing = (
             args.gradient_checkpointing if args.gradient_checkpointing else False
         )
-        model = Structure2EnergyAndForces(config)
+        model = Structure2EnergyAndForces(config)  # type: ignore[arg-type]
 
     tokenizer = AtomTokenizer(vocab_file=args.tokenizer_json)
     data_collator = DataCollatorForAtomModeling(
         tokenizer=tokenizer,
         mam=False,
         coords_perturb=False,
-        causal=False,
         return_lap_pe=False,
         return_edge_indices=False,
     )
@@ -207,14 +207,14 @@ def train(args: argparse.Namespace) -> None:
         weight_decay=args.weight_decay,
     )
 
-    trainer = Trainer(
+    trainer = Trainer(  # type: ignore[no-untyped-call]
         model=model,
         args=training_args,
         train_dataset=dataset,
         data_collator=data_collator,
     )
 
-    trainer.train(resume_from_checkpoint=args.checkpoint_exists)
+    trainer.train(resume_from_checkpoint=args.checkpoint_exists)  # type: ignore[attr-defined]
 
     model.save_pretrained(args.output_dir)
 

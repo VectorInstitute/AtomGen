@@ -2547,15 +2547,15 @@ class AtomformerEncoder(nn.Module):
         return input_embeds, pos_embeds
 
 
-class AtomformerPreTrainedModel(PreTrainedModel):  # type: ignore
+class AtomformerPreTrainedModel(PreTrainedModel):
     """Base class for all transformer models."""
 
-    config_class = AtomformerConfig
+    config_class = AtomformerConfig  # type: ignore[assignment]
     base_model_prefix = "model"
     supports_gradient_checkpointing = True
     _no_split_modules = ["ParallelBlock"]
 
-    def _set_gradient_checkpointing(
+    def _set_gradient_checkpointing(  # type: ignore[override]
         self, module: nn.Module, value: bool = False
     ) -> None:
         if isinstance(module, (AtomformerEncoder)):
@@ -2713,6 +2713,7 @@ class InitialStructure2RelaxedStructureAndEnergy(AtomformerPreTrainedModel):
         self.encoder = AtomformerEncoder(config)
         self.energy_norm = nn.LayerNorm(config.dim)
         self.energy_head = nn.Linear(config.dim, 1, bias=False)
+        self.formation_energy_head = nn.Linear(config.dim, 1, bias=False)
         self.coords_head = nn.Linear(config.dim, 3)
 
     def forward(
@@ -2747,7 +2748,7 @@ class InitialStructure2RelaxedStructureAndEnergy(AtomformerPreTrainedModel):
             loss_fct = nn.L1Loss()
             loss_coords = loss_fct(coords_pred, labels_coords)
 
-        loss = torch.Tensor(0).to(coords.device)
+        loss = torch.tensor(0.0).to(coords.device)
         loss = (
             loss + loss_formation_energy if loss_formation_energy is not None else loss
         )
@@ -2784,7 +2785,7 @@ class Structure2Energy(AtomformerPreTrainedModel):
         formation_energy_pred: torch.Tensor = self.formation_energy_head(
             self.energy_norm(atom_hidden_states[:, 0])
         ).squeeze(-1)
-        loss = torch.Tensor(0).to(coords.device)
+        loss = torch.tensor(0.0).to(coords.device)
         if formation_energy is not None:
             loss_fct = nn.L1Loss()
             loss = loss_fct(
@@ -2829,7 +2830,7 @@ class Structure2Forces(AtomformerPreTrainedModel):
         forces_pred: torch.Tensor = self.force_head(
             self.force_norm(atom_hidden_states[:, 1:])
         )
-        loss = torch.Tensor(0).to(coords.device)
+        loss = torch.tensor(0.0).to(coords.device)
         if forces is not None:
             loss_fct = nn.L1Loss()
             loss = loss_fct(forces_pred[attention_mask], forces[attention_mask])

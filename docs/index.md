@@ -1,15 +1,3 @@
----
-hide-toc: true
----
-
-```{toctree}
-:hidden:
-
-user_guide
-reference/api/atomgen.data
-reference/api/atomgen.models
-```
-
 # AtomGen Documentation
 
 Welcome to the documentation for AtomGen, a toolkit for atomistic machine learning and generative modeling. AtomGen provides researchers and developers with tools to explore, experiment, and innovate in the realm of molecular and materials science using state-of-the-art deep learning techniques.
@@ -64,7 +52,6 @@ AtomGen facilitates various tasks in molecular machine learning:
 
 To get started with AtomGen, check out our [User Guide](user_guide.md) for installation instructions, basic usage examples, and more detailed information on training and inference.
 
-For a deep dive into the API, explore the reference documentation for the [data](reference/api/atomgen.data) and [models](reference/api/atomgen.models) modules.
+For a deep dive into the API, explore the reference documentation for the [API Reference](api.md).
 
 AtomGen is designed to be user-friendly while providing powerful capabilities for atomistic machine learning. Whether you're conducting research, developing new models, or applying machine learning to molecular systems, AtomGen provides a versatile toolkit to support your work.
-```

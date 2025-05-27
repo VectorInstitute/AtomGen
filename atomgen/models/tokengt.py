@@ -6,7 +6,8 @@ import torch
 import torch.nn.functional as f
 from torch import nn
 from torch.utils.checkpoint import checkpoint
-from transformers import PretrainedConfig, PreTrainedModel
+from transformers import PreTrainedModel
+from transformers.configuration_utils import PretrainedConfig
 
 
 ATOM_METADATA = [
@@ -2328,7 +2329,7 @@ class ParallelBlock(nn.Module):
         return out
 
 
-class TransformerConfig(PretrainedConfig):  # type: ignore
+class TransformerConfig(PretrainedConfig):
     """Configuration class to store the configuration of a TokenGT model."""
 
     def __init__(
@@ -2350,7 +2351,7 @@ class TransformerConfig(PretrainedConfig):  # type: ignore
         gradient_checkpointing: bool = False,
         **kwargs: Any,
     ):
-        super().__init__(**kwargs)
+        super().__init__(**kwargs)  # type: ignore[no-untyped-call]
         self.vocab_size = vocab_size
         self.dim = dim
         self.num_heads = num_heads
@@ -2506,7 +2507,7 @@ class TransformerEncoder(nn.Module):
         return input_embeds
 
 
-class TransformerPreTrainedModel(PreTrainedModel):  # type: ignore
+class TransformerPreTrainedModel(PreTrainedModel):
     """Base class for all transformer models."""
 
     config_class = TransformerConfig
@@ -2525,7 +2526,7 @@ class TransformerModel(TransformerPreTrainedModel):
     """Transformer model for atom modeling."""
 
     def __init__(self, config: TransformerConfig):
-        super().__init__(config)
+        super().__init__(config)  # type: ignore[no-untyped-call]
         self.config = config
         self.encoder = TransformerEncoder(config)
 
@@ -2544,7 +2545,7 @@ class TransformerForMaskedAM(TransformerPreTrainedModel):
     """Transformer with an atom modeling head on top for masked atom modeling."""
 
     def __init__(self, config: TransformerConfig):
-        super().__init__(config)
+        super().__init__(config)  # type: ignore[no-untyped-call]
         self.config = config
         self.encoder = TransformerEncoder(config)
         self.am_head = nn.Linear(config.dim, config.vocab_size, bias=False)
@@ -2574,7 +2575,7 @@ class TransformerForCoordinateAM(TransformerPreTrainedModel):
     """Transformer with an atom coordinate head on top for coordinate denoising."""
 
     def __init__(self, config: TransformerConfig):
-        super().__init__(config)
+        super().__init__(config)  # type: ignore[no-untyped-call]
         self.config = config
         self.encoder = TransformerEncoder(config)
         self.coords_head = nn.Linear(config.dim, 3)
@@ -2604,7 +2605,7 @@ class InitialStructure2RelaxedStructure(TransformerPreTrainedModel):
     """Transformer with an coordinate head on top for relaxed structure prediction."""
 
     def __init__(self, config: TransformerConfig):
-        super().__init__(config)
+        super().__init__(config)  # type: ignore[no-untyped-call]
         self.config = config
         self.encoder = TransformerEncoder(config)
         self.coords_head = nn.Linear(config.dim, 3)
@@ -2637,7 +2638,7 @@ class InitialStructure2RelaxedEnergy(TransformerPreTrainedModel):
     """Transformer with an energy head on top for relaxed energy prediction."""
 
     def __init__(self, config: TransformerConfig):
-        super().__init__(config)
+        super().__init__(config)  # type: ignore[no-untyped-call]
         self.config = config
         self.encoder = TransformerEncoder(config)
         self.energy_norm = nn.LayerNorm(config.dim)
@@ -2671,7 +2672,7 @@ class InitialStructure2RelaxedStructureAndEnergy(TransformerPreTrainedModel):
     """
 
     def __init__(self, config: TransformerConfig):
-        super().__init__(config)
+        super().__init__(config)  # type: ignore[no-untyped-call]
         self.config = config
         self.encoder = TransformerEncoder(config)
         self.coords_head = nn.Linear(config.dim, 3)
@@ -2722,7 +2723,7 @@ class Structure2EnergyAndForces(TransformerPreTrainedModel):
     """
 
     def __init__(self, config: TransformerConfig):
-        super().__init__(config)
+        super().__init__(config)  # type: ignore[no-untyped-call]
         self.config = config
         self.encoder = TransformerEncoder(config)
         self.force_norm = nn.LayerNorm(config.dim)

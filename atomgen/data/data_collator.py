@@ -7,12 +7,12 @@ from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
 import torch
 import torch.nn.functional as f
 from torch.nn.utils.rnn import pad_sequence
-from transformers import PreTrainedTokenizer
 from transformers.data.data_collator import DataCollatorMixin, _torch_collate_batch
+from transformers.tokenization_utils import PreTrainedTokenizer
 
 
 @dataclass
-class DataCollatorForAtomModeling(DataCollatorMixin):  # type: ignore
+class DataCollatorForAtomModeling(DataCollatorMixin):
     """
     Data collator used for atom modeling tasks in molecular representations.
 
@@ -81,8 +81,8 @@ class DataCollatorForAtomModeling(DataCollatorMixin):  # type: ignore
         # Handle dict or lists with proper padding and conversion to tensor.
         if self.pad:
             if isinstance(examples[0], Mapping):
-                batch: Dict[str, Any] = self.tokenizer.pad(
-                    examples,
+                batch: Dict[str, Any] = self.tokenizer.pad(  # type: ignore[assignment]
+                    examples,  # type: ignore[arg-type]
                     return_tensors="pt",
                     pad_to_multiple_of=self.pad_to_multiple_of,
                 )
@@ -186,7 +186,7 @@ class DataCollatorForAtomModeling(DataCollatorMixin):  # type: ignore
         inputs = torch.where(
             ~mask,
             inputs,
-            self.tokenizer.convert_tokens_to_ids(self.tokenizer.mask_token),
+            self.tokenizer.convert_tokens_to_ids(self.tokenizer.mask_token),  # type: ignore[arg-type]
         )
         labels = torch.where(mask, labels, -100)
         if special_tokens_mask is not None:
