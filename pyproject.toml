@@ -32,18 +32,13 @@ test = [
     "pip-audit>=2.7.1",
 ]
 docs = [
-    "numpydoc>=1.2",
-    "sphinx>=7.2.5",
-    "sphinxcontrib-apidoc>=0.4.0",
-    "sphinx-autodoc-typehints>=1.24.0",
-    "myst-parser>=2.0.0",
-    "sphinx-design>=0.5.0",
-    "sphinx-copybutton>=0.5.0",
-    "sphinx-autoapi>=2.0.0",
-    "nbsphinx>=0.9.3",
-    "ipython>=8.8.0",
-    "ipykernel>=6.23.0",
-    "furo>=2024.01.29",
+    "jinja2>=3.1.6", # Pinning version to address vulnerability GHSA-cpwx-vrp4-4pq7
+    "mkdocs>=1.6.0",
+    "mkdocs-material>=9.5.15",
+    "mkdocstrings>=0.24.1",
+    "mkdocstrings-python>=1.10.0",
+    "ipykernel>=6.29.5",
+    "ipython>=8.31.0",
 ]
 
 # Default dependency groups to be installed
