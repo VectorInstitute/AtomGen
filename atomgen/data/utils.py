@@ -1,12 +1,12 @@
 """Utilities for data processing and evaluation."""
 
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import numpy as np
 from scipy.special import expit, softmax
 from scipy.stats import pearsonr, spearmanr
 from sklearn.metrics import accuracy_score, roc_auc_score
-from transformers import EvalPrediction
+from transformers.trainer_utils import EvalPrediction
 
 
 def compute_metrics_smp(eval_pred: EvalPrediction) -> Dict[str, Any]:
@@ -14,8 +14,14 @@ def compute_metrics_smp(eval_pred: EvalPrediction) -> Dict[str, Any]:
     pred = eval_pred.predictions
     label = eval_pred.label_ids
 
+    # Ensure predictions and labels are arrays, not tuples
+    if isinstance(pred, tuple):
+        pred = pred[0]
+    if isinstance(label, tuple):
+        label = label[0]
+
     # get Mean absolute error for each 20 pred and labels
-    maes = {
+    maes: Dict[str, Optional[float]] = {
         "rot_const_A": None,
         "rot_const_B": None,
         "rot_const_C": None,
@@ -38,7 +44,7 @@ def compute_metrics_smp(eval_pred: EvalPrediction) -> Dict[str, Any]:
         "thermochem_heat_capacity_298.15K": None,
     }
     for i in range(20):
-        value = np.mean(np.abs(pred[:, i] - label[:, i]))
+        value = float(np.mean(np.abs(pred[:, i] - label[:, i])))
         maes[list(maes.keys())[i]] = value
 
     return maes
@@ -46,8 +52,16 @@ def compute_metrics_smp(eval_pred: EvalPrediction) -> Dict[str, Any]:
 
 def compute_metrics_ppi(eval_pred: EvalPrediction) -> Dict[str, Any]:
     """Compute AUROC for the PIP task."""
-    pred = expit(eval_pred.predictions > 0.5)
+    predictions = eval_pred.predictions
     label = eval_pred.label_ids
+
+    # Ensure predictions and labels are arrays, not tuples
+    if isinstance(predictions, tuple):
+        predictions = predictions[0]
+    if isinstance(label, tuple):
+        label = label[0]
+
+    pred = expit(predictions > 0.5)
 
     # compute AUROC for each label
     for i in range(20):
@@ -84,10 +98,16 @@ def compute_metrics_lba(eval_pred: EvalPrediction) -> Dict[str, Any]:
     pred = eval_pred.predictions
     label = eval_pred.label_ids
 
+    # Ensure predictions and labels are arrays, not tuples
+    if isinstance(pred, tuple):
+        pred = pred[0]
+    if isinstance(label, tuple):
+        label = label[0]
+
     # compute RMSE for each label
-    rmse = np.sqrt(np.mean((pred - label) ** 2))
-    global_pearson = pearsonr(pred.flatten(), label.flatten())[0]
-    global_spearman = spearmanr(pred.flatten(), label.flatten())[0]
+    rmse = float(np.sqrt(np.mean((pred - label) ** 2)))
+    global_pearson = float(pearsonr(pred.flatten(), label.flatten())[0])
+    global_spearman = float(spearmanr(pred.flatten(), label.flatten())[0])
 
     return {
         "rmse": rmse,
@@ -112,8 +132,14 @@ def compute_metrics_psr(eval_pred: EvalPrediction) -> Dict[str, Any]:
     pred = eval_pred.predictions
     label = eval_pred.label_ids
 
+    # Ensure predictions and labels are arrays, not tuples
+    if isinstance(pred, tuple):
+        pred = pred[0]
+    if isinstance(label, tuple):
+        label = label[0]
+
     # compute global spearman correlation
-    global_spearman = spearmanr(pred.flatten(), label.flatten())[0]
+    global_spearman = float(spearmanr(pred.flatten(), label.flatten())[0])
 
     return {"global_spearman": global_spearman}
 
@@ -123,7 +149,13 @@ def compute_metrics_rsr(eval_pred: EvalPrediction) -> Dict[str, Any]:
     pred = eval_pred.predictions
     label = eval_pred.label_ids
 
+    # Ensure predictions and labels are arrays, not tuples
+    if isinstance(pred, tuple):
+        pred = pred[0]
+    if isinstance(label, tuple):
+        label = label[0]
+
     # compute global spearman correlation
-    global_spearman = spearmanr(pred.flatten(), label.flatten())[0]
+    global_spearman = float(spearmanr(pred.flatten(), label.flatten())[0])
 
     return {"global_spearman": global_spearman}
