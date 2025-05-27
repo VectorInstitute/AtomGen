@@ -1,55 +1,54 @@
-[tool.poetry]
+[project]
 name = "atomgen"
-version = "0.0.1"
+version = "0.1.0"
 description = "A framework for modeling atomistic data with transformers"
-authors = ["Vector AI Engineering <ai_engineering@vectorinstitute.ai>"]
+readme = "README.md"
+authors = [{name = "Vector AI Engineering", email = "ai_engineering@vectorinstitute.ai"}]
 license = "Apache-2.0"
 repository = "https://github.com/VectorInstitute/atomgen"
 documentation = "https://vectorinstitute.github.io/atomgen/"
-packages = [
-    { include = "atomgen" },
+requires-python = ">=3.10,<4.0"
+dependencies = [
+    "torch>=2.2.2",
+    "transformers>=4.48.0",
+    "datasets>=2.19.0",
+    "wandb>=0.16.6",
+    "accelerate>=0.29.3",
+    "torch-geometric>=2.5.3",
+    "idna==3.7",
+    "scipy>=1.15.3",
+    "scikit-learn>=1.6.1",
 ]
-readme = "README.md"
 
-[tool.poetry.dependencies]
-python = ">=3.9, <3.13"
-torch = "^2.2.2"
-transformers = "^4.48.0"
-datasets = "^2.19.0"
-wandb = "^0.16.6"
-accelerate = "^0.29.3"
-torch-geometric = "^2.5.3"
-idna = "3.7"
+[dependency-groups]
+test = [
+    "pytest>=7.1.1",
+    "pre-commit>=4.0.0",
+    "pytest-cov>=3.0.0",
+    "codecov>=2.1.13",
+    "mypy>=1.7.0",
+    "ruff>=0.2.0",
+    "nbqa[toolchain]>=1.7.0",
+    "pip-audit>=2.7.1",
+]
+docs = [
+    "numpydoc>=1.2",
+    "sphinx>=7.2.5",
+    "sphinxcontrib-apidoc>=0.4.0",
+    "sphinx-autodoc-typehints>=1.24.0",
+    "myst-parser>=2.0.0",
+    "sphinx-design>=0.5.0",
+    "sphinx-copybutton>=0.5.0",
+    "sphinx-autoapi>=2.0.0",
+    "nbsphinx>=0.9.3",
+    "ipython>=8.8.0",
+    "ipykernel>=6.23.0",
+    "furo>=2024.01.29",
+]
 
-[tool.poetry.group.test]
-optional = true
-
-[tool.poetry.group.test.dependencies]
-pytest = "^7.1.1"
-pre-commit = "^4.0.0"
-pytest-cov = "^3.0.0"
-codecov = "^2.1.13"
-mypy = "^1.7.0"
-ruff = "^0.2.0"
-nbqa = { version = "^1.7.0", extras = ["toolchain"] }
-pip-audit = "^2.7.1"
-
-[tool.poetry.group.docs]
-optional = true
-
-[tool.poetry.group.docs.dependencies]
-numpydoc = "^1.2"
-sphinx = "^7.2.5"
-sphinxcontrib-apidoc = "^0.4.0"
-sphinx-autodoc-typehints = "^1.24.0"
-myst-parser = "^2.0.0"
-sphinx-design = "^0.5.0"
-sphinx-copybutton = "^0.5.0"
-sphinx-autoapi = "^2.0.0"
-nbsphinx = "^0.9.3"
-ipython = "^8.8.0"
-ipykernel = "^6.23.0"
-furo = "^2024.01.29"
+# Default dependency groups to be installed
+[tool.uv]
+default-groups = ["test", "docs"]
 
 [tool.mypy]
 ignore_missing_imports = true
@@ -140,5 +139,8 @@ markers = [
     omit=["tests/*", "*__init__.py"]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["atomgen"]

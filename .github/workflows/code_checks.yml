@@ -1,4 +1,7 @@
 name: code checks
+permissions:
+  contents: read
+  pull-requests: write
 
 on:
   push:
@@ -8,7 +11,7 @@ on:
       - .pre-commit-config.yaml
       - .github/workflows/code_checks.yml
       - '**.py'
-      - poetry.lock
+      - uv.lock
       - pyproject.toml
       - '**.ipynb'
   pull_request:
@@ -18,7 +21,7 @@ on:
       - .pre-commit-config.yaml
       - .github/workflows/code_checks.yml
       - '**.py'
-      - poetry.lock
+      - uv.lock
       - pyproject.toml
       - '**.ipynb'
 
@@ -27,22 +30,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
-      - name: Install and configure Poetry
-        uses: snok/install-poetry@v1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@f0ec1fc3b38f5e7cd731bb6ce540c5af426746bb
         with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-      - uses: actions/setup-python@v5.6.0
+          enable-cache: true
+
+      - name: "Set up Python"
+        uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55
         with:
-          python-version: '3.10'
-          cache: 'poetry'
+          python-version-file: ".python-version"
+
+      - name: Install the project
+        run: uv sync --all-extras --dev
+
       - name: Install dependencies and check code
         run: |
-          poetry env use '3.10'
           source .venv/bin/activate
-          poetry install --with test --all-extras
           pre-commit run --all-files
-      # - name: pip-audit (gh-action-pip-audit)
-      #   uses: pypa/gh-action-pip-audit@v1.0.8
-      #   with:
-      #     virtual-environment: .venv/
+
+      - name: pip-audit (gh-action-pip-audit)
+        uses: pypa/gh-action-pip-audit@1220774d901786e6f652ae159f7b6bc8fea6d266
+        with:
+          virtual-environment: .venv/

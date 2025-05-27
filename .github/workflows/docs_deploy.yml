@@ -1,4 +1,7 @@
 name: docs
+permissions:
+  contents: write
+  pull-requests: write
 
 on:
   push:
@@ -14,7 +17,7 @@ on:
       - '**.ipynb'
       - '**.html'
       - '**.js'
-      - poetry.lock
+      - uv.lock
       - pyproject.toml
       - '**.rst'
       - '**.md'
@@ -23,33 +26,37 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
         with:
           submodules: 'true'
-      - name: Install dependencies, build docs and coverage report
-        run: python3 -m pip install --upgrade pip && python3 -m pip install poetry
-      - uses: actions/setup-python@v5.6.0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@f0ec1fc3b38f5e7cd731bb6ce540c5af426746bb
         with:
-          python-version: '3.10'
-          cache: 'poetry'
-      - run: |
-          python3 -m pip install --upgrade pip && python3 -m pip install poetry
-          poetry env use '3.10'
-          source $(poetry env info --path)/bin/activate
-          poetry install --with docs,test
-          cd docs && rm -rf source/reference/api/_autosummary && make html
-          # cd .. && coverage run -m pytest -m "not integration_test" && coverage xml && coverage report -m
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55
+        with:
+          python-version-file: ".python-version"
+
+      - name: Install the project
+        run: uv sync --all-extras --dev
+
+      - name: Build docs
+        run: |
+          cd docs && rm -rf source/reference/api/_autosummary && uv run make html
+          # cd .. && uv run coverage run -m pytest -m "not integration_test" && uv run coverage xml && uv run coverage report -m
+
       # - name: Upload coverage to Codecov
-      #   uses: Wandalen/wretry.action@v1.4.4
+      #   uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24
       #   with:
-      #     action: codecov/codecov-action@v4.0.1
-      #     with: |
-      #       token: ${{ secrets.CODECOV_TOKEN }}
-      #       file: ./coverage.xml
-      #       name: codecov-umbrella
-      #       fail_ci_if_error: true
-      #     attempt_limit: 5
-      #     attempt_delay: 30000
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     slug: VectorInstitute/AtomGen
+      #     fail_ci_if_error: true
+      #     verbose: true
+
       - name: Deploy to Github pages
         uses: JamesIves/github-pages-deploy-action@v4.7.3
         with:
