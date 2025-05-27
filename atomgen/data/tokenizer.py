@@ -3,22 +3,17 @@
 import collections
 import json
 import os
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Mapping, Optional, Tuple, Union
 
 from transformers.tokenization_utils import PreTrainedTokenizer
-from transformers.tokenization_utils_base import (
-    BatchEncoding,
-    EncodedInput,
-    Mapping,
-    PaddingStrategy,
-    TensorType,
-)
+from transformers.tokenization_utils_base import BatchEncoding, EncodedInput
+from transformers.utils.generic import PaddingStrategy, TensorType
 
 
 VOCAB_FILES_NAMES: Dict[str, str] = {"vocab_file": "tokenizer.json"}
 
 
-class AtomTokenizer(PreTrainedTokenizer):  # type: ignore[misc]
+class AtomTokenizer(PreTrainedTokenizer):
     """
     Tokenizer for atomistic data.
 
@@ -48,7 +43,7 @@ class AtomTokenizer(PreTrainedTokenizer):  # type: ignore[misc]
             [(ids, tok) for tok, ids in self.vocab.items()]
         )
 
-        super().__init__(
+        super().__init__(  # type: ignore[no-untyped-call]
             pad_token=pad_token,
             mask_token=mask_token,
             bos_token=bos_token,
@@ -68,7 +63,7 @@ class AtomTokenizer(PreTrainedTokenizer):  # type: ignore[misc]
                 )
         return vocab
 
-    def _tokenize(self, text: str) -> List[str]:
+    def _tokenize(self, text: str) -> List[str]:  # type: ignore[override]
         """Tokenize the text."""
         tokens = []
         i = 0
@@ -100,7 +95,7 @@ class AtomTokenizer(PreTrainedTokenizer):  # type: ignore[misc]
         """Convert the list of chemical symbol tokens to a concatenated string."""
         return "".join(tokens)
 
-    def pad(
+    def pad(  # type: ignore[override]
         self,
         encoded_inputs: Union[
             BatchEncoding,
@@ -123,8 +118,8 @@ class AtomTokenizer(PreTrainedTokenizer):  # type: ignore[misc]
                     key.startswith("coords") or key.endswith("coords")
                     for key in encoded_inputs[0]
                 ):
-                    encoded_inputs = self.pad_coords(
-                        encoded_inputs,
+                    encoded_inputs = self.pad_coords(  # type: ignore[assignment]
+                        encoded_inputs,  # type: ignore[arg-type]
                         max_length=max_length,
                         pad_to_multiple_of=pad_to_multiple_of,
                     )
@@ -132,8 +127,8 @@ class AtomTokenizer(PreTrainedTokenizer):  # type: ignore[misc]
                     key.startswith("forces") or key.endswith("forces")
                     for key in encoded_inputs[0]
                 ):
-                    encoded_inputs = self.pad_forces(
-                        encoded_inputs,
+                    encoded_inputs = self.pad_forces(  # type: ignore[assignment]
+                        encoded_inputs,  # type: ignore[arg-type]
                         max_length=max_length,
                         pad_to_multiple_of=pad_to_multiple_of,
                     )
@@ -141,20 +136,20 @@ class AtomTokenizer(PreTrainedTokenizer):  # type: ignore[misc]
                     key.startswith("fixed") or key.endswith("fixed")
                     for key in encoded_inputs[0]
                 ):
-                    encoded_inputs = self.pad_fixed(
-                        encoded_inputs,
+                    encoded_inputs = self.pad_fixed(  # type: ignore[assignment]
+                        encoded_inputs,  # type: ignore[arg-type]
                         max_length=max_length,
                         pad_to_multiple_of=pad_to_multiple_of,
                     )
         elif isinstance(encoded_inputs, Mapping):
             if any("coords" in key for key in encoded_inputs):
-                encoded_inputs = self.pad_coords(
+                encoded_inputs = self.pad_coords(  # type: ignore[assignment]
                     encoded_inputs,
                     max_length=max_length,
                     pad_to_multiple_of=pad_to_multiple_of,
                 )
             if any("fixed" in key for key in encoded_inputs):
-                encoded_inputs = self.pad_fixed(
+                encoded_inputs = self.pad_fixed(  # type: ignore[assignment]
                     encoded_inputs,
                     max_length=max_length,
                     pad_to_multiple_of=pad_to_multiple_of,
@@ -172,10 +167,10 @@ class AtomTokenizer(PreTrainedTokenizer):  # type: ignore[misc]
 
     def pad_coords(
         self,
-        batch: Union[Mapping, List[Mapping]],
+        batch: Union[Mapping[str, Any], List[Mapping[str, Any]]],
         max_length: Optional[int] = None,
         pad_to_multiple_of: Optional[int] = None,
-    ) -> Union[Mapping, List[Mapping]]:
+    ) -> Union[Mapping[str, Any], List[Mapping[str, Any]]]:
         """Pad the coordinates to the same length."""
         if isinstance(batch, Mapping):
             coord_keys = [
@@ -205,15 +200,15 @@ class AtomTokenizer(PreTrainedTokenizer):  # type: ignore[misc]
                 c.extend([[0.0, 0.0, 0.0]] * (max_length - len(c)))
             if isinstance(batch, list):
                 for i, sample in enumerate(batch):
-                    sample[key] = coords[i]
+                    sample[key] = coords[i]  # type: ignore[index]
         return batch
 
     def pad_forces(
         self,
-        batch: Union[Mapping, List[Mapping]],
+        batch: Union[Mapping[str, Any], List[Mapping[str, Any]]],
         max_length: Optional[int] = None,
         pad_to_multiple_of: Optional[int] = None,
-    ) -> Union[Mapping, List[Mapping]]:
+    ) -> Union[Mapping[str, Any], List[Mapping[str, Any]]]:
         """Pad the forces to the same length."""
         if isinstance(batch, Mapping):
             force_keys = [
@@ -243,15 +238,15 @@ class AtomTokenizer(PreTrainedTokenizer):  # type: ignore[misc]
                 f.extend([[0.0, 0.0, 0.0]] * (max_length - len(f)))
             if isinstance(batch, list):
                 for i, sample in enumerate(batch):
-                    sample[key] = forces[i]
+                    sample[key] = forces[i]  # type: ignore[index]
         return batch
 
     def pad_fixed(
         self,
-        batch: Union[Mapping, List[Mapping]],
+        batch: Union[Mapping[str, Any], List[Mapping[str, Any]]],
         max_length: Optional[int] = None,
         pad_to_multiple_of: Optional[int] = None,
-    ) -> Union[Mapping, List[Mapping]]:
+    ) -> Union[Mapping[str, Any], List[Mapping[str, Any]]]:
         """Pad the fixed mask to the same length."""
         if isinstance(batch, Mapping):
             fixed_keys = [
@@ -279,7 +274,7 @@ class AtomTokenizer(PreTrainedTokenizer):  # type: ignore[misc]
                 f.extend([True] * (max_length - len(f)))
             if isinstance(batch, list):
                 for i, sample in enumerate(batch):
-                    sample[key] = fixed[i]
+                    sample[key] = fixed[i]  # type: ignore[index]
         return batch
 
     def save_vocabulary(

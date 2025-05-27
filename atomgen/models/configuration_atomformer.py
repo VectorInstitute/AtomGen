@@ -5,7 +5,7 @@ from typing import Any
 from transformers.configuration_utils import PretrainedConfig
 
 
-class AtomformerConfig(PretrainedConfig):  # type: ignore
+class AtomformerConfig(PretrainedConfig):
     r"""
     Configuration of a :class:`~transform:class:`~transformers.AtomformerModel`.
 
@@ -30,7 +30,7 @@ class AtomformerConfig(PretrainedConfig):  # type: ignore
         cls_token_id: int = 122,
         **kwargs: Any,
     ) -> None:
-        super().__init__(**kwargs)
+        super().__init__(**kwargs)  # type: ignore[no-untyped-call]
         self.vocab_size = vocab_size
         self.dim = dim
         self.num_heads = num_heads

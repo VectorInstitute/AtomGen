@@ -10,7 +10,7 @@ from transformers.configuration_utils import PretrainedConfig
 from transformers.modeling_utils import PreTrainedModel
 
 
-class SchNetConfig(PretrainedConfig):  # type: ignore
+class SchNetConfig(PretrainedConfig):
     r"""
     Stores the configuration of a :class:`~transformers.SchNetModel`.
 
@@ -105,7 +105,7 @@ class SchNetConfig(PretrainedConfig):  # type: ignore
         cls_token_id: int = 122,
         **kwargs: Any,
     ):
-        super().__init__(**kwargs)
+        super().__init__(**kwargs)  # type: ignore[no-untyped-call]
         self.vocab_size = vocab_size
         self.hidden_channels = hidden_channels
         self.num_filters = num_filters
@@ -126,7 +126,7 @@ class SchNetConfig(PretrainedConfig):  # type: ignore
         self.cls_token_id = cls_token_id
 
 
-class SchNetPreTrainedModel(PreTrainedModel):  # type: ignore
+class SchNetPreTrainedModel(PreTrainedModel):
     """
     A base class for all SchNet models.
 
@@ -134,7 +134,7 @@ class SchNetPreTrainedModel(PreTrainedModel):  # type: ignore
     simple interface for loading and exporting models.
     """
 
-    config_class = SchNetConfig
+    config_class = SchNetConfig  # type: ignore[assignment]
     base_model_prefix = "model"
     supports_gradient_checkpointing = False
 
