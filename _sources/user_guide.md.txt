@@ -15,11 +15,11 @@ Welcome to the AtomGen User Guide. This document provides comprehensive instruct
 
 ## Installation
 
-The package can be installed using poetry:
+The package can be installed using uv:
 
 ```bash
-python3 -m poetry install
-source $(poetry env info --path)/bin/activate
+uv sync
+source .venv/bin/activate
 ```
 
 ## Quick Start
