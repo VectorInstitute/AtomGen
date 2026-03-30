@@ -32,6 +32,7 @@ test = [
     "ruff>=0.2.0",
     "nbqa[toolchain]>=1.7.0",
     "pip-audit>=2.7.1",
+    "pygments>=2.20.0", # Pinning version to address vulnerability CVE-2026-4539
     "aiohttp>=3.13.3",
     "virtualenv>=20.36.1",
 ]
