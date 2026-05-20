@@ -15,7 +15,7 @@ dependencies = [
     "wandb>=0.16.6",
     "accelerate>=0.29.3",
     "torch-geometric>=2.5.3",
-    "idna==3.7",
+    "idna>=3.15", # Pinning version to address vulnerability CVE-2026-45409
     "scipy>=1.15.3",
     "scikit-learn>=1.6.1",
     "urllib3>=2.7.0",
@@ -41,7 +41,7 @@ docs = [
     "jinja2>=3.1.6", # Pinning version to address vulnerability GHSA-cpwx-vrp4-4pq7
     "mkdocs>=1.6.0",
     "mkdocs-material>=9.5.15",
-    "pymdown-extensions>=10.21.2", # Pinning version for compatibility with pygments>=2.20.0 (CVE-2026-4539 fix)
+    "pymdown-extensions>=10.21.3", # Pinning version for compatibility with pygments>=2.20.0 (CVE-2026-4539 fix)
     "mkdocstrings>=0.24.1",
     "mkdocstrings-python>=1.10.0",
     "ipykernel>=6.29.5",
