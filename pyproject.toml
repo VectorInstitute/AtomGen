@@ -47,7 +47,7 @@ docs = [
     "mkdocstrings-python>=1.10.0",
     "ipykernel>=6.29.5",
     "ipython>=8.31.0",
-    "tornado>=6.5.6", # Pinning version to address vulnerability CVE-2026-49854
+    "tornado>=6.5.7", # Pinning version to address vulnerabilities CVE-2026-49854, CVE-2026-49853, CVE-2026-49855, GHSA-pw6j-qg29-8w7f
 ]
 
 # Default dependency groups to be installed
