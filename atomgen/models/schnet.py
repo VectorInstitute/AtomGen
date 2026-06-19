@@ -10,7 +10,7 @@ from transformers.configuration_utils import PretrainedConfig
 from transformers.modeling_utils import PreTrainedModel
 
 
-class SchNetConfig(PretrainedConfig):
+class SchNetConfig(PretrainedConfig):  # type: ignore[no-untyped-call]
     r"""
     Stores the configuration of a :class:`~transformers.SchNetModel`.
 
@@ -134,7 +134,7 @@ class SchNetPreTrainedModel(PreTrainedModel):  # type: ignore[no-untyped-call]
     simple interface for loading and exporting models.
     """
 
-    config_class = SchNetConfig  # type: ignore[assignment]
+    config_class = SchNetConfig
     base_model_prefix = "model"
     supports_gradient_checkpointing = False
 

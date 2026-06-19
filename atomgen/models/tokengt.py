@@ -2329,7 +2329,7 @@ class ParallelBlock(nn.Module):
         return out
 
 
-class TransformerConfig(PretrainedConfig):
+class TransformerConfig(PretrainedConfig):  # type: ignore[no-untyped-call]
     """Configuration class to store the configuration of a TokenGT model."""
 
     def __init__(
@@ -2510,7 +2510,7 @@ class TransformerEncoder(nn.Module):
 class TransformerPreTrainedModel(PreTrainedModel):  # type: ignore[no-untyped-call]
     """Base class for all transformer models."""
 
-    config_class = TransformerConfig  # type: ignore[assignment]
+    config_class = TransformerConfig
     base_model_prefix = "model"
     supports_gradient_checkpointing = True
     _no_split_modules = ["ParallelBlock"]
