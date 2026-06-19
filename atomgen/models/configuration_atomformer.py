@@ -5,7 +5,7 @@ from typing import Any
 from transformers.configuration_utils import PretrainedConfig
 
 
-class AtomformerConfig(PretrainedConfig):
+class AtomformerConfig(PretrainedConfig):  # type: ignore[no-untyped-call]
     r"""
     Configuration of a :class:`~transform:class:`~transformers.AtomformerModel`.
 

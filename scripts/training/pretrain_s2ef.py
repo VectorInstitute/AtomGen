@@ -178,7 +178,7 @@ def train(args: argparse.Namespace) -> None:
         wandb.login(key=os.environ["WANDB_API_KEY"])
         wandb.init(project=args.project, config=vars(args), name=args.name)
 
-    training_args = TrainingArguments(
+    training_args = TrainingArguments(  # type: ignore[call-arg]
         output_dir=args.output_dir,
         learning_rate=args.learning_rate,
         lr_scheduler_type=args.lr_scheduler_type,

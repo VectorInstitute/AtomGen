@@ -2550,7 +2550,7 @@ class AtomformerEncoder(nn.Module):
 class AtomformerPreTrainedModel(PreTrainedModel):  # type: ignore[no-untyped-call]
     """Base class for all transformer models."""
 
-    config_class = AtomformerConfig  # type: ignore[assignment]
+    config_class = AtomformerConfig
     base_model_prefix = "model"
     supports_gradient_checkpointing = True
     _no_split_modules = ["ParallelBlock"]
@@ -2968,9 +2968,9 @@ class AtomFormerForSystemClassification(AtomformerPreTrainedModel):  # type: ign
 
         if self.problem_type == "regression":
             self.loss_fct = nn.L1Loss()
-        elif self.problem_type == "classification":
+        elif self.problem_type == "classification":  # type: ignore[comparison-overlap]
             self.loss_fct = nn.BCEWithLogitsLoss()
-        elif self.problem_type == "multiclass_classification":
+        elif self.problem_type == "multiclass_classification":  # type: ignore[comparison-overlap]
             self.loss_fct = nn.CrossEntropyLoss()
 
     def forward(
@@ -2989,9 +2989,9 @@ class AtomFormerForSystemClassification(AtomformerPreTrainedModel):  # type: ign
 
         loss = None
         if labels is not None:
-            if self.problem_type == "multiclass_classification":
+            if self.problem_type == "multiclass_classification":  # type: ignore[comparison-overlap]
                 labels = labels.long()
-            elif self.problem_type == "classification":
+            elif self.problem_type == "classification":  # type: ignore[comparison-overlap]
                 labels = labels.float()
 
             loss = self.loss_fct(pred.squeeze(), labels.squeeze())
